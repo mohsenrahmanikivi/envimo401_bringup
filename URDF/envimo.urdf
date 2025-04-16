@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<robot name="envimo">
+    <!-- Define a common material -->
+    <material name="robot_gray">
+    <color rgba="0.792 0.820 0.933 1"/>
+    </material>
+
+     <material name="robot_front_color">
+    <color rgba="1 0 0 1"/>
+    </material>
+
+
+
+
+    <link name="world_link"></link>
+
+    <link name="base_link">
+        <visual>
+            <geometry>
+                <box size="0.71 0.46 0.40"/>
+            </geometry>
+            <origin xyz="0 0 0" rpy="0.0 0.0 0.0"/>
+            <material name="robot_gray"/>
+        </visual>
+        <collision>
+            <geometry>
+                <box size="0.71 0.46 0.40"/>
+            </geometry>
+            <origin xyz="0 0 0" rpy="0.0 0.0 0.0"/>
+            <material name="robot_gray"/>
+        </collision>       
+ 
+    
+    </link>
+
+    <joint name="world_base_joint" type="fixed">
+        <origin xyz="2 1 0.0" rpy="0.0 0.0 0.0"/>
+        <parent link="world_link"/>
+        <child link="base_link"/>
+       
+    </joint>
+
+    <link name="frontAxel_link">
+        <visual>
+            <geometry>
+                <box size="0.10 0.46 0.15"/>
+            </geometry>
+            <origin xyz="0 0 0" rpy="0.0 0.0 0.0"/>
+            <material name="robot_front_color"/>
+        </visual>        
+        <collision>
+            <geometry>
+                <box size="0.10 0.46 0.15"/>
+            </geometry>
+            <origin xyz="0 0 0" rpy="0.0 0.0 0.0"/>
+        </collision>
+    </link>
+    
+    <joint name="frontAxel_base_joint" type="revolute">
+        <origin xyz="0.24 0 -0.275" rpy="0.0 0.0 0.0"/>
+        <parent link="base_link"/>
+        <child link="frontAxel_link"/>
+        <axis xyz="0 0 1"/>
+        <limit lower="-.5" upper=".5" effort="5" velocity="1.0"/>
+    </joint>
+
+
+    <link name="rearAxel_link">
+        <visual>
+            <geometry>
+                <box size="0.10 0.46 0.15"/>
+            </geometry>
+            <origin xyz="0 0 0" rpy="0.0 0.0 0.0"/>
+            <material name="robot_gray"/>
+        </visual>
+        <collision>
+            <geometry>
+                <box size="0.10 0.46 0.15"/>
+            </geometry>
+            <origin xyz="0 0 0" rpy="0.0 0.0 0.0"/>
+        </collision>       
+    </link>
+
+    <joint name="rearAxel_link_base_joint" type="fixed">
+        <origin xyz="-0.24 0 -0.275" rpy="0.0 0.0 0.0"/>
+        <parent link="base_link"/>
+        <child link="rearAxel_link"/>
+       
+    </joint>
+
+
+    <link name="frontRightWheel_link">
+        <visual>
+            <geometry>
+                <cylinder radius="0.1016" length="0.06"/>
+            </geometry>
+           <origin xyz="0 0 0" rpy="1.5708 0.0 0.0"/>
+           <material name="robot_front_color"/>
+        </visual>
+        <collision>
+            <geometry>
+                <cylinder radius="0.1016" length="0.06"/>
+            </geometry>
+           <origin xyz="0 0 0" rpy="1.5708 0.0 0.0"/>
+        </collision>
+    </link>
+
+    <link name="frontLeftWheel_link">
+        <visual>
+            <geometry>
+                <cylinder radius="0.1016" length="0.06"/>
+            </geometry>
+           <origin xyz="0 0 0" rpy="1.5708 0.0 0.0"/>
+           <material name="robot_front_color"/>
+        </visual>
+        <collision>
+            <geometry>
+                <cylinder radius="0.1016" length="0.06"/>
+            </geometry>
+           <origin xyz="0 0 0" rpy="1.5708 0.0 0.0"/>
+        </collision>
+    </link>
+    <link name="rearRightWheel_link">
+        <visual>
+            <geometry>
+                <cylinder radius="0.1016" length="0.06"/>
+            </geometry>
+           <origin xyz="0 0 0" rpy="1.5708 0.0 0.0"/>
+        </visual>
+        <collision>
+            <geometry>
+                <cylinder radius="0.1016" length="0.06"/>
+            </geometry>
+           <origin xyz="0 0 0" rpy="1.5708 0.0 0.0"/>
+        </collision>
+    </link>
+    <link name="rearLeftWheel_link">
+        <visual>
+            <geometry>
+                <cylinder radius="0.1016" length="0.06"/>
+            </geometry>
+           <origin xyz="0 0 0" rpy="1.5708 0.0 0.0"/>
+        </visual>
+        <collision>
+            <geometry>
+                <cylinder radius="0.1016" length="0.06"/>
+            </geometry>
+           <origin xyz="0 0 0" rpy="1.5708 0.0 0.0"/>
+        </collision>
+    </link>
+
+    <joint name="frontRightWheel_frontAxel_joint" type="continuous">
+        <origin xyz="0.0 -0.26 -0.055" rpy="0 0.0 0.0"/>
+        <parent link="frontAxel_link"/>
+        <child link="frontRightWheel_link"/>
+        <axis xyz="00 1 0"/>
+    </joint>
+
+    <joint name="frontLefttWheel_frontAxel_joint" type="continuous">
+        <origin xyz="0.0 0.26 -0.055" rpy="0 0.0 0.0"/>
+        <parent link="frontAxel_link"/>
+        <child link="frontLeftWheel_link"/>
+        <axis xyz="00 1 0"/>
+    </joint>
+
+    <joint name="rearRightWheel_rearAxel_joint" type="continuous">
+        <origin xyz="0.0 -0.26 -0.055" rpy="0 0.0 0.0"/>
+        <parent link="rearAxel_link"/>
+        <child link="rearRightWheel_link"/>
+        <axis xyz="00 1 0"/>
+    </joint>
+
+    <joint name="rearLefttWheel_rearAxel_joint" type="continuous">
+        <origin xyz="0.0 0.26 -0.055" rpy="0 0.0 0.0"/>
+        <parent link="rearAxel_link"/>
+        <child link="rearLeftWheel_link"/>
+        <axis xyz="00 1 0"/>
+    </joint>
+
+</robot>    
