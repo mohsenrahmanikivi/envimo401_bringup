@@ -23,6 +23,14 @@
             </geometry>
             <origin xyz="0 0 0" rpy="0 0 0"/>
         </collision>
+        <inertial>
+            <mass value="28.0"/>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <inertia 
+                ixx="0.8885" ixy="0.0" ixz="0.0" 
+                iyy="1.4993" iyz="0.0" 
+                izz="1.7421"/>
+        </inertial>
     </link>
 
     <joint name="world_base_joint" type="fixed">
