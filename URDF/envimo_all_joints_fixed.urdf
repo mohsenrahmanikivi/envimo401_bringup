@@ -175,7 +175,7 @@
     </joint>
 
     <!-- RealSense D435i Camera -->
-    <link name="camera0_link">
+    <link name="camera_link">
         <visual>
             <geometry>
                 <box size="0.09 0.025 0.025"/>
@@ -191,9 +191,9 @@
         </collision>
     </link>
 
-    <joint name="camera0_base_joint" type="fixed">
+    <joint name="camera_base_joint" type="fixed">
         <origin xyz="0.3426 0 0.0134" rpy="0 0 0"/>
         <parent link="base_link"/>
-        <child link="camera0_link"/>
+        <child link="camera_link"/>
     </joint>
 </robot>
