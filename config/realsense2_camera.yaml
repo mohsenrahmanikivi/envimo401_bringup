@@ -1,110 +1,93 @@
-realsense2_camera:
-  ros__parameters:
+# Unique camera name
+camera_name: "camera"  # camera unique name
 
-    # Device selection
-    device_type: ""
-    serial_no: ""
-    usb_port_id: ""
-    initial_reset: false
+# Namespace for the camera node
+camera_namespace: "camera"  # namespace for camera
 
-    # Stream enable/disable
-    enable_color: true
-    enable_depth: true
-    enable_infra1: true
-    enable_infra2: true
-    enable_fisheye1: false
-    enable_fisheye2: false
-    enable_confidence: false
-    enable_pose: false
-    enable_gyro: true
-    enable_accel: true
+# Device selection (choose device by serial number, USB port, or type)
+serial_no: ""            # choose device by serial number
+usb_port_id: ""          # choose device by usb port id
+device_type: ""          # choose device by type
 
-    # Stream profiles
-    color_width: 640
-    color_height: 480
-    color_fps: 30
+# Config files for advanced settings
+config_file: ""          # yaml config file
+json_file_path: ""       # allows advanced configuration
 
-    depth_width: 640
-    depth_height: 480
-    depth_fps: 30
+# Device initialization/reset options
+initial_reset: "false"   # (no description)
+accelerate_gpu_with_glsl: "false"  # enable GPU acceleration with GLSL
 
-    infra_width: 640
-    infra_height: 480
-    infra_fps: 30
+# Play from rosbag file instead of live device
+rosbag_filename: ""      # A realsense bagfile to run from as a device
 
-    fisheye_width: 848
-    fisheye_height: 800
-    fisheye_fps: 30
+# Logging and output
+log_level: "info"        # debug log level [DEBUG|INFO|WARN|ERROR|FATAL]
+output: "screen"         # pipe node output [screen|log]
 
-    # Frame IDs
-    base_frame_id: "camera_link"
-    depth_frame_id: "camera_depth_frame"
-    color_frame_id: "camera_color_frame"
-    infra1_frame_id: "camera_infra1_frame"
-    infra2_frame_id: "camera_infra2_frame"
-    fisheye1_frame_id: "camera_fisheye1_frame"
-    fisheye2_frame_id: "camera_fisheye2_frame"
-    accel_frame_id: "camera_accel_frame"
-    gyro_frame_id: "camera_gyro_frame"
-    pose_frame_id: "camera_pose_frame"
+# Enable/disable streams
+enable_color: "true"     # enable color stream
+rgb_camera.color_profile: "0,0,0"   # color stream profile
+rgb_camera.color_format: "RGB8"     # color stream format
+rgb_camera.enable_auto_exposure: "true"  # enable/disable auto exposure for color image
 
-    depth_optical_frame_id: "camera_depth_optical_frame"
-    color_optical_frame_id: "camera_color_optical_frame"
-    infra1_optical_frame_id: "camera_infra1_optical_frame"
-    infra2_optical_frame_id: "camera_infra2_optical_frame"
-    fisheye1_optical_frame_id: "camera_fisheye1_optical_frame"
-    fisheye2_optical_frame_id: "camera_fisheye2_optical_frame"
-    accel_optical_frame_id: "camera_accel_optical_frame"
-    gyro_optical_frame_id: "camera_gyro_optical_frame"
-    pose_optical_frame_id: "camera_pose_optical_frame"
+enable_depth: "true"     # enable depth stream
+enable_infra: "false"    # enable infra0 stream
+enable_infra1: "false"   # enable infra1 stream
+enable_infra2: "false"   # enable infra2 stream
 
-    # TF and synchronization
-    publish_tf: true
-    tf_publish_rate: 0.0
-    unite_imu_method: ""  # options: "linear_interpolation", "copy"
-    enable_sync: false
+depth_module.depth_profile: "0,0,0"    # depth stream profile
+depth_module.depth_format: "Z16"       # depth stream format
+depth_module.infra_profile: "0,0,0"    # infra streams (0/1/2) profile
+depth_module.infra_format: "RGB8"      # infra0 stream format
+depth_module.infra1_format: "Y8"       # infra1 stream format
+depth_module.infra2_format: "Y8"       # infra2 stream format
 
-    # Pointcloud and alignment
-    pointcloud.enable: true
-    pointcloud.stream_filter: 2            # 2 = depth
-    pointcloud.stream_index_filter: 0
-    pointcloud.allow_no_texture_points: false
-    align_depth: true
+depth_module.exposure: "8500"           # Depth module manual exposure value
+depth_module.gain: "16"                  # Depth module manual gain value
+depth_module.hdr_enabled: "false"       # Depth module hdr enablement flag. Used for hdr_merge filter
+depth_module.enable_auto_exposure: "true"  # enable/disable auto exposure for depth image
 
-    # Post-processing filters
-    decimation_filter.enable: false
-    spatial_filter.enable: false
-    temporal_filter.enable: false
-    hole_filling_filter.enable: false
-    disparity_filter.enable: false
+depth_module.exposure.1: "7500"          # Depth module first exposure value. Used for hdr_merge filter
+depth_module.gain.1: "16"                 # Depth module first gain value. Used for hdr_merge filter
+depth_module.exposure.2: "1"              # Depth module second exposure value. Used for hdr_merge filter
+depth_module.gain.2: "16"                 # Depth module second gain value. Used for hdr_merge filter
 
-    # Depth/Color features
-    depth_module.profile: "640x480x30"
-    color_module.profile: "640x480x30"
+# Sync and RGBD options
+enable_sync: "false"       # enable sync mode
+enable_rgbd: "false"       # enable rgbd topic
 
-    depth_enable_auto_exposure: true
-    color_enable_auto_exposure: true
-    enable_auto_white_balance: true
+# IMU options
+enable_gyro: "false"       # enable gyro stream
+enable_accel: "false"      # enable accel stream
+gyro_fps: "0"              # gyro frames per second
+accel_fps: "0"             # accel frames per second
+unite_imu_method: "0"      # [0-None, 1-copy, 2-linear_interpolation]
 
-    # Emitter/Laser
-    emitter_enabled: 1    # 0 = off, 1 = on, 2 = auto
-    laser_power: 150      # valid range depends on device (usually 0–360)
+# Advanced filtering and transforms
+clip_distance: "-2."       # clip distance
+angular_velocity_cov: "0.01"  # angular velocity covariance
+linear_accel_cov: "0.01"      # linear acceleration covariance
+diagnostics_period: "0.0"     # Rate of publishing diagnostics. 0=Disabled
 
-    # Diagnostics & Logging
-    diagnostics_period: 0.0
-    log_level: "info"     # options: debug, info, warn, error, fatal
+publish_tf: "true"           # enable/disable publishing static & dynamic TF
+tf_publish_rate: "0.0"       # rate in Hz for publishing dynamic TF
 
-    # Other features
-    enable_hdr: false
-    enable_rgbd: false
-    enable_infra_rgb: false
-    enable_color_to_mono_conversion: false
-    enable_depth_to_disparity: false
-    enable_disparity_to_depth: false
+pointcloud.enable: "false"               # enable pointcloud generation
+pointcloud.stream_filter: "2"            # texture stream for pointcloud
+pointcloud.stream_index_filter: "0"      # texture stream index for pointcloud
+pointcloud.ordered_pc: "false"            # ordered pointcloud flag
+pointcloud.allow_no_texture_points: "false"  # allow points without texture
 
-    # External JSON config (camera-specific advanced settings)
-    json_file_path: ""
+# Filters
+align_depth.enable: "false"          # enable align depth filter
+colorizer.enable: "false"            # enable colorizer filter
+decimation_filter.enable: "false"    # enable decimation filter
+spatial_filter.enable: "false"       # enable spatial filter
+temporal_filter.enable: "false"      # enable temporal filter
+disparity_filter.enable: "false"     # enable disparity filter
+hole_filling_filter.enable: "false"  # enable hole filling filter
+hdr_merge.enable: "false"             # hdr_merge filter enablement flag
 
-    # Rosbag recording
-    enable_recording: false
-    rosbag_filename: ""
+# Timeouts and reconnects
+wait_for_device_timeout: "-1."    # Timeout for waiting for device to connect (Seconds)
+reconnect_timeout: "6."           # Timeout(seconds) between consecutive reconnection attempts
