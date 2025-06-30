@@ -1,0 +1,110 @@
+realsense2_camera:
+  ros__parameters:
+
+    # Device selection
+    device_type: ""
+    serial_no: ""
+    usb_port_id: ""
+    initial_reset: false
+
+    # Stream enable/disable
+    enable_color: true
+    enable_depth: true
+    enable_infra1: true
+    enable_infra2: true
+    enable_fisheye1: false
+    enable_fisheye2: false
+    enable_confidence: false
+    enable_pose: false
+    enable_gyro: true
+    enable_accel: true
+
+    # Stream profiles
+    color_width: 640
+    color_height: 480
+    color_fps: 30
+
+    depth_width: 640
+    depth_height: 480
+    depth_fps: 30
+
+    infra_width: 640
+    infra_height: 480
+    infra_fps: 30
+
+    fisheye_width: 848
+    fisheye_height: 800
+    fisheye_fps: 30
+
+    # Frame IDs
+    base_frame_id: "camera_link"
+    depth_frame_id: "camera_depth_frame"
+    color_frame_id: "camera_color_frame"
+    infra1_frame_id: "camera_infra1_frame"
+    infra2_frame_id: "camera_infra2_frame"
+    fisheye1_frame_id: "camera_fisheye1_frame"
+    fisheye2_frame_id: "camera_fisheye2_frame"
+    accel_frame_id: "camera_accel_frame"
+    gyro_frame_id: "camera_gyro_frame"
+    pose_frame_id: "camera_pose_frame"
+
+    depth_optical_frame_id: "camera_depth_optical_frame"
+    color_optical_frame_id: "camera_color_optical_frame"
+    infra1_optical_frame_id: "camera_infra1_optical_frame"
+    infra2_optical_frame_id: "camera_infra2_optical_frame"
+    fisheye1_optical_frame_id: "camera_fisheye1_optical_frame"
+    fisheye2_optical_frame_id: "camera_fisheye2_optical_frame"
+    accel_optical_frame_id: "camera_accel_optical_frame"
+    gyro_optical_frame_id: "camera_gyro_optical_frame"
+    pose_optical_frame_id: "camera_pose_optical_frame"
+
+    # TF and synchronization
+    publish_tf: true
+    tf_publish_rate: 0.0
+    unite_imu_method: ""  # options: "linear_interpolation", "copy"
+    enable_sync: false
+
+    # Pointcloud and alignment
+    pointcloud.enable: true
+    pointcloud.stream_filter: 2            # 2 = depth
+    pointcloud.stream_index_filter: 0
+    pointcloud.allow_no_texture_points: false
+    align_depth: true
+
+    # Post-processing filters
+    decimation_filter.enable: false
+    spatial_filter.enable: false
+    temporal_filter.enable: false
+    hole_filling_filter.enable: false
+    disparity_filter.enable: false
+
+    # Depth/Color features
+    depth_module.profile: "640x480x30"
+    color_module.profile: "640x480x30"
+
+    depth_enable_auto_exposure: true
+    color_enable_auto_exposure: true
+    enable_auto_white_balance: true
+
+    # Emitter/Laser
+    emitter_enabled: 1    # 0 = off, 1 = on, 2 = auto
+    laser_power: 150      # valid range depends on device (usually 0–360)
+
+    # Diagnostics & Logging
+    diagnostics_period: 0.0
+    log_level: "info"     # options: debug, info, warn, error, fatal
+
+    # Other features
+    enable_hdr: false
+    enable_rgbd: false
+    enable_infra_rgb: false
+    enable_color_to_mono_conversion: false
+    enable_depth_to_disparity: false
+    enable_disparity_to_depth: false
+
+    # External JSON config (camera-specific advanced settings)
+    json_file_path: ""
+
+    # Rosbag recording
+    enable_recording: false
+    rosbag_filename: ""
