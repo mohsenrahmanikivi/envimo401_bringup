@@ -1,53 +1,43 @@
 enable_depth: true
-depth_module.enable_auto_exposure: true
-depth_module.exposure: 8500
-depth_module.gain: 16
 
-decimation_filter.enable: true
-decimation_filter.filter_magnitude: 2
+depth_module:
+  enable_auto_exposure: true   # Set false if you want manual exposure below
+  # exposure: 8500              # Commented out because auto exposure is enabled
+  gain: 16
 
-spatial_filter.enable: true
-spatial_filter.filter_magnitude: 2
-spatial_filter.filter_smooth_alpha: 0.5
-spatial_filter.filter_smooth_delta: 20
-spatial_filter.holes_fill: 3
+decimation_filter:
+  enable: true
+  filter_magnitude: 2
 
-temporal_filter.enable: true
-temporal_filter.filter_smooth_alpha: 0.4
-temporal_filter.filter_smooth_delta: 20
+spatial_filter:
+  enable: true
+  filter_magnitude: 2
+  filter_smooth_alpha: 0.5
+  filter_smooth_delta: 20
+  holes_fill: 3
 
-disparity_filter.enable: false          # <-- Disable disparity filter to avoid DISPARITY32 format issues
+temporal_filter:
+  enable: true
+  filter_smooth_alpha: 0.4
+  filter_smooth_delta: 20
 
-hole_filling_filter.enable: true
-hole_filling_filter.fill_type: 1
+hole_filling_filter:
+  enable: true
+  fill_type: 1  # Nearest neighbor (recommended)
 
-align_depth.enable: false
+align_depth:
+  enable: false
 
 clip_distance: 5.0
 
 publish_tf: true
 tf_publish_rate: 30.0
 
-pointcloud.enable: false
+pointcloud:
+  enable: false
 
-# Fix power_line_frequency param to a valid integer within range [0, 2]
-rgb_camera.power_line_frequency: 2    # Usually 0=disabled, 1=50Hz, 2=60Hz, choose accordingly
-al_filter.enable: true            # Reduces temporal noise
-temporal_filter.filter_smooth_alpha: 0.4
-temporal_filter.filter_smooth_delta: 20
+rgb_camera:
+  power_line_frequency: 2  # 0=disabled, 1=50Hz, 2=60Hz (choose accordingly)
 
-disparity_filter.enable: true           # Converts disparity to depth and vice versa, helps noise
-disparity_filter.filter_magnitude: 1
-
-hole_filling_filter.enable: true        # Fill holes in depth images
-hole_filling_filter.fill_type: 1        # (1: nearest neighbor, recommended)
-
-align_depth.enable: false                # Disable align depth to color to save compute (optional)
-
-clip_distance: 5.0                       # Clip anything beyond 5 meters
-
-publish_tf: true
-tf_publish_rate: 30.0                    # Publish TF at 30 Hz
-
-# Optional: control pointcloud generation (disable if not used)
-pointcloud.enable: false
+al_filter:
+  enable: true  # Reduces temporal noise
