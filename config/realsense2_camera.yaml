@@ -1,36 +1,34 @@
-realsense2_camera:
-  ros__parameters:
-    enable_depth: true
-    depth_module.enable_auto_exposure: true
-    depth_module.exposure: 8500
-    depth_module.gain: 16
+enable_depth: true
+depth_module.enable_auto_exposure: true
+depth_module.exposure: 8500
+depth_module.gain: 16
 
-    # Enable recommended filters to reduce noise and smooth depth data
-    decimation_filter.enable: true          # Downsamples image, reduces noise & computation
-    decimation_filter.filter_magnitude: 2  # Decimate by factor 2
+# Enable recommended filters to reduce noise and smooth depth data
+decimation_filter.enable: true          # Downsamples image, reduces noise & computation
+decimation_filter.filter_magnitude: 2  # Decimate by factor 2
 
-    spatial_filter.enable: true             # Smooths surfaces, reduces spatial noise
-    spatial_filter.filter_magnitude: 2
-    spatial_filter.filter_smooth_alpha: 0.5
-    spatial_filter.filter_smooth_delta: 20
-    spatial_filter.holes_fill: 3            # Fill small holes
+spatial_filter.enable: true             # Smooths surfaces, reduces spatial noise
+spatial_filter.filter_magnitude: 2
+spatial_filter.filter_smooth_alpha: 0.5
+spatial_filter.filter_smooth_delta: 20
+spatial_filter.holes_fill: 3            # Fill small holes
 
-    temporal_filter.enable: true            # Reduces temporal noise
-    temporal_filter.filter_smooth_alpha: 0.4
-    temporal_filter.filter_smooth_delta: 20
+temporal_filter.enable: true            # Reduces temporal noise
+temporal_filter.filter_smooth_alpha: 0.4
+temporal_filter.filter_smooth_delta: 20
 
-    disparity_filter.enable: true           # Converts disparity to depth and vice versa, helps noise
-    disparity_filter.filter_magnitude: 1
+disparity_filter.enable: true           # Converts disparity to depth and vice versa, helps noise
+disparity_filter.filter_magnitude: 1
 
-    hole_filling_filter.enable: true        # Fill holes in depth images
-    hole_filling_filter.fill_type: 1        # (1: nearest neighbor, recommended)
+hole_filling_filter.enable: true        # Fill holes in depth images
+hole_filling_filter.fill_type: 1        # (1: nearest neighbor, recommended)
 
-    align_depth.enable: false                # Disable align depth to color to save compute (optional)
+align_depth.enable: false                # Disable align depth to color to save compute (optional)
 
-    clip_distance: 5.0                       # Clip anything beyond 5 meters
+clip_distance: 5.0                       # Clip anything beyond 5 meters
 
-    publish_tf: true
-    tf_publish_rate: 30.0                    # Publish TF at 30 Hz
+publish_tf: true
+tf_publish_rate: 30.0                    # Publish TF at 30 Hz
 
-    # Optional: control pointcloud generation (disable if not used)
-    pointcloud.enable: false
+# Optional: control pointcloud generation (disable if not used)
+pointcloud.enable: false
