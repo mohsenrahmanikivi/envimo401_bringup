@@ -1,0 +1,13 @@
+depthimage_to_laserscan_node:
+  ros__parameters:
+    range_min: 0.3           # minimum laser scan range
+    range_max: 5.0          # max laser scan range
+    scan_height: 15          # number of rows to use (to smooth noise)
+    output_frame: "camera_depth_frame"
+    scan_time: 0.1        
+    # Optionally reduce scan rate to ease processing load
+    min_height: 10
+    max_height: 20
+    use_inf:=true 
+    clip_depth:=true
+  
