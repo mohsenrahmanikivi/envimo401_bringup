@@ -1,6 +1,11 @@
 slam_toolbox:
   ros__parameters:
+    # -----------------------------
+    # to fix error 'discarding message because the queue is full'
+    # -----------------------------
+    queue_size: 30  # Add this if not already present
 
+    
     # -----------------------------
     # Solver Configuration (still needed internally)
     # -----------------------------
