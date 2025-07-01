@@ -3,7 +3,8 @@ slam_toolbox:
     # -----------------------------
     # to fix error 'discarding message because the queue is full'
     # -----------------------------
-    queue_size: 30  # Add this if not already present
+    queue_size: 30  # Add this if not already presen
+    throttle_scans: 2
 
     
     # -----------------------------
