@@ -4,12 +4,9 @@ twist_mux:
       drive_test:
         topic   : cmd_vel
         timeout : 0.1
-        priority: 50
+        priority: 10
       nav2:
         topic   : cmd_vel_nav
         timeout : 0.1
         priority: 100
-      teleoperation:
-        topic   : cmd_vel_teleop
-        timeout : 0.1
-        priority: 200
+     
