@@ -1,9 +1,15 @@
 depthimage_to_laserscan_node:
   ros__parameters:
-    range_min: 0.1
-    range_max: 10.0
-    scan_height: 10
+    range_min: 0.15               # ignore very close noisy points
+    range_max: 5.0                # limit max range to reliable depth readings indoors
+    scan_height: 20               # average over 20 rows vertically to smooth noise
     output_frame: "camera_depth_frame"
-    scan_time: 0.033
-    min_height: 10
-    max_height: 20
+    scan_time: 0.1                # publish scan every 0.1 seconds (10Hz)
+    min_height: 10                # start averaging from 10th row to avoid bottom noise
+    max_height: 30                # end averaging at 30th row to avoid ceiling/ceiling artifacts
+    use_inf: false                # don't produce infinite ranges, better for SLAM
+    cluster: true                 # cluster points to filter out isolated noise
+    cluster_tolerance: 0.1        # distance tolerance for clustering (in meters)
+    min_cluster_size: 10          # minimum cluster size to keep points
+    max_cluster_size: 1000        # max cluster size (to ignore very large noise clusters)
+    depth_scale: 0.001            # depth values are in meters (Realsense default)
