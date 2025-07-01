@@ -1,93 +1,36 @@
-# Unique camera name
-camera_name: "camera"  # camera unique name
+realsense2_camera:
+  ros__parameters:
+    enable_depth: true
+    depth_module.enable_auto_exposure: true
+    depth_module.exposure: 8500
+    depth_module.gain: 16
 
-# Namespace for the camera node
-camera_namespace: "camera"  # namespace for camera
+    # Enable recommended filters to reduce noise and smooth depth data
+    decimation_filter.enable: true          # Downsamples image, reduces noise & computation
+    decimation_filter.filter_magnitude: 2  # Decimate by factor 2
 
-# Device selection (choose device by serial number, USB port, or type)
-serial_no: ""            # choose device by serial number
-usb_port_id: ""          # choose device by usb port id
-device_type: ""          # choose device by type
+    spatial_filter.enable: true             # Smooths surfaces, reduces spatial noise
+    spatial_filter.filter_magnitude: 2
+    spatial_filter.filter_smooth_alpha: 0.5
+    spatial_filter.filter_smooth_delta: 20
+    spatial_filter.holes_fill: 3            # Fill small holes
 
-# Config files for advanced settings
-config_file: ""          # yaml config file
-json_file_path: ""       # allows advanced configuration
+    temporal_filter.enable: true            # Reduces temporal noise
+    temporal_filter.filter_smooth_alpha: 0.4
+    temporal_filter.filter_smooth_delta: 20
 
-# Device initialization/reset options
-initial_reset: "false"   # (no description)
-accelerate_gpu_with_glsl: "false"  # enable GPU acceleration with GLSL
+    disparity_filter.enable: true           # Converts disparity to depth and vice versa, helps noise
+    disparity_filter.filter_magnitude: 1
 
-# Play from rosbag file instead of live device
-rosbag_filename: ""      # A realsense bagfile to run from as a device
+    hole_filling_filter.enable: true        # Fill holes in depth images
+    hole_filling_filter.fill_type: 1        # (1: nearest neighbor, recommended)
 
-# Logging and output
-log_level: "info"        # debug log level [DEBUG|INFO|WARN|ERROR|FATAL]
-output: "screen"         # pipe node output [screen|log]
+    align_depth.enable: false                # Disable align depth to color to save compute (optional)
 
-# Enable/disable streams
-enable_color: "true"     # enable color stream
-rgb_camera.color_profile: "0,0,0"   # color stream profile
-rgb_camera.color_format: "RGB8"     # color stream format
-rgb_camera.enable_auto_exposure: "true"  # enable/disable auto exposure for color image
+    clip_distance: 5.0                       # Clip anything beyond 5 meters
 
-enable_depth: "true"     # enable depth stream
-enable_infra: "false"    # enable infra0 stream
-enable_infra1: "false"   # enable infra1 stream
-enable_infra2: "false"   # enable infra2 stream
+    publish_tf: true
+    tf_publish_rate: 30.0                    # Publish TF at 30 Hz
 
-depth_module.depth_profile: "0,0,0"    # depth stream profile
-depth_module.depth_format: "Z16"       # depth stream format
-depth_module.infra_profile: "0,0,0"    # infra streams (0/1/2) profile
-depth_module.infra_format: "RGB8"      # infra0 stream format
-depth_module.infra1_format: "Y8"       # infra1 stream format
-depth_module.infra2_format: "Y8"       # infra2 stream format
-
-depth_module.exposure: "8500"           # Depth module manual exposure value
-depth_module.gain: "16"                  # Depth module manual gain value
-depth_module.hdr_enabled: "false"       # Depth module hdr enablement flag. Used for hdr_merge filter
-depth_module.enable_auto_exposure: "true"  # enable/disable auto exposure for depth image
-
-depth_module.exposure.1: "7500"          # Depth module first exposure value. Used for hdr_merge filter
-depth_module.gain.1: "16"                 # Depth module first gain value. Used for hdr_merge filter
-depth_module.exposure.2: "1"              # Depth module second exposure value. Used for hdr_merge filter
-depth_module.gain.2: "16"                 # Depth module second gain value. Used for hdr_merge filter
-
-# Sync and RGBD options
-enable_sync: "false"       # enable sync mode
-enable_rgbd: "false"       # enable rgbd topic
-
-# IMU options
-enable_gyro: "false"       # enable gyro stream
-enable_accel: "false"      # enable accel stream
-gyro_fps: "0"              # gyro frames per second
-accel_fps: "0"             # accel frames per second
-unite_imu_method: "0"      # [0-None, 1-copy, 2-linear_interpolation]
-
-# Advanced filtering and transforms
-clip_distance: "-2."       # clip distance
-angular_velocity_cov: "0.01"  # angular velocity covariance
-linear_accel_cov: "0.01"      # linear acceleration covariance
-diagnostics_period: "0.0"     # Rate of publishing diagnostics. 0=Disabled
-
-publish_tf: "true"           # enable/disable publishing static & dynamic TF
-tf_publish_rate: "0.0"       # rate in Hz for publishing dynamic TF
-
-pointcloud.enable: "false"               # enable pointcloud generation
-pointcloud.stream_filter: "2"            # texture stream for pointcloud
-pointcloud.stream_index_filter: "0"      # texture stream index for pointcloud
-pointcloud.ordered_pc: "false"            # ordered pointcloud flag
-pointcloud.allow_no_texture_points: "false"  # allow points without texture
-
-# Filters
-align_depth.enable: "false"          # enable align depth filter
-colorizer.enable: "false"            # enable colorizer filter
-decimation_filter.enable: "false"    # enable decimation filter
-spatial_filter.enable: "false"       # enable spatial filter
-temporal_filter.enable: "false"      # enable temporal filter
-disparity_filter.enable: "false"     # enable disparity filter
-hole_filling_filter.enable: "false"  # enable hole filling filter
-hdr_merge.enable: "false"             # hdr_merge filter enablement flag
-
-# Timeouts and reconnects
-wait_for_device_timeout: "-1."    # Timeout for waiting for device to connect (Seconds)
-reconnect_timeout: "6."           # Timeout(seconds) between consecutive reconnection attempts
+    # Optional: control pointcloud generation (disable if not used)
+    pointcloud.enable: false
