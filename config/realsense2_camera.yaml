@@ -3,17 +3,36 @@ depth_module.enable_auto_exposure: true
 depth_module.exposure: 8500
 depth_module.gain: 16
 
-# Enable recommended filters to reduce noise and smooth depth data
-decimation_filter.enable: true          # Downsamples image, reduces noise & computation
-decimation_filter.filter_magnitude: 2  # Decimate by factor 2
+decimation_filter.enable: true
+decimation_filter.filter_magnitude: 2
 
-spatial_filter.enable: true             # Smooths surfaces, reduces spatial noise
+spatial_filter.enable: true
 spatial_filter.filter_magnitude: 2
 spatial_filter.filter_smooth_alpha: 0.5
 spatial_filter.filter_smooth_delta: 20
-spatial_filter.holes_fill: 3            # Fill small holes
+spatial_filter.holes_fill: 3
 
-temporal_filter.enable: true            # Reduces temporal noise
+temporal_filter.enable: true
+temporal_filter.filter_smooth_alpha: 0.4
+temporal_filter.filter_smooth_delta: 20
+
+disparity_filter.enable: false          # <-- Disable disparity filter to avoid DISPARITY32 format issues
+
+hole_filling_filter.enable: true
+hole_filling_filter.fill_type: 1
+
+align_depth.enable: false
+
+clip_distance: 5.0
+
+publish_tf: true
+tf_publish_rate: 30.0
+
+pointcloud.enable: false
+
+# Fix power_line_frequency param to a valid integer within range [0, 2]
+rgb_camera.power_line_frequency: 2    # Usually 0=disabled, 1=50Hz, 2=60Hz, choose accordingly
+al_filter.enable: true            # Reduces temporal noise
 temporal_filter.filter_smooth_alpha: 0.4
 temporal_filter.filter_smooth_delta: 20
 
