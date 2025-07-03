@@ -2,11 +2,11 @@ twist_mux:
   ros__parameters:
     topics:
       drive_test:
-        topic   : cmd_vel
+        topic   : cmd_vel_drive
         timeout : 0.1
         priority: 10
-      nav2:
-        topic   : cmd_vel_nav
+      othrsCMD:
+        topic   : cmd_vel_tool
         timeout : 0.1
         priority: 100
      
