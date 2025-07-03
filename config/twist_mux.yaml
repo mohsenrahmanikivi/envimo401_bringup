@@ -5,7 +5,7 @@ twist_mux:
         topic   : cmd_vel_drive
         timeout : 0.1
         priority: 1
-     nav2:
+      nav2:
         topic   : cmd_vel
         timeout : 0.1
         priority: 100
