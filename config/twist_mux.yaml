@@ -4,9 +4,9 @@ twist_mux:
       drive_test:
         topic   : cmd_vel_drive
         timeout : 0.1
-        priority: 10
-      othrsCMD:
-        topic   : cmd_vel_tool
+        priority: 1
+     nav2:
+        topic   : cmd_vel
         timeout : 0.1
         priority: 100
      
