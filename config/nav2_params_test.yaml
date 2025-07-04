@@ -21,7 +21,7 @@ amcl:
     recovery_alpha_fast: 0.0
     recovery_alpha_slow: 0.0
     resample_interval: 1
-    robot_model_type: "nav2_amcl::OmniMotionModel"
+    robot_model_type: "nav2_amcl::DifferentialMotionModel"
     alpha1: 0.5
     alpha2: 0.5
     alpha3: 0.5
