@@ -21,16 +21,6 @@ def generate_launch_description():
     config_path   = os.path.join(pkg_path, 'config')
     urdf_path     = os.path.join(pkg_path, 'URDF', 'envimo_all_joints_fixed.urdf')
 
-    # --- locate segwayrmp's LibAPI/lib directory ---
-    segway_share  = Path(get_package_share_directory('segwayrmp'))
-    libapi_lib    = segway_share.parent / 'LibAPI' / 'lib'
-    libapi_libstr = str(libapi_lib)
-
-    # Export LD_LIBRARY_PATH so SmartCar can find LibAPI
-    ld.add_action(SetEnvironmentVariable(
-        name='LD_LIBRARY_PATH',
-        value=f'{libapi_libstr}:$LD_LIBRARY_PATH'
-    ))
 
     # Config files
     twist_mux_cfg = os.path.join(config_path, 'twist_mux.yaml')
