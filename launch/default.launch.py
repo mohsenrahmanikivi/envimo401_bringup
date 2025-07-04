@@ -1,13 +1,21 @@
 from launch import LaunchDescription
-from launch.actions import ExecuteProcess, IncludeLaunchDescription, RegisterEventHandler, Shutdown
+from launch.actions import (
+    ExecuteProcess,
+    IncludeLaunchDescription,
+    RegisterEventHandler,
+    SetEnvironmentVariable,
+    Shutdown,
+)
+from launch.event_handlers import OnProcessExit
 from launch_ros.actions import Node
 from launch.launch_description_sources import PythonLaunchDescriptionSource
-from launch.event_handlers import OnProcessExit
-import os
 from ament_index_python.packages import get_package_share_directory
+from pathlib import Path
+import os
 def generate_launch_description():
     ld = LaunchDescription()
-
+    
+    # --- locate your own package ---
     pkg_path = get_package_share_directory('envimo401')
     config_path = os.path.join(pkg_path, 'config')
     urdf_path = os.path.join(pkg_path, 'URDF', 'envimo_all_joints_fixed.urdf')
@@ -18,6 +26,18 @@ def generate_launch_description():
     nav2_config          = os.path.join(config_path, 'nav2_params_test.yaml')
     mapper_config        = os.path.join(config_path, 'mapper_params_online_async.yaml')
     realsense_config     = os.path.join(config_path, 'realsense2_camera.yaml')
+  
+    # --- locate segwayrmp's LibAPI/lib directory ---
+    segway_share  = Path(get_package_share_directory('segwayrmp'))
+    libapi_lib    = segway_share.parent / 'LibAPI' / 'lib'
+    libapi_libstr = str(libapi_lib)
+
+    # 0. Export LD_LIBRARY_PATH so SmartCar can find LibAPI
+    set_env = SetEnvironmentVariable(
+        name='LD_LIBRARY_PATH',
+        value=f'{libapi_libstr}:$LD_LIBRARY_PATH'
+    )
+    ld.add_action(set_env)
 
     # 1. twist_mux node
     twist_mux_node = Node(
