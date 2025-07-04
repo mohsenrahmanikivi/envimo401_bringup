@@ -1,10 +1,10 @@
 from launch import LaunchDescription
-from launch.actions import ExecuteProcess, IncludeLaunchDescription
+from launch.actions import ExecuteProcess, IncludeLaunchDescription, RegisterEventHandler, Shutdown
 from launch_ros.actions import Node
 from launch.launch_description_sources import PythonLaunchDescriptionSource
+from launch.event_handlers import OnProcessExit
 import os
 from ament_index_python.packages import get_package_share_directory
-
 def generate_launch_description():
     ld = LaunchDescription()
 
@@ -110,5 +110,13 @@ def generate_launch_description():
         launch_arguments={'params_file': nav2_config}.items()
     )
     ld.add_action(nav2_node)
+    
+    # 9. If an error appears, it exits
+    event_handler=RegisterEventHandler(
+        OnProcessExit(
+            on_exit=[Shutdown()]
+        )
+    )
+    ld.add_action(event_handler)
 
     return ld
