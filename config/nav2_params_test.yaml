@@ -1,11 +1,12 @@
-#### Nav2 Configuration for Real-World Ackermann Robot (ROS 2 Humble)
-# File: nav2_params.yaml
+# nav2_params.yaml
+# ROS2 Humble Nav2 configuration for a real-world 4-wheel Ackermann-drive robot (≈60×50 cm)
 
 amcl:
   ros__parameters:
     use_sim_time: false
     base_frame_id: "base_link"
     odom_frame_id: "odom"
+    global_frame_id: "map"
     scan_topic: "scan"
     min_particles: 500
     max_particles: 2000
@@ -14,58 +15,33 @@ amcl:
     alpha3: 0.2
     alpha4: 0.2
     alpha5: 0.1
+    laser_model_type: "likelihood_field"
     laser_max_range: 10.0
+    laser_min_range: 0.05
     update_min_d: 0.25
     update_min_a: 0.2
     resample_interval: 1
     transform_tolerance: 1.0
-    recovery_alpha_slow: 0.0
-    recovery_alpha_fast: 0.0
-    set_initial_pose: true
+    z_hit: 0.5
+    z_short: 0.05
+    z_max: 0.05
+    z_rand: 0.4
+    robot_model_type: "nav2_amcl::DifferentialMotionModel"
 
 map_server:
   ros__parameters:
     use_sim_time: false
-    yaml_filename: "map.yaml"
-
-map_serve:
-  ros__parameters:
-    use_sim_time: false
-
-behavior_server:
-  ros__parameters:
-    behavior_plugins:
-      - "spin"
-      - "backup"
-      - "wait"
-    spin:
-      plugin: "nav2_behaviors/Spin"
-    backup:
-      plugin: "nav2_behaviors/BackUp"
-    wait:
-      plugin: "nav2_behaviors/Wait"
+    yaml_filename: "/home/envimo/labMap.yaml"
 
 bt_navigator:
   ros__parameters:
     use_sim_time: false
+    global_frame: "map"
+    robot_base_frame: "base_link"
+    odom_topic: "/odom"
     default_bt_xml_filename: "navigate_w_replanning_and_recovery.xml"
     bt_loop_duration: 10
     default_server_timeout: 20
-
-controller_server:
-  ros__parameters:
-    use_sim_time: false
-    controller_plugins: ["FollowPath"]
-    FollowPath:
-      plugin: "nav2_regulated_pure_pursuit_controller/RegulatedPurePursuitController"
-      desired_linear_vel: 0.4
-      lookahead_dist: 1.0
-      use_velocity_scaled_lookahead_dist: true
-      min_lookahead_dist: 0.6
-      max_lookahead_dist: 1.5
-      curvature_lookahead_dist: true
-      use_approach_velocity_scaling: true
-      max_allowed_time_to_collision_up_to_carrot: 2.0
 
 planner_server:
   ros__parameters:
@@ -73,14 +49,35 @@ planner_server:
     planner_plugins: ["GridBased"]
     GridBased:
       plugin: "nav2_smac_planner/SmacPlannerHybrid"
+      motion_model_for_search: "DUBINS"
+      minimum_turning_radius: 1.0    # meters (approx. for 60×50 cm robot)
       allow_unknown: true
       tolerance: 0.5
-      downsample_costmap: false
+      max_planning_time: 3.0
       angle_quantization_bins: 72
-      motion_model: "REEDS_SHEPP"
-      minimum_turning_radius: 1.0  # Adjust to match your robot's turning radius
+      downsample_costmap: false
       cache_obstacle_heuristic: true
-      max_planning_time: 2.5
+
+controller_server:
+  ros__parameters:
+    use_sim_time: false
+    controller_frequency: 20.0
+    controller_plugins: ["FollowPath"]
+    FollowPath:
+      plugin: "nav2_regulated_pure_pursuit_controller/RegulatedPurePursuitController"
+      desired_linear_vel: 0.6       # m/s cruise speed
+      lookahead_dist: 1.0           # m
+      min_lookahead_dist: 0.6
+      max_lookahead_dist: 1.5
+      lookahead_time: 1.0
+      use_velocity_scaled_lookahead_dist: true
+      max_angular_vel: 1.0          # rad/s
+      max_angular_accel: 2.0        # rad/s^2
+      curvature_lookahead_dist: 0.5 # for Ackermann curvature control
+      allow_reversing: false
+      use_collision_detection: true
+      max_allowed_time_to_collision_up_to_carrot: 2.0
+      transform_tolerance: 0.3
 
 local_costmap:
   local_costmap:
@@ -88,34 +85,38 @@ local_costmap:
       use_sim_time: false
       update_frequency: 5.0
       publish_frequency: 2.0
+      global_frame: "odom"
+      robot_base_frame: "base_link"
       rolling_window: true
-      width: 4.0
-      height: 4.0
+      width: 6.0
+      height: 6.0
       resolution: 0.05
       footprint: "[[0.3, 0.25], [0.3, -0.25], [-0.3, -0.25], [-0.3, 0.25]]"
       plugins: ["obstacle_layer", "inflation_layer"]
       obstacle_layer:
-        plugin: "nav2_costmap_2d/ObstacleLayer"
+        plugin: "nav2_costmap_2d::ObstacleLayer"
         observation_sources: camera_scan
         camera_scan:
           topic: "scan"
           sensor_frame: "camera_link"
           data_type: "LaserScan"
-          expected_update_rate: 0.3
-          clearing: true
+          expected_update_rate: 10.0
           marking: true
-          obstacle_max_range: 5.0
-          obstacle_min_range: 0.1
+          clearing: true
+          obstacle_max_range: 8.0
+          obstacle_min_range: 0.05
       inflation_layer:
-        plugin: "nav2_costmap_2d/InflationLayer"
-        inflation_radius: 0.5
+        plugin: "nav2_costmap_2d::InflationLayer"
+        inflation_radius: 0.4
 
 global_costmap:
   global_costmap:
     ros__parameters:
       use_sim_time: false
-      update_frequency: 2.5
+      update_frequency: 2.0
       publish_frequency: 1.0
+      global_frame: "map"
+      robot_base_frame: "base_link"
       rolling_window: false
       width: 20.0
       height: 20.0
@@ -123,42 +124,53 @@ global_costmap:
       footprint: "[[0.3, 0.25], [0.3, -0.25], [-0.3, -0.25], [-0.3, 0.25]]"
       plugins: ["static_layer", "obstacle_layer", "inflation_layer"]
       static_layer:
-        plugin: "nav2_costmap_2d/StaticLayer"
+        plugin: "nav2_costmap_2d::StaticLayer"
       obstacle_layer:
-        plugin: "nav2_costmap_2d/ObstacleLayer"
+        plugin: "nav2_costmap_2d::ObstacleLayer"
         observation_sources: camera_scan
         camera_scan:
           topic: "scan"
           sensor_frame: "camera_link"
           data_type: "LaserScan"
-          expected_update_rate: 0.5
-          clearing: true
+          expected_update_rate: 10.0
           marking: true
-          obstacle_max_range: 6.0
-          obstacle_min_range: 0.1
+          clearing: true
+          obstacle_max_range: 8.0
+          obstacle_min_range: 0.05
       inflation_layer:
-        plugin: "nav2_costmap_2d/InflationLayer"
-        inflation_radius: 0.6
+        plugin: "nav2_costmap_2d::InflationLayer"
+        inflation_radius: 0.4
 
-recoveries_server:
+behavior_server:
   ros__parameters:
     use_sim_time: false
+    behavior_plugins: ["spin", "backup", "wait", "drive_on_heading", "assisted_teleop"]
+    spin:
+      plugin: "nav2_behaviors/Spin"
+    backup:
+      plugin: "nav2_behaviors/BackUp"
+    drive_on_heading:
+      plugin: "nav2_behaviors/DriveOnHeading"
+    wait:
+      plugin: "nav2_behaviors/Wait"
+    assisted_teleop:
+      plugin: "nav2_behaviors/AssistedTeleop"
+    global_frame: "map"
+    robot_base_frame: "base_link"
+    transform_tolerance: 0.3
 
 waypoint_follower:
   ros__parameters:
     use_sim_time: false
-    stop_on_failure: true
     loop_rate: 20
+    stop_on_failure: true
     waypoint_task_executor_plugin: "nav2_waypoint_follower/SequentialWaypointTaskExecutor"
-
-robot_state_publisher:
-  ros__parameters:
-    use_sim_time: false
 
 lifecycle_manager:
   ros__parameters:
     use_sim_time: false
     autostart: true
+    bond_timeout: 25.0
     node_names:
       - "map_server"
       - "amcl"
@@ -166,7 +178,6 @@ lifecycle_manager:
       - "controller_server"
       - "behavior_server"
       - "bt_navigator"
-      - "waypoint_follower"
-      - "recoveries_server"
       - "local_costmap"
       - "global_costmap"
+      - "waypoint_follower"
