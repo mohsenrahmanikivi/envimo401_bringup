@@ -70,7 +70,7 @@ def generate_launch_description():
                 'launch', 'rs_launch.py'
             )
         ),
-        launch_arguments={'config_file': realsense_cfg}.items()
+        launch_arguments={'config_file': realsense_config}.items()
     )
     
     ld.add_action(realsense_node)
@@ -107,7 +107,7 @@ def generate_launch_description():
                 'launch', 'navigation_launch.py'
             )
         ),
-        launch_arguments={'params_file': nav2_cfg}.items()
+        launch_arguments={'params_file': nav2_config}.items()
     )
     ld.add_action(nav2_node)
 
