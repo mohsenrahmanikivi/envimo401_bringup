@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <package format="3">
-  <name>envimo401rmp</name>
+  <name>envimo401</name>
   <version>0.0.1</version>
   <description>Envimo RMP401 Robot bringup package.</description>
   <maintainer email="your.email@example.com">Your Name</maintainer>
