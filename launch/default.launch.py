@@ -47,15 +47,15 @@ def generate_launch_description():
         remappings=[('/cmd_vel', '/cmd_vel_out')]
     ))
 
-    # 3. drive_segway_sample in its own terminal
-    ld.add_action(ExecuteProcess(
-        cmd=[
-            'gnome-terminal', '--',
-            'bash', '-c',
-            'ros2 run segwayrmp drive_segway_sample --ros-args --remap /cmd_vel:=/cmd_vel_drive; exec bash'
-        ],
-        output='screen'
-    ))
+    # # 3. drive_segway_sample in its own terminal
+    # ld.add_action(ExecuteProcess(
+    #     cmd=[
+    #         'gnome-terminal', '--',
+    #         'bash', '-c',
+    #         'ros2 run segwayrmp drive_segway_sample --ros-args --remap /cmd_vel:=/cmd_vel_drive; exec bash'
+    #     ],
+    #     output='screen'
+    # ))
 
     # 4. robot_state_publisher
     ld.add_action(Node(
