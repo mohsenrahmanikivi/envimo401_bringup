@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.10)
-project(envimo401rmp)
+project(envimo401)
 
 # Find dependencies
 find_package(ament_cmake REQUIRED)
