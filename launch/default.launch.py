@@ -62,13 +62,16 @@ def generate_launch_description():
     ld.add_action(robot_state_pub_node)
 
     # 5. RealSense Camera
-    realsense_node = Node(
-        package='realsense2_camera',
-        executable='rs_launch.py',
-        name='realsense_camera',
-        output='screen',
-        arguments=[f'config_file:={realsense_config}']
+    realsense_node = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource(
+            os.path.join(
+                get_package_share_directory('realsense2_camera'),
+                'launch', 'rs_launch.py'
+            )
+        ),
+        launch_arguments={'config_file': realsense_cfg}.items()
     )
+    
     ld.add_action(realsense_node)
 
     # 6. DepthImage to LaserScan
@@ -96,12 +99,14 @@ def generate_launch_description():
     ld.add_action(slam_node)
 
     # 8. Nav2 Bringup
-    nav2_node = Node(
-        package='nav2_bringup',
-        executable='navigation_launch.py',
-        name='nav2_bringup',
-        output='screen',
-        arguments=[f'params_file:={nav2_config}']
+    nav2_node = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource(
+            os.path.join(
+                get_package_share_directory('nav2_bringup'),
+                'launch', 'navigation_launch.py'
+            )
+        ),
+        launch_arguments={'params_file': nav2_cfg}.items()
     )
     ld.add_action(nav2_node)
 
