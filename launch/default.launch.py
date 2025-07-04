@@ -32,20 +32,28 @@ def generate_launch_description():
         name='segway_driver',
         remappings=[
             ('/cmd_vel', '/cmd_vel_out')
-        ],
-        output='screen',
-        prefix='xterm -hold -e'  # <-- open an xterm and keep it open after exit
-    )
-
-    # 3. Segway RMP - drive_segway_sample
-    segway_drive_node = Node(
-        package='segwayrmp',
-        executable='drive_segway_sample',
-        name='segway_driver_sample',
-        remappings=[
-            ('/cmd_vel', '/cmd_vel_drive')
         ]
     )
+
+    # # 3. Segway RMP - drive_segway_sample
+    # segway_drive_node = Node(
+    #     package='segwayrmp',
+    #     executable='drive_segway_sample',
+    #     name='segway_driver_sample',
+    #     remappings=[
+    #         ('/cmd_vel', '/cmd_vel_drive')
+    #     ]
+    # )
+  
+   segway_drive_node = ExecuteProcess(
+        cmd=[
+            'gnome-terminal', '--',
+            'bash', '-c',
+            'ros2 run segwayrmp drive_segway_sample --ros-args --remap /cmd_vel:=/cmd_vel_drive; exec bash'
+        ],
+        output='screen'
+    )
+    
 
     # 4. Robot State Publisher
     robot_state_pub_node = Node(
