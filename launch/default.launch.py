@@ -21,7 +21,6 @@ def generate_launch_description():
     twist_mux_node = Node(
         package='twist_mux',
         executable='twist_mux',
-        name='twist_mux',
         parameters=[twist_mux_config]
     )
 
@@ -29,7 +28,6 @@ def generate_launch_description():
     segway_node = Node(
         package='segwayrmp',
         executable='SmartCar',
-        name='segway_driver',
         remappings=[
             ('/cmd_vel', '/cmd_vel_out')
         ]
@@ -59,7 +57,6 @@ def generate_launch_description():
     robot_state_pub_node = Node(
         package='robot_state_publisher',
         executable='robot_state_publisher',
-        name='robot_state_publisher',
         parameters=[{
             'robot_description': open(urdf_path).read()
         }]
@@ -69,7 +66,6 @@ def generate_launch_description():
     realsense_node = Node(
         package='realsense2_camera',
         executable='rs_launch.py',
-        name='realsense_camera',
         parameters=[{'config_file': realsense_config}]
     )
 
@@ -77,7 +73,6 @@ def generate_launch_description():
     depthimage_node = Node(
         package='depthimage_to_laserscan',
         executable='depthimage_to_laserscan_node',
-        name='depthimage_to_laserscan',
         parameters=[depthimage_config],
         remappings=[
             ('depth', '/camera/camera/depth/image_rect_raw'),
@@ -89,7 +84,6 @@ def generate_launch_description():
     slam_node = Node(
         package='slam_toolbox',
         executable='async_slam_toolbox_node',
-        name='slam_toolbox',
         parameters=[mapper_config]
     )
 
@@ -97,7 +91,6 @@ def generate_launch_description():
     nav2_node = Node(
         package='nav2_bringup',
         executable='navigation_launch.py',
-        name='nav2_bringup',
         parameters=[nav2_config]
     )
 
