@@ -32,7 +32,9 @@ def generate_launch_description():
         name='segway_driver',
         remappings=[
             ('/cmd_vel', '/cmd_vel_out')
-        ]
+        ],
+        output='screen',
+        prefix='xterm -hold -e'  # <-- open an xterm and keep it open after exit
     )
 
     # 3. Segway RMP - drive_segway_sample
