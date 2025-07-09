@@ -45,7 +45,7 @@ bt_navigator:
     global_frame: map
     robot_base_frame: base_link
     odom_topic: /odom
-    bt_loop_duration: 1        # bt_loop_duration sets how often (in seconds) the behavior tree ticks. Lower values = faster response. Higher values = slower updates. Recommended: 0.05 - 0.2. Default: 0.1
+    bt_loop_duration: 10        # bt_loop_duration sets how often (in seconds) the behavior tree ticks. Lower values = faster response. Higher values = slower updates. Recommended: 0.05 - 0.2. Default: 0.1
     default_server_timeout: 20
     wait_for_service_timeout: 1000
     # 'default_nav_through_poses_bt_xml' and 'default_nav_to_pose_bt_xml' are use defaults:
@@ -271,7 +271,7 @@ planner_server:
       max_iterations: 1000000             # maximum total iterations to search for before failing (in case unreachable), set to -1 to disable
       max_on_approach_iterations: 1000    # Maximum number of iterations after within tolerances to continue to try to find exact solution
       max_planning_time: 5.0              # max time in s for planner to plan, smooth
-      motion_model_for_search: "REEDS_SHEPP"  # Allows forward/reverse arcs (no in-place rotation)
+      motion_model_for_search: "DUBIN"  # Allows forward/reverse arcs (no in-place rotation)  REEDS_SHEPP
       angle_quantization_bins: 72         # Number of angle bins for search
       analytic_expansion_ratio: 3.5       # The ratio to attempt analytic expansions during search for final approach.
       analytic_expansion_max_length: 3.0  # For Hybrid/Lattice nodes: The maximum length of the analytic expansion to be considered valid to prevent unsafe shortcutting
