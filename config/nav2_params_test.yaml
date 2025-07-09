@@ -272,7 +272,7 @@ planner_server:
       max_on_approach_iterations: 1000    # Maximum number of iterations after within tolerances to continue to try to find exact solution
       max_planning_time: 5.0              # max time in s for planner to plan, smooth
       motion_model_for_search: "REEDS_SHEPP"  # Allows forward/reverse arcs (no in-place rotation)  REEDS_SHEPP DUBIN
-      angle_quantization_bins: 72         # Number of angle bins for search
+      angle_quantization_bins: 8         # Number of angle bins for search default 72 , iput 8 for 42 turing angel
       analytic_expansion_ratio: 3.5       # The ratio to attempt analytic expansions during search for final approach.
       analytic_expansion_max_length: 3.0  # For Hybrid/Lattice nodes: The maximum length of the analytic expansion to be considered valid to prevent unsafe shortcutting
       analytic_expansion_max_cost: 200.0  # The maximum single cost for any part of an analytic expansion to contain and be valid, except when necessary on approach to goal
