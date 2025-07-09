@@ -180,7 +180,7 @@ local_costmap:
       inflation_layer:
         plugin: "nav2_costmap_2d::InflationLayer"
         cost_scaling_factor: 2.0
-        inflation_radius: 0.2
+        inflation_radius: 0.4
       voxel_layer:
         plugin: "nav2_costmap_2d::VoxelLayer"
         enabled: true
@@ -239,7 +239,7 @@ global_costmap:
       inflation_layer:
         plugin: "nav2_costmap_2d::InflationLayer"
         cost_scaling_factor: 2.0                # Steepness of inflation cost dropoff
-        inflation_radius: 0.2                   # Safety buffer around obstacles [m]
+        inflation_radius: 0.4                   # Safety buffer around obstacles [m]
       always_send_full_costmap: true
 
 map_server:
