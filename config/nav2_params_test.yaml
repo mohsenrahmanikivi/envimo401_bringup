@@ -154,7 +154,7 @@ controller_server:
       regulated_linear_scaling_min_speed: 0.25     # Minimum speed when regulating [m/s]
       use_rotate_to_heading: false                 # Disables in-place rotation (required by RMP 401)
       allow_reversing: true                        # Allow reversing when needed
-      rotate_to_heading_min_angle: 0.785
+      #rotate_to_heading_min_angle: 0.785
       max_angular_vel: 2.0                         # Max steering rate [rad/s] — matches hardware
       max_angular_accel: 0.1
       max_linear_vel: 0.3
@@ -271,17 +271,17 @@ planner_server:
       max_iterations: 1000000             # maximum total iterations to search for before failing (in case unreachable), set to -1 to disable
       max_on_approach_iterations: 1000    # Maximum number of iterations after within tolerances to continue to try to find exact solution
       max_planning_time: 5.0              # max time in s for planner to plan, smooth
-      motion_model_for_search: "DUBIN"  # Allows forward/reverse arcs (no in-place rotation)  REEDS_SHEPP
+      motion_model_for_search: "REEDS_SHEPP"  # Allows forward/reverse arcs (no in-place rotation)  REEDS_SHEPP DUBIN
       angle_quantization_bins: 72         # Number of angle bins for search
       analytic_expansion_ratio: 3.5       # The ratio to attempt analytic expansions during search for final approach.
       analytic_expansion_max_length: 3.0  # For Hybrid/Lattice nodes: The maximum length of the analytic expansion to be considered valid to prevent unsafe shortcutting
       analytic_expansion_max_cost: 200.0  # The maximum single cost for any part of an analytic expansion to contain and be valid, except when necessary on approach to goal
       analytic_expansion_max_cost_override: false  #  Whether or not to override the maximum cost setting if within critical distance to goal (ie probably required)
       minimum_turning_radius: 1.36        # minimum turning radius in m of path / vehicle
-      reverse_penalty: 2.0                # Penalty to apply if motion is reversing, must be => 1
-      change_penalty: 0.0                 # Penalty to apply if motion is changing directions (L to R), must be >= 0
+      reverse_penalty: 1.0                # Penalty to apply if motion is reversing, must be => 1
+      change_penalty: 1.0                 # Penalty to apply if motion is changing directions (L to R), must be >= 0
       non_straight_penalty: 1.4           # Penalty to apply if motion is non-straight, must be => 1
-      cost_penalty: 2.0                   # Penalty to apply to higher cost areas when adding into the obstacle map dynamic programming distance expansion heuristic. This drives the robot more towards the center of passages. A value between 1.3 - 3.5 is reasonable.
+      cost_penalty: 1.0                   # Penalty to apply to higher cost areas when adding into the obstacle map dynamic programming distance expansion heuristic. This drives the robot more towards the center of passages. A value between 1.3 - 3.5 is reasonable.
       retrospective_penalty: 0.015
       lookup_table_size: 20.0             # Size of the dubin/reeds-sheep distance window to cache, in meters.
       cache_obstacle_heuristic: false     # Cache the obstacle map dynamic programming distance expansion heuristic between subsequent replannings of the same goal location. Dramatically speeds up replanning performance (40x) if costmap is largely static.
@@ -309,10 +309,6 @@ behavior_server:
     behavior_plugins: ["spin", "backup", "drive_on_heading", "assisted_teleop", "wait"]  # List of enabled behavior plugins for recovery or task behaviors
     spin:
       plugin: "nav2_behaviors/Spin"     # Plugin that rotates the robot in place (used for recovery behaviors)
-      simulate_ahead_time: 0.0          # Prevents lookahead simulation
-      max_rotational_vel: 0.0           # Robot can’t rotate
-      min_rotational_vel: 0.0           # No min rotation
-      rotational_acc_lim: 0.0           # No acceleration allowed      
     backup:
       plugin: "nav2_behaviors/BackUp"            # Plugin that moves the robot backward safely (often used in recovery)
     drive_on_heading:
