@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.10)
-project(envimo401)
+project(envimo401_bringup)
 
 # Find dependencies
 find_package(ament_cmake REQUIRED)
