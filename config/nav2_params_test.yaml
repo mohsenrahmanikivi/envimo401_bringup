@@ -116,7 +116,7 @@ controller_server:
     min_x_velocity_threshold: 0.001
     min_y_velocity_threshold: 0.5
     min_theta_velocity_threshold: 0.001
-    failure_tolerance: 0.5 # max [s] that the system is failed but continue without changing to failed state
+    failure_tolerance: 0.5 # max [s] that the system is failed but continues without changing to the failed state
     progress_checker_plugins: "progress_checker" # progress_checker_plugin: "progress_checker" For Humble and older
     goal_checker_plugins: ["general_goal_checker"]  # "precise_goal_checker"
     controller_plugins: ["FollowPath"]
