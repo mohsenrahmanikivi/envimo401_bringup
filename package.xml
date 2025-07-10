@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <package format="3">
-  <name>envimo401</name>
+  <name>envimo401_bringup</name>
   <version>0.0.1</version>
   <description>Envimo RMP401 Robot bringup package.</description>
-  <maintainer email="your.email@example.com">Your Name</maintainer>
+  <maintainer email="info@envimo.xyz">ENVIMO</maintainer>
   <license>Apache-2.0</license>
 
   <buildtool_depend>ament_cmake</buildtool_depend>
