@@ -14,8 +14,8 @@ amcl:
     global_frame_id: "map"
     lambda_short: 0.1
     laser_likelihood_max_dist: 2.0
-    laser_max_range: 100.0
-    laser_min_range: -1.0
+    laser_max_range: 5                 # most indoor LiDARs covers 10–30m max
+    laser_min_range: 0.4
     laser_model_type: "likelihood_field"
     max_beams: 60
     max_particles: 2000
@@ -135,7 +135,7 @@ controller_server:
     FollowPath:
       plugin: "nav2_regulated_pure_pursuit_controller::RegulatedPurePursuitController"
       desired_linear_vel: 0.5   # Desired cruise speed [m/s], tuned below max (3.56 m/s)
-      lookahead_dist: 0.6       # Fallback static lookahead distance [m]
+      lookahead_dist: 1.6       # Fallback static lookahead distance [m]
       min_lookahead_dist: 0.8   # Minimum lookahead distance for path following [m]
       max_lookahead_dist: 3.0   # Maximum lookahead distance [m]
       lookahead_time: 1.5       # Lookahead distance scales with this time [s]
@@ -317,7 +317,7 @@ behavior_server:
       plugin: "nav2_behaviors/Wait"              # Plugin that lets the robot wait for a duration (e.g., for safety, traffic)
     assisted_teleop:
       plugin: "nav2_behaviors/AssistedTeleop"    # Enables semi-manual control by a human, with some autonomy 
-    global_frame: odom
+    global_frame: map
     robot_base_frame: base_link
     transform_tolerance: 0.1
     use_sim_time: false
