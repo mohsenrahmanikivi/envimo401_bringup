@@ -31,13 +31,13 @@ sudo apt update
 Reconnect the Intel RealSense depth camera and run: `realsense-viewer` to verify the installation.
 
 # 4. Install Lds-01 driver
-- Installation 
+- Installation:
   `sudo apt install ros-humble-hls-lfcd-lds-driver`
-- Set Permission for LDS-01
+- Set Permission for LDS-01:
   `sudo apt install ros-humble-hls-lfcd-lds-driver`
-- Run hlds_laser_publisher Node to test
+- Run hlds_laser_publisher Node to test:
   `ros launch hls_lfcd_lds_driver hlds_laser.launch`
-- Run hlds_laser_publisher Node with RViz
+- Run hlds_laser_publisher Node with RViz:
   `ros launch hls_lfcd_lds_driver view_hlds_laser.launch`
   
 # 5. clone both chasses and bringup pakages
