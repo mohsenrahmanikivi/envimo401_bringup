@@ -30,6 +30,10 @@ sudo apt update
 
 Reconnect the Intel RealSense depth camera and run: `realsense-viewer` to verify the installation.
 
+- install the ROS2 SDK:  
+  `sudo apt install ros-humble-librealsense2*`  
+
+
 # 4. Install Lds-01 driver
 - Installation:  
   `sudo apt install ros-humble-hls-lfcd-lds-driver`
