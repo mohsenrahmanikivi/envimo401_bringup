@@ -38,10 +38,10 @@ Reconnect the Intel RealSense depth camera and run: `realsense-viewer` to verify
   `sudo chmod a+rw /dev/ttyUSB0`
   
 - Run hlds_laser_publisher Node to test:  
-  `ros launch hls_lfcd_lds_driver hlds_laser.launch`
+  `ros2 launch hls_lfcd_lds_driver hlds_laser.launch`
   
 - Run hlds_laser_publisher Node with RViz:  
-  `ros launch hls_lfcd_lds_driver view_hlds_laser.launch`
+  `ros2 launch hls_lfcd_lds_driver view_hlds_laser.launch`
   
 # 5. Clone both main packages
 Go to the src folder and clone the necessary packages
@@ -59,6 +59,10 @@ Go to the src folder and clone the necessary packages
 # 6. Build the packages    
  `colcon build`
  `colcon build` 
+ 
+ # 6. Run   
+ `ros2 launch envimo401_bringup envimo401_bringup.launch.py`
+ 
 
 # envimo infrastructure
 ## 1. URDF file
