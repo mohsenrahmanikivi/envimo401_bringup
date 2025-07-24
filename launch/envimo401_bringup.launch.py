@@ -19,7 +19,7 @@ def generate_launch_description():
     # --- locate your own package ---
     pkg_path      = get_package_share_directory('envimo401_bringup')
     config_path   = os.path.join(pkg_path, 'config')
-    urdf_path     = os.path.join(pkg_path, 'URDF', 'envimo_all_joints_fixed.urdf')
+    urdf_path     = os.path.join(pkg_path, 'urdf', 'envimo_all_joints_fixed.urdf')
 
 
     # Config files
