@@ -48,12 +48,12 @@ sudo chmod a+rw /dev/ttyUSB0
   
 - Run hlds_laser_publisher Node to test:  
 ```
-ros2 launch hls_lfcd_lds_driver hlds_laser.launch
+ros2 launch hls_lfcd_lds_driver hlds_laser.launch.py
 ```
   
 - Run hlds_laser_publisher Node with RViz:  
 ```
-ros2 launch hls_lfcd_lds_driver view_hlds_laser.launch
+ros2 launch hls_lfcd_lds_driver view_hlds_laser.launch.py
 ```
 
 # 5. Install nav2 stack
