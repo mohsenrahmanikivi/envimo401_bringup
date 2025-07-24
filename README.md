@@ -82,7 +82,7 @@ git clone https://github.com/mohsenrahmanikivi/envimo401_chassis.git
 
 5. Add the library to the library path:  
  `export LD_LIBRARY_PATH=<PATH_TO_THE_PACKAGE>/src/envimo401_chassis/LibAPI/lib:$LD_LIBRARY_PATH`  
- `export LD_LIBRARY_PATH=/home/envimo401/ros2_ws/src/envimo401_chassis/LibAPI/lib:$LD_LIBRARY_PATH`
+ `export LD_LIBRARY_PATH=~/ros2_ws/src/envimo401_chassis/LibAPI/lib:$LD_LIBRARY_PATH`
 
 
 # 7. Build the packages    
