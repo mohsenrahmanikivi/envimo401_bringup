@@ -1,4 +1,4 @@
 hlds_laser_publisher:
   ros__parameters:
     port: "/dev/ttyUSB1"
-    frame_id: "laser"
+    frame_id: "laser_link"
