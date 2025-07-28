@@ -48,12 +48,12 @@ def generate_launch_description():
 
 
     # 3. chassis_enable_client
-    # ld.add_action(Node(
-    #     package='chassis_enable',
-    #     executable='chassis_enable_client',
-    #     name='chassis_enable_client',
-    #     output='screen'
-    # ))
+    ld.add_action(Node(
+        package='chassis_enable',
+        executable='chassis_enable_client',
+        name='chassis_enable_client',
+        output='screen'
+    ))
 
 
     # 4. robot_state_publisher
