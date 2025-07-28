@@ -85,7 +85,10 @@ def generate_launch_description():
                 'launch', 'hlds_laser.launch.py'
             )
          ),
-         launch_arguments={'params_file': leaser_cfg}.items()
+         launch_arguments={
+                'port': '/dev/ttyUSB1',
+                'frame_id': 'laser_link'
+             }.items()
     ))
 
     # 7. SLAM Toolbox
