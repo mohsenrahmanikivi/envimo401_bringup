@@ -6,52 +6,41 @@
     <material name="robot_front_color">
         <color rgba="1 0 0 1"/>
     </material>
-<!-- Dummy inertial link (new root) -->
-<link name="base_inertial_link">
-    <inertial>
-        <mass value="28.0"/>
-        <origin xyz="0 0 0" rpy="0 0 0"/>
-        <inertia 
-            ixx="0.8885" ixy="0.0" ixz="0.0" 
-            iyy="1.4993" iyz="0.0" 
-            izz="1.7421"/>
-    </inertial>
-</link>
 
-<!-- Fixed joint from inertial link to base_link -->
-<joint name="inertial_to_base" type="fixed">
-    <parent link="base_inertial_link"/>
-    <child link="base_link"/>
-    <origin xyz="0 0 0" rpy="0 0 0"/>
-</joint>
+    <!-- Base link (no inertial) -->
+    <link name="base_link">
+        <visual>
+            <geometry>
+                <box size="0.71 0.46 0.40"/>
+            </geometry>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <material name="robot_gray"/>
+        </visual>
+        <collision>
+            <geometry>
+                <box size="0.71 0.46 0.40"/>
+            </geometry>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+        </collision>
+    </link>
 
-<!-- Base link (now no inertial data, only visuals) -->
-<link name="base_link">
-    <visual>
-        <geometry>
-            <box size="0.71 0.46 0.40"/>
-        </geometry>
-        <origin xyz="0 0 0" rpy="0 0 0"/>
-        <material name="robot_gray"/>
-    </visual>
-    <collision>
-        <geometry>
-            <box size="0.71 0.46 0.40"/>
-        </geometry>
-        <origin xyz="0 0 0" rpy="0 0 0"/>
-    </collision>
-</link>
-
-    <!-- BASE_FOOTPRINT LINK -->
+    <!-- BASE_FOOTPRINT LINK with inertial data -->
+    <link name="base_footprint">
+        <inertial>
+            <mass value="28.0"/>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <inertia 
+                ixx="0.8885" ixy="0.0" ixz="0.0" 
+                iyy="1.4993" iyz="0.0" 
+                izz="1.7421"/>
+        </inertial>
+    </link>
 
     <joint name="base_footprint_joint" type="fixed">
         <parent link="base_link"/>
         <child link="base_footprint"/>
         <origin xyz="0 0 0" rpy="0 0 0"/>
     </joint>
-
-    <link name="base_footprint">
-    </link>
 
     <link name="frontAxel_link">
         <visual>
@@ -209,26 +198,26 @@
     </joint>
 
     <!-- LDS01 Lidar Link -->
-<link name="laser_link">
-    <visual>
-        <geometry>
-            <cylinder radius="0.035" length="0.03"/>
-        </geometry>
-        <origin xyz="0 0 0" rpy="0 0 0"/>
-        <material name="robot_front_color"/>
-    </visual>
-    <collision>
-        <geometry>
-            <cylinder radius="0.035" length="0.03"/>
-        </geometry>
-        <origin xyz="0 0 0" rpy="0 0 0"/>
-    </collision>
-</link>
+    <link name="laser_link">
+        <visual>
+            <geometry>
+                <cylinder radius="0.035" length="0.03"/>
+            </geometry>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <material name="robot_front_color"/>
+        </visual>
+        <collision>
+            <geometry>
+                <cylinder radius="0.035" length="0.03"/>
+            </geometry>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+        </collision>
+    </link>
 
-<joint name="laser_base_joint" type="fixed">
-    <parent link="base_link"/>
-    <child link="laser_link"/>
-    <origin xyz="0.3076 0 0.2134" rpy="0 0 0"/>
-</joint>
+    <joint name="laser_base_joint" type="fixed">
+        <parent link="base_link"/>
+        <child link="laser_link"/>
+        <origin xyz="0.3076 0 0.2134" rpy="0 0 0"/>
+    </joint>
 
 </robot>
