@@ -38,13 +38,13 @@ def generate_launch_description():
     ))
 
     # 2. SegwayRMP SmartCar (inherits LD_LIBRARY_PATH)
-    # ld.add_action(Node(
-    #     package='segwayrmp',
-    #     executable='SmartCar',
-    #     name='SmartCar',
-    #     output='screen',
-    #     remappings=[('/cmd_vel', '/cmd_vel_const')]
-    # ))
+    ld.add_action(Node(
+        package='segwayrmp',
+        executable='SmartCar',
+        name='SmartCar',
+        output='screen',
+        remappings=[('/cmd_vel', '/cmd_vel_const')]
+    ))
 
 
     # 3. chassis_enable_client
