@@ -26,7 +26,7 @@ def generate_launch_description():
     nav2_cfg      = os.path.join(config_path, 'nav2_params_with_slam.yaml')
     mapper_cfg    = os.path.join(config_path, 'mapper_params_online_async.yaml')
     realsense_cfg = os.path.join(config_path, 'realsense2_camera_pie.yaml')
-    leaser_cfg    = os.path.join(config_path, 'hls_lfcd_lds_driver_pie.yaml')
+
   
 
     # 1. cmd_vel_relay
@@ -73,7 +73,10 @@ def generate_launch_description():
                 'launch', 'rs_launch.py'
             )
         ),
-        launch_arguments={'config_file': realsense_cfg}.items()
+        launch_arguments={
+            'config_file': realsense_cfg,
+            'log_level': fatal
+        }.items()
     ))
 
     #  6. LDA 01 _ laserscan
@@ -92,13 +95,13 @@ def generate_launch_description():
     ))
 
     # 7. SLAM Toolbox
-    # ld.add_action(Node(
-    #     package='slam_toolbox',
-    #     executable='async_slam_toolbox_node',
-    #     name='slam_toolbox',
-    #     output='screen',
-    #     parameters=[mapper_cfg]
-    # ))
+    ld.add_action(Node(
+        package='slam_toolbox',
+        executable='async_slam_toolbox_node',
+        name='slam_toolbox',
+        output='screen',
+        parameters=[mapper_cfg]
+    ))
 
     # 8. Include Nav2 bringup launch
     # ld.add_action(IncludeLaunchDescription(
