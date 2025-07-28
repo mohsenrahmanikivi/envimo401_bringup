@@ -1,7 +1,7 @@
 camera_name: camera
 enable_color: true
 rgb_camera:
-  color_profile: 320x240x30
+  color_profile: "320,240,30"   
   color_format: RGB8
   enable_auto_exposure: true
 
@@ -15,4 +15,4 @@ enable_sync: false
 enable_rgbd: false
 
 publish_tf: true
-tf_publish_rate: 30.0
+tf_publish_rate: 10.0
