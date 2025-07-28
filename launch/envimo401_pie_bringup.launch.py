@@ -81,7 +81,6 @@ def generate_launch_description():
     ))
 
     #  6. LDA 01 _ laserscan
-    
     ld.add_action(IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
             os.path.join(
@@ -90,7 +89,7 @@ def generate_launch_description():
             )
          ),
          launch_arguments={
-                'port': '/dev/ttyUSB1',
+                'port': '/dev/lidar',
                 'frame_id': 'laser_link'
              }.items()
     ))
