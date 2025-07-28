@@ -57,13 +57,13 @@ def generate_launch_description():
 
 
     # 4. robot_state_publisher
-    ld.add_action(Node(
-        package='robot_state_publisher',
-        executable='robot_state_publisher',
-        name='robot_state_publisher',
-        output='screen',
-        parameters=[{'robot_description': open(urdf_path).read()}]
-    ))
+    # ld.add_action(Node(
+    #     package='robot_state_publisher',
+    #     executable='robot_state_publisher',
+    #     name='robot_state_publisher',
+    #     output='screen',
+    #     parameters=[{'robot_description': open(urdf_path).read()}]
+    # ))
 
     # # 5. Include RealSense launch file
     # ld.add_action(IncludeLaunchDescription(
