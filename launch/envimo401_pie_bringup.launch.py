@@ -43,7 +43,8 @@ def generate_launch_description():
         executable='SmartCar',
         name='SmartCar',
         output='screen',
-        remappings=[('/cmd_vel', '/cmd_vel_const')]
+        remappings=[('/cmd_vel', '/cmd_vel_const')],
+        parameters=[{'serial_full_name': 'rpserialport'}]
     ))
 
 
