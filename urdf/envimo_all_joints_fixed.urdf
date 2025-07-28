@@ -197,27 +197,4 @@
         <child link="camera_link"/>
     </joint>
 
-    <!-- LDS01 Lidar Link -->
-<link name="laser_link">
-    <visual>
-        <geometry>
-            <cylinder radius="0.035" length="0.03"/>
-        </geometry>
-        <origin xyz="0 0 0" rpy="0 0 0"/>
-        <material name="robot_front_color"/>
-    </visual>
-    <collision>
-        <geometry>
-            <cylinder radius="0.035" length="0.03"/>
-        </geometry>
-        <origin xyz="0 0 0" rpy="0 0 0"/>
-    </collision>
-</link>
-
-<joint name="laser_base_joint" type="fixed">
-    <parent link="base_link"/>
-    <child link="laser_link"/>
-    <origin xyz="0.3076 0 0.2134" rpy="0 0 0"/>
-</joint>
-
 </robot>
