@@ -79,28 +79,16 @@ def generate_launch_description():
     ))
 
     # 6. depthimage_to_laserscan
-    # ld.add_action(Node(
-    #     package='depthimage_to_laserscan',
-    #     executable='depthimage_to_laserscan_node',
-    #     name='depthimage_to_laserscan',
-    #     output='screen',
-    #     parameters=[depthimg_cfg],
-    #     remappings=[
-    #         ('depth', '/camera/camera/depth/image_rect_raw'),
-    #         ('depth_camera_info', '/camera/camera/depth/camera_info')
-    #     ]
-    # ))
-
-    #  6. LDA 01 _ laserscan
-    
-    ld.add_action(IncludeLaunchDescription(
-        PythonLaunchDescriptionSource(
-            os.path.join(
-                get_package_share_directory('hls_lfcd_lds_driver'),
-                'launch', 'hlds_laser.launch.py'
-            )
-         ),
-         launch_arguments={'params_file': leaser_cfg}.items()
+    ld.add_action(Node(
+        package='depthimage_to_laserscan',
+        executable='depthimage_to_laserscan_node',
+        name='depthimage_to_laserscan',
+        output='screen',
+        parameters=[depthimg_cfg],
+        remappings=[
+            ('depth', '/camera/camera/depth/image_rect_raw'),
+            ('depth_camera_info', '/camera/camera/depth/camera_info')
+        ]
     ))
 
     # 7. SLAM Toolbox
