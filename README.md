@@ -45,7 +45,15 @@ sudo apt install ros-humble-hls-lfcd-lds-driver
   ```
 sudo chmod a+rw /dev/ttyUSB0
 ```
-  
+3.1 OR to set name /dev/lidar and permission create a udev rule 
+Create a udev rule to have a persistent name “\dev\lidar”:
+ ```sudo nano /etc/udev/rules.d/99-lidar.rules```
+ and copy it there ,then reboot
+```SUBSYSTEM=="tty", KERNELS=="1-1.3", SYMLINK+="lidar", MODE="0666", GROUP="dialout"```
+
+
+sudo usermod -aG dialout $USER
+
 - Run hlds_laser_publisher Node to test:  
 ```
 ros2 launch hls_lfcd_lds_driver hlds_laser.launch.py
