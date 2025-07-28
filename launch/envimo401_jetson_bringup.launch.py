@@ -45,7 +45,8 @@ def generate_launch_description():
         executable='SmartCar',
         name='segway_driver',
         output='screen',
-        remappings=[('/cmd_vel', '/cmd_vel_out')]
+        remappings=[('/cmd_vel', '/cmd_vel_out')],
+        parameters=[{'serial_full_name': 'rpserialport'}]
     ))
 
     # # 3. drive_segway_sample in its own terminal
