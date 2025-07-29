@@ -47,9 +47,20 @@ sudo chmod a+rw /dev/ttyUSB0
 ```
 3.1 OR to set name /dev/lidar and permission create a udev rule 
 Create a udev rule to have a persistent name “\dev\lidar”:
- ```sudo nano /etc/udev/rules.d/99-lidar.rules```
  and copy it there ,then reboot
-```SUBSYSTEM=="tty", KERNELS=="1-1.3", SYMLINK+="lidar", MODE="0666", GROUP="dialout"```
+```
+- Identify Your Device tty
+ sudo dmesg | grep tty
+- Identify Your Device if you know which tty is:
+ udevadm info -a -n /dev/ttyUSB0 | grep "KERNELS=="
+- Create a udev rule to have a persistent name “\dev\lidar”:
+sudo nano /etc/udev/rules.d/99-lidar.rules
+- Put this line and modify the KERNELS and SYNKINk
+SUBSYSTEM=="tty", KERNELS=="1-1.3", SYMLINK+="lidar", MODE="0666", GROUP="dialout"
+- Add your user to dialout group
+sudo usermod -aG dialout $USER
+- reboot
+```
 
 
 sudo usermod -aG dialout $USER
