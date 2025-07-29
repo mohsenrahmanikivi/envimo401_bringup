@@ -78,9 +78,7 @@ slam_toolbox:
     # This helps assume everywhere is free unless LiDAR confirms otherwise.
     occupancy_threshold: 0.1  # default ~0.5, reduce to treat weak evidence as free
 
-        # Most important part:
-    map_unknown_space: false      # <<<< Only known (scanned) space will be shown
-    map_with_known_poses: false
+
     temporal_update: 1.0
 
     # You could further force this behavior using costmap config (outside slam_toolbox),
