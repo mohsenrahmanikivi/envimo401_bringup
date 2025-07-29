@@ -19,8 +19,8 @@ slam_toolbox:
     mode: mapping  # or "mapping" — be sure this matches your use case
 
     # If you're resuming a map
-    # map_file_name: /home/envimo/my_map
-    # map_start_pose: [0.0, 0.0, 0.0]
+    map_file_name: my_map
+    map_start_pose: [0.0, 0.0, 0.0]
     # map_start_at_dock: true
 
     debug_logging: false
