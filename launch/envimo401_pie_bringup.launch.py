@@ -24,7 +24,7 @@ def generate_launch_description():
 
     # Config files
     nav2_cfg      = os.path.join(config_path, 'nav2_params_with_slam.yaml')
-    mapper_cfg    = os.path.join(config_path, 'mapper_params_online_async.yaml')
+    mapper_cfg    = os.path.join(config_path, 'mapper_params_online_async_pie.yaml')
     realsense_cfg = os.path.join(config_path, 'realsense2_camera_pie.yaml')
 
   
