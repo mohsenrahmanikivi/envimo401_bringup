@@ -26,7 +26,7 @@ def generate_launch_description():
     twist_mux_cfg = os.path.join(config_path, 'twist_mux.yaml')
     depthimg_cfg  = os.path.join(config_path, 'depthimage_to_laserscan.yaml')
     nav2_cfg      = os.path.join(config_path, 'nav2_params_with_map.yaml')
-    mapper_cfg    = os.path.join(config_path, 'slam_jetson_mapper_params_online_async.yaml')
+    mapper_cfg    = os.path.join(config_path, 'mapper_params_online_async_jetson.yaml')
     realsense_cfg = os.path.join(config_path, 'realsense2_camera.yaml')
     leaser_cfg    = os.path.join(config_path, 'hls_lfcd_lds_driver.yaml')
 
