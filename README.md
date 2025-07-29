@@ -59,7 +59,10 @@ sudo nano /etc/udev/rules.d/99-lidar.rules
 SUBSYSTEM=="tty", KERNELS=="1-1.3", SYMLINK+="lidar", MODE="0666", GROUP="dialout"
 - Add your user to dialout group
 sudo usermod -aG dialout $USER
-- reboot
+- reload
+sudo udevadm control --reload-rules
+sudo udevadm trigger
+
 ```
 
 
