@@ -113,6 +113,13 @@ git clone https://github.com/mohsenrahmanikivi/envimo401_chassis.git
  `export LD_LIBRARY_PATH=<PATH_TO_THE_PACKAGE>/src/envimo401_chassis/LibAPI/lib:$LD_LIBRARY_PATH`  
  `export LD_LIBRARY_PATH=~/ros2_ws/src/envimo401_chassis/LibAPI/lib:$LD_LIBRARY_PATH`
 
+or make it automatic by add this to ~/.bashrc
+ ```
+# Prepend path to LD_LIBRARY_PATH if not already included
+if [[ ":$LD_LIBRARY_PATH:" != *":$HOME/ros2_ws/src/envimo401_chassis/LibAPI/lib:"* ]]; then
+    export LD_LIBRARY_PATH="$HOME/ros2_ws/src/envimo401_chassis/LibAPI/lib:$LD_LIBRARY_PATH"
+fi
+ ```
 5. Prepare the chassis:
  ```
 cd ~/ros2_ws/src/envimo401_chassis
