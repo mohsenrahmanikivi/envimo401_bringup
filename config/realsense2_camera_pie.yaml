@@ -1,9 +1,10 @@
 camera_name: camera
 enable_color: true
+
 rgb_camera:
-  color_profile: "320,240,30"   
+  color_profile: "320,240,15"   # 🟡 Lower FPS to 15 (saves power)
   color_format: RGB8
-  enable_auto_exposure: true
+  enable_auto_exposure: false   # 🟢 Disabling AE reduces CPU + sensor activity
 
 enable_depth: false
 enable_infra: false
@@ -15,5 +16,4 @@ enable_sync: false
 enable_rgbd: false
 
 publish_tf: false
-#tf_publish_rate: 10.0
 log_level: fatal
