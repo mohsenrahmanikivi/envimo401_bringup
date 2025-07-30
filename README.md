@@ -76,15 +76,20 @@ ros2 launch hls_lfcd_lds_driver hlds_laser.launch.py
 - Run hlds_laser_publisher Node with RViz:  
 ```
 ros2 launch hls_lfcd_lds_driver view_hlds_laser.launch.py
-```
 
-# 5. Install nav2 stack
+```
+# 5. Install slam tool box
+
+```
+sudo apt install ros-humble-slam-toolbox
+```
+# 5. Install nav2 stack ( is not required now)
 
 ```
 sudo apt install ros-humble-navigation2 ros-humble-nav2-bringup
 ```
 
-# 5. Install twist mux ( is about to be removed)
+# 5. Install twist mux (is not required now)
 ```
 sudo apt install ros-humble-twist-mux
 ```
