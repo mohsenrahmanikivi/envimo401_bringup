@@ -29,6 +29,8 @@ sudo apt install ros-humble-librealsense2*
 6. Install ROS Wrapper for Intel® RealSense™ cameras  
  ```
 sudo apt install ros-humble-realsense2-*
+sudo apt install librealsense2-udev-rules
+
 ```
 
   ### Optional for test
