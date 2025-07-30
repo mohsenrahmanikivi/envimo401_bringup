@@ -134,8 +134,11 @@ sudo ./Segway_RMP_Init.sh
 
  
  # 8. Run   
- 
- `ros2 launch envimo401_bringup envimo401_bringup.launch.py`
+  
+  ```
+source ~/.bashrc
+ros2 launch envimo401_bringup envimo401_bringup.launch.py
+```
  
 
 # envimo infrastructure
