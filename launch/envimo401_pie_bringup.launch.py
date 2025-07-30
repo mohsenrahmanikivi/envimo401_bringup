@@ -75,8 +75,8 @@ def generate_launch_description():
             )
         ),
         launch_arguments={
-            'config_file': realsense_cfg,
-            'log_level': 'fatal'
+            'config_file': realsense_cfg
+         # , 'log_level': 'fatal'
         }.items()
     ))
 
