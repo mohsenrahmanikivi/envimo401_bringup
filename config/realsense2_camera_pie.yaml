@@ -2,7 +2,7 @@ camera_name: camera
 enable_color: true
 
 rgb_camera:
-  color_profile: "424x240x15"   # 🟡 Lower FPS to 15 (saves power)
+  color_profile: "424x240x6"   # 🟡 Lower FPS to 15 (saves power)
 # 1280x720x10
 # 1280x720x15
 # 1280x720x6
