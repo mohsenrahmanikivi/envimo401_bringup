@@ -80,10 +80,15 @@ ros2 launch hls_lfcd_lds_driver hlds_laser.launch.py
 ros2 launch hls_lfcd_lds_driver view_hlds_laser.launch.py
 
 ```
-# 5. Install slam tool box
+# 5. Install foxglove-bridge
 
 ```
 sudo apt install ros-humble-slam-toolbox
+```
+
+# 5. Install slam tool box
+```
+sudo apt install ros-$ROS_DISTRO-foxglove-bridge
 ```
 # 5. Install nav2 stack ( is not required now)
 
