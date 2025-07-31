@@ -47,6 +47,14 @@ def generate_launch_description():
         parameters=[{'serial_full_name': 'rpserialport'}]
     ))
 
+    # this run SmartCar if all other node are up and running
+    ld.add_action(RegisterEventHandler(
+        OnProcessStart(
+            target_action=cmd_vel_relay,
+            on_start=[SmartCar]
+        )
+    ))
+
 
     # 3. chassis_enable_client
     ld.add_action(Node(
