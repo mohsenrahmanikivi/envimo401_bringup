@@ -8,7 +8,7 @@ from launch.actions import (
 )
 from launch.event_handlers import OnProcessExit, OnProcessStart
 from launch_ros.actions import Node
-from launch.launch_description_sources import PythonLaunchDescriptionSource
+from launch.launch_description_sources import PythonLaunchDescriptionSource, AnyLaunchDescriptionSource
 from ament_index_python.packages import get_package_share_directory
 from pathlib import Path
 import os
@@ -111,6 +111,17 @@ def generate_launch_description():
         parameters=[mapper_cfg]
     ))
 
+    ld.add_action(IncludeLaunchDescription(
+        AnyLaunchDescriptionSource(
+            os.path.join(
+                get_package_share_directory('foxglove_bridge'),
+                'launch', 'foxglove_bridge_launch.xml'
+            )
+        ),
+        launch_arguments={
+            'port': '8765'
+        }.items()
+    ))
     # 8. Include Nav2 bringup launch
     # ld.add_action(IncludeLaunchDescription(
     #     PythonLaunchDescriptionSource(
