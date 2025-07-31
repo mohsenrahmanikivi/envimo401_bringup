@@ -28,30 +28,30 @@ def generate_launch_description():
     realsense_cfg = os.path.join(config_path, 'realsense2_camera_pie.yaml')
 
   
-
-    # 1. cmd_vel_relay
-    ld.add_action(Node(
+    # 1. Define cmd_vel_relay node and store it in a variable
+    cmd_vel_relay = Node(
         package='chassis_enable',
         executable='cmd_vel_relay',
         name='cmd_vel_relay',
         output='screen'
-    ))
+    )
+    ld.add_action(cmd_vel_relay)
 
-    # 2. SegwayRMP SmartCar (inherits LD_LIBRARY_PATH)
-    ld.add_action(Node(
+    # 2. Define SmartCar node
+    smartcar_node = Node(
         package='segwayrmp',
         executable='SmartCar',
         name='SmartCar',
         output='screen',
         remappings=[('/cmd_vel', '/cmd_vel_const')],
         parameters=[{'serial_full_name': 'rpserialport'}]
-    ))
+    )
 
-    # this run SmartCar if all other node are up and running
+    # 3. Delay SmartCar until cmd_vel_relay is started
     ld.add_action(RegisterEventHandler(
         OnProcessStart(
             target_action=cmd_vel_relay,
-            on_start=[SmartCar]
+            on_start=[smartcar_node]
         )
     ))
 
