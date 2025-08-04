@@ -87,7 +87,7 @@ sudo apt install ros-humble-ublox-gps
 ```
 Test
 ```
-source /opt/ros/foxy/setup.bash
+source /opt/ros/humble/setup.bash
 ros2 run ublox_gps ublox_gps_node --ros-args -p device:=/dev/ttyACM0
 ```
 
