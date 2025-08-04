@@ -80,6 +80,17 @@ ros2 launch hls_lfcd_lds_driver hlds_laser.launch.py
 ros2 launch hls_lfcd_lds_driver view_hlds_laser.launch.py
 
 ```
+# 5. Install Ublox driver
+
+```
+sudo apt install ros-humble-ublox-gps
+```
+Test
+```
+source /opt/ros/foxy/setup.bash
+ros2 run ublox_gps ublox_gps_node --ros-args -p device:=/dev/ttyACM0
+```
+
 # 5. Install foxglove-bridge
 
 ```
