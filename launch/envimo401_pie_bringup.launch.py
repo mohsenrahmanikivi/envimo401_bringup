@@ -26,6 +26,7 @@ def generate_launch_description():
     nav2_cfg      = os.path.join(config_path, 'nav2_params_with_slam.yaml')
     mapper_cfg    = os.path.join(config_path, 'mapper_params_online_async_pie.yaml')
     realsense_cfg = os.path.join(config_path, 'realsense2_camera_pie.yaml')
+    ublox_cfg = os.path.join(config_path, 'ublox_gps.yaml')
 
   
     # 1. Define cmd_vel_relay node and store it in a variable
@@ -56,7 +57,7 @@ def generate_launch_description():
     ))
 
 
-    # 3. chassis_enable_client
+    # 4. chassis_enable_client
     ld.add_action(Node(
         package='chassis_enable',
         executable='chassis_enable_client',
@@ -65,7 +66,7 @@ def generate_launch_description():
     ))
 
 
-    # 4. robot_state_publisher
+    # 5. robot_state_publisher
     ld.add_action(Node(
         package='robot_state_publisher',
         executable='robot_state_publisher',
@@ -74,7 +75,7 @@ def generate_launch_description():
         parameters=[{'robot_description': open(urdf_path).read()}]
     ))
 
-    # # 5. Include RealSense launch file
+    # 6. Include RealSense launch file
     ld.add_action(IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
             os.path.join(
@@ -88,7 +89,7 @@ def generate_launch_description():
         }.items()
     ))
 
-    #  6. LDA 01 _ laserscan
+    #  7. LDA 01 _ laserscan
     ld.add_action(IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
             os.path.join(
@@ -102,7 +103,7 @@ def generate_launch_description():
              }.items()
     ))
 
-    # 7. SLAM Toolbox
+    # 8. SLAM Toolbox
     ld.add_action(Node(
         package='slam_toolbox',
         executable='async_slam_toolbox_node',
@@ -111,6 +112,16 @@ def generate_launch_description():
         parameters=[mapper_cfg]
     ))
 
+     # 9. Ublox_gps
+    ld.add_action(Node(
+        package='ublox_gps',
+        executable='ublox_gps_node',
+        name='ublox_gps_node',
+        output='screen',
+        parameters=[ublox_cfg]
+    ))
+    
+     # 10. foxglove
     ld.add_action(IncludeLaunchDescription(
         AnyLaunchDescriptionSource(
             os.path.join(
@@ -122,7 +133,7 @@ def generate_launch_description():
             'port': '8765'
         }.items()
     ))
-    # 8. Include Nav2 bringup launch
+    # 11. Include Nav2 bringup launch
     # ld.add_action(IncludeLaunchDescription(
     #     PythonLaunchDescriptionSource(
     #         os.path.join(
@@ -133,7 +144,7 @@ def generate_launch_description():
     #     launch_arguments={'params_file': nav2_cfg}.items()
     # ))
 
-    # 9. Shutdown on any process exit
+    # 12. Shutdown on any process exit
     ld.add_action(RegisterEventHandler(
         OnProcessExit(on_exit=[Shutdown()])
     ))
