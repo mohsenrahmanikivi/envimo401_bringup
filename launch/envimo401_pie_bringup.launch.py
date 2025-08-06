@@ -122,17 +122,17 @@ def generate_launch_description():
     ))
     
      # 10. foxglove
-    ld.add_action(IncludeLaunchDescription(
-        AnyLaunchDescriptionSource(
-            os.path.join(
-                get_package_share_directory('foxglove_bridge'),
-                'launch', 'foxglove_bridge_launch.xml'
-            )
-        ),
-        launch_arguments={
-            'port': '8765'
-        }.items()
-    ))
+    # ld.add_action(IncludeLaunchDescription(
+    #     AnyLaunchDescriptionSource(
+    #         os.path.join(
+    #             get_package_share_directory('foxglove_bridge'),
+    #             'launch', 'foxglove_bridge_launch.xml'
+    #         )
+    #     ),
+    #     launch_arguments={
+    #         'port': '8765'
+    #     }.items()
+    # ))
     # 11. Include Nav2 bringup launch
     # ld.add_action(IncludeLaunchDescription(
     #     PythonLaunchDescriptionSource(
