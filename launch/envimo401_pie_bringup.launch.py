@@ -112,28 +112,29 @@ def generate_launch_description():
         parameters=[mapper_cfg]
     ))
 
-     # 9. Ublox_gps
-    # ld.add_action(Node(
-    #     package='ublox_gps',
-    #     executable='ublox_gps_node',
-    #     name='ublox_gps_node',
-    #     output='screen',
-    #     parameters=[ublox_cfg]
-    # ))
+    # 9. Ublox_gps
+    ld.add_action(Node(
+        package='ublox_gps',
+        executable='ublox_gps_node',
+        name='ublox_gps_node',
+        output='screen',
+        parameters=[ublox_cfg]
+    ))
     
-     # 10. foxglove
-    # ld.add_action(IncludeLaunchDescription(
-    #     AnyLaunchDescriptionSource(
-    #         os.path.join(
-    #             get_package_share_directory('foxglove_bridge'),
-    #             'launch', 'foxglove_bridge_launch.xml'
-    #         )
-    #     ),
-    #     launch_arguments={
-    #         'port': '8765'
-    #     }.items()
-    # ))
-    # 11. Include Nav2 bringup launch
+    # 10. foxglove
+    ld.add_action(IncludeLaunchDescription(
+        AnyLaunchDescriptionSource(
+            os.path.join(
+                get_package_share_directory('foxglove_bridge'),
+                'launch', 'foxglove_bridge_launch.xml'
+            )
+        ),
+        launch_arguments={
+            'port': '8765'
+        }.items()
+    ))
+
+        # 11. Include Nav2 bringup launch
     # ld.add_action(IncludeLaunchDescription(
     #     PythonLaunchDescriptionSource(
     #         os.path.join(
@@ -150,3 +151,5 @@ def generate_launch_description():
     ))
 
     return ld
+
+
