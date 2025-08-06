@@ -4,7 +4,7 @@ ublox_gps_node:
     frame_id: "gps_link"
     rate: 4.0
     debug: 0
-    nav_rate: 1.0
+    nav_rate: 1
     enable_pps: false
     dgnss_mode: 3
     dynamic_model: airborne1
