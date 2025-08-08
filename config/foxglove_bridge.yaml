@@ -1,0 +1,38 @@
+# config/foxglove_bridge.yaml
+
+# WebSocket settings
+port: 8765                  # default Foxglove WS port
+address: 0.0.0.0            # listen on all interfaces
+
+# Only bridge & allow the client to subscribe to these topics:
+topic_whitelist:
+  - "/speed_fb"
+  - "/chassis_mode_fb"
+  - "/bms_fb"
+  - "/scan"
+  - "/robot_description"
+  - "/camera/camera/color/image_raw/compressed"
+  - "/camera/camera/color/camera_info"
+  - "/fix"
+
+client_topic_whitelist:
+  - "/speed_fb"
+  - "/chassis_mode_fb"
+  - "/bms_fb"
+  - "/scan"
+  - "/robot_description"
+  - "/camera/camera/color/image_raw/compressed"
+  - "/camera/camera/color/camera_info"
+  - "/fix"
+
+# QoS queue depths: keep these tiny so ROS never buffers more than a handful of messages
+min_qos_depth: 1
+max_qos_depth: 3
+
+# Drop old outgoing messages quickly (1 MB buffer)
+send_buffer_limit: 1048576
+
+# (Optional – leave at defaults or tweak as needed)
+# tls: false
+# use_sim_time: false
+# num_threads: 0
