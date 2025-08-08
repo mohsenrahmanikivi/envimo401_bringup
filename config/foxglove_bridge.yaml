@@ -2,7 +2,7 @@
 
 # WebSocket settings
 port: 8765                  # default Foxglove WS port
-address: 0.0.0.0            # listen on all interfaces
+address: "0.0.0.0"            # listen on all interfaces
 
 # Only bridge & allow the client to subscribe to these topics:
 topic_whitelist:
