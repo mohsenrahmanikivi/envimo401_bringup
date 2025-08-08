@@ -130,16 +130,15 @@ def generate_launch_description():
                 'launch', 'foxglove_bridge_launch.xml'
             )
         ),
-        launch_arguments={
-          'config_file': foxglove_cfg,
-              'port': '8765'
-        
+         launch_arguments={
+            'port': '8765',
+            'address': '0.0.0.0',
+            'min_qos_depth': '1',
+            'max_qos_depth': '3',
+            'send_buffer_limit': '1048576'
         }.items()
     ))
-
-
-
-      
+            
          
         # 11. Include Nav2 bringup launch
     # ld.add_action(IncludeLaunchDescription(
