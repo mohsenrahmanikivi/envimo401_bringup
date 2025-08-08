@@ -27,6 +27,7 @@ def generate_launch_description():
     mapper_cfg    = os.path.join(config_path, 'mapper_params_online_async_pie.yaml')
     realsense_cfg = os.path.join(config_path, 'realsense2_camera_pie.yaml')
     ublox_cfg = os.path.join(config_path, 'ublox_gps.yaml')
+    foxglove_cfg =  os.path.join(config_path, 'foxglove_bridge.yaml')
 
   
     # 1. Define cmd_vel_relay node and store it in a variable
@@ -130,10 +131,15 @@ def generate_launch_description():
             )
         ),
         launch_arguments={
-            'port': '8765'
+          'config_file': foxglove_cfg
+        
         }.items()
     ))
 
+
+
+      
+         
         # 11. Include Nav2 bringup launch
     # ld.add_action(IncludeLaunchDescription(
     #     PythonLaunchDescriptionSource(
