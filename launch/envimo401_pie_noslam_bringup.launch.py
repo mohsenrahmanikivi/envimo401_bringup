@@ -26,9 +26,9 @@ def generate_launch_description():
     nav2_cfg      = os.path.join(config_path, 'nav2_params_with_slam.yaml')
     mapper_cfg    = os.path.join(config_path, 'mapper_params_online_async_pie.yaml')
     realsense_cfg = os.path.join(config_path, 'realsense2_camera_pie.yaml')
-    ublox_cfg = os.path.join(config_path, 'ublox_gps.yaml')
-    foxglove_cfg = os.path.join(config_path, 'foxglove_bridge.yaml')
-    hlds_laser_cfg = os.path.join(config_path, 'hls_lfcd_lds_driver_pie.yaml')
+    ublox_cfg     = os.path.join(config_path, 'ublox_gps.yaml')
+    foxglove_cfg  = os.path.join(config_path, 'foxglove_bridge.yaml')
+    hlds_laser_cfg= os.path.join(config_path, 'hls_lfcd_lds_driver_pie.yaml')
 
   
     # 1. Define cmd_vel_relay node and store it in a variable
@@ -87,7 +87,6 @@ def generate_launch_description():
         ),
         launch_arguments={
             'config_file': realsense_cfg
-         # , 'log_level': 'fatal'
         }.items()
     ))
 
@@ -114,12 +113,17 @@ def generate_launch_description():
     # ))
 
     # 9. Ublox_gps
-    ld.add_action(Node(
-        package='ublox_gps',
-        executable='ublox_gps_node',
-        name='ublox_gps_node',
-        output='screen',
-        parameters=[ublox_cfg]
+    ld.add_action(IncludeLaunchDescription(
+        AnyLaunchDescriptionSource(
+            os.path.join(
+                get_package_share_directory('ublox_gps'),
+                'launch',
+                'ublox_gps_node-composed-launch.py'
+            )
+        ),
+        launch_arguments={
+            'config_file': ublox_cfg
+        }.items()
     ))
     
     # 10. foxglove
@@ -127,16 +131,15 @@ def generate_launch_description():
         AnyLaunchDescriptionSource(
             os.path.join(
                 get_package_share_directory('foxglove_bridge'),
-                'launch', 'foxglove_bridge_launch.xml'
+                'launch', 
+                'foxglove_bridge_launch.xml'
             )
         ),
         launch_arguments={
             'config_file': foxglove_cfg
         }.items()
     ))
-          
             
-         
         # 11. Include Nav2 bringup launch
     # ld.add_action(IncludeLaunchDescription(
     #     PythonLaunchDescriptionSource(
