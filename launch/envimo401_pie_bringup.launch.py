@@ -138,7 +138,7 @@ def generate_launch_description():
         launch_arguments={
             # 'config_file': foxglove_cfg
             'port': '8765',
-            'min_qos_depth': '1'
+            'min_qos_depth': '1',
             'max_qos_depth': '3',
             'send_buffer_limit': '1048576',
             'use_compression': 'true'
