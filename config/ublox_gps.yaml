@@ -2,38 +2,17 @@
 
 device: /dev/ttyACM0
 uart1.baudrate: 115200
-
-# Update rates
 rate: 10
-nav_rate: 1
-
-# Positioning mode
-dynamic_model: automotive     # Or 'airborne' if drone/aircraft
+dynamic_model: automotive
 fix_mode: auto
-dr_limit: 0
-
-# GNSS constellations (enable all available)
 gnss.gps: true
 gnss.glonass: true
 gnss.galileo: true
 gnss.beidou: true
-gnss.qzss: false
 gnss.sbas: true
-sbas.usage: 1                 # Use SBAS differential corrections
-sbas.max: 5                   # Max SBAS satellites to use
-
-# Differential and PPP
-enable_ppp: true              # Enable Precise Point Positioning
-dgnss_mode: 1                # Enable DGPS (0=off, 1=auto, 2=manual)
-rtcm.ids: [1005,1074,1084,1094,1124]  # Common RTCM IDs for corrections
-rtcm.rates: [1,1,1,1,1]
-
-# Published topics (enable necessary ones)
+sbas.usage: 1
+dgnss_mode: 1            # Enable DGPS corrections (supported)
+enable_ppp: false        # Disable PPP on u-blox 8
 publish.aid.alm: true
 publish.aid.eph: true
-publish.rxm.rtcm: true        # RTCM corrections data
-publish.nav.pvt: true         # Position velocity time solution
-
-# Others
-save_on_shutdown: true
-debug: false
+publish.rxm.rtcm: true
