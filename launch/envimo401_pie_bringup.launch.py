@@ -118,7 +118,7 @@ def generate_launch_description():
             os.path.join(
                 get_package_share_directory('ublox_gps'),
                 'launch',
-                'ublox_gps_node-composed-launch.py'
+                'ublox_gps_node-launch.py'
             )
         ),
         launch_arguments={
