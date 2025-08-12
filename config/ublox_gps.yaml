@@ -1,18 +1,1 @@
 # U-Blox AG [u-blox 8]
-
-device: /dev/ttyACM0
-uart1.baudrate: 115200
-rate: 10
-dynamic_model: automotive
-fix_mode: auto
-gnss.gps: true
-gnss.glonass: true
-gnss.galileo: true
-gnss.beidou: true
-gnss.sbas: true
-sbas.usage: 1
-dgnss_mode: 1            # Enable DGPS corrections (supported)
-enable_ppp: false        # Disable PPP on u-blox 8
-publish.aid.alm: true
-publish.aid.eph: true
-publish.rxm.rtcm: true
