@@ -28,6 +28,8 @@ max_qos_depth: 3
 
 # Drop old outgoing messages quickly (1 MB buffer)
 send_buffer_limit: 1048576
+# Compression
+use_compression: true
 
 # (Optional – leave at defaults or tweak as needed)
 # tls: false
