@@ -27,6 +27,8 @@ def generate_launch_description():
     mapper_cfg    = os.path.join(config_path, 'mapper_params_online_async_pie.yaml')
     realsense_cfg = os.path.join(config_path, 'realsense2_camera_pie.yaml')
     ublox_cfg = os.path.join(config_path, 'ublox_gps.yaml')
+    foxglove_cfg = os.path.join(config_path, 'foxglove_bridge.yaml')
+    hlds_laser_cfg = os.path.join(config_path, 'hls_lfcd_lds_driver_pie.yaml')
 
   
     # 1. Define cmd_vel_relay node and store it in a variable
@@ -97,10 +99,9 @@ def generate_launch_description():
                 'launch', 'hlds_laser.launch.py'
             )
          ),
-         launch_arguments={
-                'port': '/dev/lidar',
-                'frame_id': 'laser_link'
-             }.items()
+           launch_arguments={
+              'config_file': hlds_laser_cfg
+          }.items()
     ))
 
     # # 8. SLAM Toolbox
@@ -129,14 +130,11 @@ def generate_launch_description():
                 'launch', 'foxglove_bridge_launch.xml'
             )
         ),
-         launch_arguments={
-            'port': '8765',
-            'address': '0.0.0.0',
-            'min_qos_depth': '1',
-            'max_qos_depth': '3',
-            'send_buffer_limit': '1048576'
+        launch_arguments={
+            'config_file': foxglove_cfg
         }.items()
     ))
+          
             
          
         # 11. Include Nav2 bringup launch
