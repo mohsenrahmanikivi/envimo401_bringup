@@ -122,7 +122,7 @@ def generate_launch_description():
             )
         ),
         launch_arguments={
-            'config_file': ublox_cfg
+            # 'config_file': ublox_cfg
         }.items()
     ))
     
