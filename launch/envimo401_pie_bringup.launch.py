@@ -114,17 +114,11 @@ def generate_launch_description():
     # ))
 
     # 9. Ublox_gps
-    ld.add_action(IncludeLaunchDescription(
-        AnyLaunchDescriptionSource(
-            os.path.join(
-                get_package_share_directory('ublox_gps'),
-                'launch',
-                'ublox_gps_node-launch.py'
-            )
-        ),
-        launch_arguments={
-            # 'config_file': ublox_cfg
-        }.items()
+    ld.add_action(Node(
+        package='ublox_gps',
+        executable='ublox_gps_node',
+        name='ublox_gps_node',
+        output='screen'
     ))
     
     # 10. foxglove
