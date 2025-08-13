@@ -99,7 +99,8 @@ def generate_launch_description():
             )
          ),
            launch_arguments={
-              'config_file': hlds_laser_cfg
+              'port': '/dev/lidar',
+              'frame_id': 'laser_link'
           }.items()
     ))
 
