@@ -1,0 +1,36 @@
+ublox_gps_node:
+  ros__parameters:
+      debug: 1                    # Range 0-4 (0 means no debug statements will print)
+
+    save:
+      mask: 3103                # Save I/O, Message, INF Message, Nav, Receiver
+                                # Manager, Antenna, and Logging Configuration
+      device: 4                 # Save to EEPROM
+      
+    # Serial port and basic settings
+    device: /dev/ttyACM0       # GNSS device port (adjust as needed)
+    raw_data: false            # disable raw-data mode (M8N does not support raw output):contentReference[oaicite:0]{index=0}
+    uart1:
+      baudrate: 115200        # increase baud rate for 10 Hz output
+      in: 1                   # UART1 input protocol: UBX only (disable NMEA/RTCM)
+      out: 1                  # UART1 output protocol: UBX only (disable NMEA/RTCM)
+    frame_id: gps_link       # ROS frame ID for GNSS data
+    rate: 10                  # measurement update rate = 10 Hz:contentReference[oaicite:1]{index=1}
+    nav_rate: 1               # publish navigation solution every cycle (10 Hz fix):contentReference[oaicite:2]{index=2}
+    enable_ppp: false         # disable PPP (Precise Point Positioning; M8N does not support this)
+    # GNSS constellations: enable as many as possible (up to 3 concurrent):contentReference[oaicite:3]{index=3}
+    gnss:
+      gps: true               # enable GPS L1 C/A
+      glonass: true           # enable GLONASS
+      beidou: false           # disable BeiDou (optional; fewer visible in Spain)
+      qzss: false             # disable QZSS (not relevant in Europe)
+      galileo: true           # enable Galileo (M8N-3.01 supports Galileo):contentReference[oaicite:4]{index=4}:contentReference[oaicite:5]{index=5}
+      imes: false             # disable IMES
+      sbas: true              # enable SBAS (EGNOS in Europe):contentReference[oaicite:6]{index=6}:contentReference[oaicite:7]{index=7}
+    sbas:
+      max: 3                  # up to 3 SBAS channels (EGNOS has 2 GEO satellites):contentReference[oaicite:8]{index=8}:contentReference[oaicite:9]{index=9}
+      usage: 7                # use SBAS ranging + corrections + integrity (bits 1+2+4):contentReference[oaicite:10]{index=10}:contentReference[oaicite:11]{index=11}
+    # Navigation and dynamic model
+    dynamic_model: automotive  # automotive dynamic model for ground vehicle:contentReference[oaicite:12]{index=12}
+    fix_mode: 2               # allow 3D fixes (horizontal + vertical)
+   
