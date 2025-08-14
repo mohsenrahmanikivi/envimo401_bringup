@@ -18,7 +18,7 @@ rgb_camera:
 
 
   color_format: RGB8
-  enable_auto_exposure: false   # 🟢 Disabling AE reduces CPU + sensor activity
+  enable_auto_exposure: true   # 🟢 Disabling AE reduces CPU + sensor activity
 
 enable_depth: false
 enable_infra: false
