@@ -26,7 +26,7 @@ def generate_launch_description():
     nav2_cfg      = os.path.join(config_path, 'nav2_params_with_slam.yaml')
     mapper_cfg    = os.path.join(config_path, 'mapper_params_online_async_pie.yaml')
     realsense_cfg = os.path.join(config_path, 'realsense2_camera_pie.yaml')
-    ublox_cfg     = os.path.join(config_path, 'ublox_gps.yaml')
+    ublox_cfg     = os.path.join(config_path, 'ublox_m8n.yaml')
     foxglove_cfg  = os.path.join(config_path, 'foxglove_bridge.yaml')
     hlds_laser_cfg= os.path.join(config_path, 'hls_lfcd_lds_driver_pie.yaml')
 
@@ -118,7 +118,8 @@ def generate_launch_description():
         package='ublox_gps',
         executable='ublox_gps_node',
         name='ublox_gps_node',
-        output='screen'
+        output='screen',
+         parameters=[ublox_cfg]
     ))
     
     # 10. foxglove
