@@ -114,9 +114,11 @@ def generate_launch_description():
         executable='ublox_gps_node',
         name='ublox_gps_node',
         output='screen',
+        remappings=[('/ublox_gps_node/fix', '/fix'),
+                   ('/ublox_gps_node/fix_velocity', '/fix_velocity')],
         parameters=[ublox_cfg]
     ))
-    
+
     # 10. foxglove
 
     ld.add_action(Node(
