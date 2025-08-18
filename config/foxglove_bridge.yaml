@@ -33,8 +33,8 @@ foxglove_bridge:
     min_qos_depth: 1
     max_qos_depth: 3
     
-    # Drop old outgoing messages quickly (1 MB buffer)
-    send_buffer_limit: 1048576
+    # Drop old outgoing messages quickly (524288 = 0.5 MB buffer)
+    send_buffer_limit: 524288
     # Compression
     use_compression: true
     
