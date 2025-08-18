@@ -1,2 +1,0 @@
-port: "/dev/lidar"
-frame_id: "laser_link"

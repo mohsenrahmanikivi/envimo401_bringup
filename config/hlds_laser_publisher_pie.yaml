@@ -1,0 +1,4 @@
+hlds_laser_publisher:
+  ros__parameters:
+    port: "/dev/lidar"
+    frame_id: "laser_link"
