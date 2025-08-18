@@ -3,25 +3,25 @@ port: 8765
 address: "0.0.0.0"
 
 # Only bridge & allow the client to subscribe to these topics:
-topic_whitelist:
-  - "/speed_fb"
-  - "/chassis_mode_fb"
-  - "/bms_fb"
-  - "/scan"
-  - "/robot_description"
-  - "/camera/camera/color/image_raw/compressed"
-  - "/camera/camera/color/camera_info"
-  - "/fix"
+# topic_whitelist:
+#   - "/speed_fb"
+#   - "/chassis_mode_fb"
+#   - "/bms_fb"
+#   - "/scan"
+#   - "/robot_description"
+#   - "/camera/camera/color/image_raw/compressed"
+#   - "/camera/camera/color/camera_info"
+#   - "/fix"
 
-client_topic_whitelist:
-  - "/speed_fb"
-  - "/chassis_mode_fb"
-  - "/bms_fb"
-  - "/scan"
-  - "/robot_description"
-  - "/camera/camera/color/image_raw/compressed"
-  - "/camera/camera/color/camera_info"
-  - "/fix"
+# client_topic_whitelist:
+#   - "/speed_fb"
+#   - "/chassis_mode_fb"
+#   - "/bms_fb"
+#   - "/scan"
+#   - "/robot_description"
+#   - "/camera/camera/color/image_raw/compressed"
+#   - "/camera/camera/color/camera_info"
+#   - "/fix"
 
 # QoS queue depths: keep these tiny so ROS never buffers more than a handful of messages
 min_qos_depth: 1
