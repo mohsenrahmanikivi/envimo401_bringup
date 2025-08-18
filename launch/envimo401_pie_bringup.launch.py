@@ -90,6 +90,20 @@ def generate_launch_description():
         }.items()
     ))
 
+    #  7. Extra compressed image by image_transport
+    ld.add_action(Node(
+        package='image_transport',
+        executable='republish',
+        name='republish',
+        output='screen',
+        arguments=[
+            'raw', 'compressed',          # in_transport and out_transport
+            '--ros-args',
+            '-r', 'in:=/camera/camera/color/image_raw',
+            '-r', 'out/compressed:=/camera/camera/color/compressed/extra_compressed',
+            '-p', 'out.jpeg_quality:=15'
+        ]
+    )
     #  7. LDA 01 _ laserscan
     ld.add_action(Node(
         package='hls_lfcd_lds_driver',
