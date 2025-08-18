@@ -103,7 +103,7 @@ def generate_launch_description():
             '-r', 'out/compressed:=/camera/camera/color/compressed/extra_compressed',
             '-p', 'out.jpeg_quality:=15'
         ]
-    )
+    ))
     #  7. LDA 01 _ laserscan
     ld.add_action(Node(
         package='hls_lfcd_lds_driver',
