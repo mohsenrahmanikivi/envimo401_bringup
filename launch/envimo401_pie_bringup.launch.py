@@ -99,7 +99,7 @@ def generate_launch_description():
         arguments=[
             'raw', 'compressed',          # in_transport and out_transport
             '--ros-args',
-            '-r', 'in:=/camera/camera/color/image_raw',
+            '-r', 'in:=/camera/camera/color/compressed',
             '-r', 'out/compressed:=/camera/camera/color/compressed/extra_compressed',
             '-p', 'out.jpeg_quality:=15'
         ]
