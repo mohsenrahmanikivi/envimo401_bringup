@@ -28,7 +28,7 @@ def generate_launch_description():
     realsense_cfg = os.path.join(config_path, 'realsense2_camera_pie.yaml')
     ublox_cfg     = os.path.join(config_path, 'ublox_m8n.yaml')
     foxglove_cfg  = os.path.join(config_path, 'foxglove_bridge.yaml')
-    hlds_laser_cfg= os.path.join(config_path, 'hls_lfcd_lds_driver_pie.yaml')
+    hlds_laser_publisher_cfg= os.path.join(config_path, 'hlds_laser_publisher_pie.yaml')
 
   
     # 1. Define cmd_vel_relay node and store it in a variable
@@ -91,17 +91,12 @@ def generate_launch_description():
     ))
 
     #  7. LDA 01 _ laserscan
-    ld.add_action(IncludeLaunchDescription(
-        PythonLaunchDescriptionSource(
-            os.path.join(
-                get_package_share_directory('hls_lfcd_lds_driver'),
-                'launch', 'hlds_laser.launch.py'
-            )
-         ),
-           launch_arguments={
-              'port': '/dev/lidar',
-              'frame_id': 'laser_link'
-          }.items()
+    ld.add_action(Node(
+        package='hls_lfcd_lds_driver',
+        executable='hlds_laser_publisher',
+        name='hlds_laser_publisher',
+        output='screen',
+        parameters=[hlds_laser_publisher_cfg]
     ))
 
     # # 8. SLAM Toolbox
