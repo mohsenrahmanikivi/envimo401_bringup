@@ -119,26 +119,17 @@ def generate_launch_description():
         executable='ublox_gps_node',
         name='ublox_gps_node',
         output='screen',
-         parameters=[ublox_cfg]
+        parameters=[ublox_cfg]
     ))
     
     # 10. foxglove
-    ld.add_action(IncludeLaunchDescription(
-        AnyLaunchDescriptionSource(
-            os.path.join(
-                get_package_share_directory('foxglove_bridge'),
-                'launch', 
-                'foxglove_bridge_launch.xml'
-            )
-        ),
-        launch_arguments={
-            # 'config_file': foxglove_cfg
-            'port': '8765',
-            'min_qos_depth': '1',
-            'max_qos_depth': '3',
-            'send_buffer_limit': '1048576',
-            'use_compression': 'true'
-        }.items()
+
+    ld.add_action(Node(
+        package='foxglove_bridge',
+        executable='foxglove_bridge',
+        name='foxglove_bridge',
+        output='screen',
+        parameters=[foxglove_cfg]
     ))
             
         # 11. Include Nav2 bringup launch
