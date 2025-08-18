@@ -101,7 +101,7 @@ def generate_launch_description():
             '--ros-args',
             '-r', 'in:=/camera/camera/color/image_raw',
             '-r', 'out/compressed:=/camera/camera/color/compressed/extra_compressed',
-            '-p', 'out.jpeg_quality:=5'
+            '-p', 'out.jpeg_quality:=10'
         ]
     ))
     #  7. LDA 01 _ laserscan
