@@ -174,6 +174,12 @@ cat /dev/rpserialport
 
  
 # 10. Run   
+A. Increases the USB power by setting 1 in this file ```sudo nano /boot/firmware/config.txt```
+```
+usb_max_current_enable=1
+```
+
+B. Run
 ```
 source ~/.bashrc
 ros2 launch envimo401_bringup envimo401_bringup.launch.py
