@@ -1,91 +1,84 @@
-# 1. Install ROS2 humble
-# 2. Install RealSense driver package for ROS2
-```
-https://github.com/IntelRealSense/realsense-ros?tab=readme-ov-file#installation-on-ubuntu
-```
-## Installing the packages:
-1. Register the server's public key:
-```
-sudo mkdir -p /etc/apt/keyrings \
-&& curl -sSf https://librealsense.intel.com/Debian/librealsense.pgp | sudo tee /etc/apt/keyrings/librealsense.pgp > /dev/null
-```
+# Envimo401 on PI5
+This is the bring-up package including all instructions needed to run the envimo401 
 
-2. Make sure apt HTTPS support is installed:
+Requirments:
+- Raspberry Pi 5
+- Ubuntu 24.04
+- ros2 jazzy
+# 1. Install ROS2 Jazzy
+1. Follow the instructions https://docs.ros.org/en/jazzy/Installation/Ubuntu-Install-Debs.html
+2. Make workspace folder "~/ros2_ws/src" 
+3. add source command to the "~/.bashrc"
 ```
-sudo apt install apt-transport-https
+source /opt/ros/jazzy/setup.bash
+source ~/ros2_ws/install/setup.bash
 ```
-4. Add the server to the list of repositories:
-```
-echo "deb [signed-by=/etc/apt/keyrings/librealsense.pgp] https://librealsense.intel.com/Debian/apt-repo `lsb_release -cs` main" | \
-sudo tee /etc/apt/sources.list.d/librealsense.list \
-&& sudo apt update
-```
+# 2. Install the RealSense driver package for ROS2
+Installing the packages reference https://github.com/IntelRealSense/realsense-ros?tab=readme-ov-file#installation-on-ubuntu
 
-4. Install latest Intel® RealSense™ SDK 2.0:  
-  ```
-sudo apt install ros-humble-librealsense2*
-```
-
-6. Install ROS Wrapper for Intel® RealSense™ cameras  
+A. Install latest Intel® RealSense™ SDK 2.0:  
  ```
-sudo apt install ros-humble-realsense2-*
-sudo apt install librealsense2-udev-rules
+sudo apt install ros-$ROS_DISTRO-librealsense2*
+```
+
+B. Install ROS Wrapper for Intel® RealSense™ cameras  
 
 ```
+sudo apt install ros-$ROS_DISTRO-realsense2-*
+```
+
+C. Set UDEV rules by downloading the official rule into place
+```
+sudo curl -fsSL \
+  https://raw.githubusercontent.com/IntelRealSense/librealsense/master/config/99-realsense-libusb.rules \
+  -o /etc/udev/rules.d/99-realsense-libusb.rules
+```
+set permission and reload
+```
+sudo chmod 644 /etc/udev/rules.d/99-realsense-libusb.rules
+sudo udevadm control --reload-rules
+sudo udevadm trigger
+```
+
 
   ### Optional for test
 Reconnect the Intel RealSense depth camera and run: `realsense-viewer` to verify the installation.
 
 
-# 4. Install Lds-01 driver package for ROS2
-1. Installation:  
-  ```
-sudo apt install ros-humble-hls-lfcd-lds-driver
+# 3. Install Lds-01 driver package for ROS2
+A. Installation:  
+ ```
+sudo apt install ros-$ROS_DISTRO-hls-lfcd-lds-driver
 ```
   
-3. Set Permission for LDS-01(change the port based on your desinge /dev/ttyUSB0):  
-  ```
-sudo chmod a+rw /dev/ttyUSB0
-```
-3.1 OR to set name /dev/lidar and permission create a udev rule 
-Create a udev rule to have a persistent name “\dev\lidar”:
- and copy it there ,then reboot
-```
+B. Set UDEV rules to have a persistence "\dev\lidar" instead ot "\dev\ttyUSBX" 
+
 - Identify Your Device tty
- sudo dmesg | grep tty
+```sudo dmesg | grep tty```
 - Identify Your Device if you know which tty is:
- udevadm info -a -n /dev/ttyUSB0 | grep "KERNELS=="
+ ```udevadm info -a -n /dev/ttyUSB0 | grep "KERNELS=="```
 - Create a udev rule to have a persistent name “\dev\lidar”:
-sudo nano /etc/udev/rules.d/99-lidar.rules
+```sudo nano /etc/udev/rules.d/99-lidar.rules```
 - Put this line and modify the KERNELS and SYNKINk
-SUBSYSTEM=="tty", KERNELS=="1-1.3", SYMLINK+="lidar", MODE="0666", GROUP="dialout"
+```SUBSYSTEM=="tty", KERNELS=="1-1.3", SYMLINK+="lidar", MODE="0666", GROUP="dialout"```
 - Add your user to dialout group
-sudo usermod -aG dialout $USER
+```sudo usermod -aG dialout $USER```
 - reload
+```
 sudo udevadm control --reload-rules
 sudo udevadm trigger
-
 ```
-
-
-sudo usermod -aG dialout $USER
-
-- Run hlds_laser_publisher Node to test:  
+C.Run hlds_laser_publisher Node to test:  
 ```
 ros2 launch hls_lfcd_lds_driver hlds_laser.launch.py
 ```
-  
-- Run hlds_laser_publisher Node with RViz:  
-```
-ros2 launch hls_lfcd_lds_driver view_hlds_laser.launch.py
 
+# 4. Ublox driver
+A.Install 
 ```
-# 5. Install Ublox driver
-
+sudo apt install ros-$ROS_DISTRO-ublox-gps
 ```
-sudo apt install ros-humble-ublox-gps
-```
-Test
+B. Test
 ```
 source /opt/ros/humble/setup.bash
 ros2 run ublox_gps ublox_gps_node --ros-args -p device:=/dev/ttyACM0
@@ -94,74 +87,57 @@ ros2 run ublox_gps ublox_gps_node --ros-args -p device:=/dev/ttyACM0
 # 5. Install foxglove-bridge
 
 ```
-sudo apt install ros-humble-slam-toolbox
-```
-
-# 5. Install slam tool box
-```
 sudo apt install ros-$ROS_DISTRO-foxglove-bridge
 ```
-# 5. Install nav2 stack ( is not required now)
+
+# 6. Install slam toolbox
+```
+sudo apt install ros-$ROS_DISTRO-slam-toolbox
 
 ```
-sudo apt install ros-humble-navigation2 ros-humble-nav2-bringup
+# 7. Install nav2 stack 
+
+```
+sudo apt install ros-$ROS_DISTRO-navigation2 ros-$ROS_DISTRO-nav2-bringup
 ```
 
-# 5. Install twist mux (is not required now)
+# 8. "chassis" and "bringup" packages
+Clone both of them by going to the src folder of the workspace and cloning the necessary packages
+A. Bringup package :  
 ```
-sudo apt install ros-humble-twist-mux
-```
-
-# 6. Clone both main packages
-Go to the src folder and clone the necessary packages
-1. Bringup package :  
-```
+cd ~/ros2_ws/src && \
 git clone https://github.com/mohsenrahmanikivi/envimo401_bringup.git
 ```
 
-
-3. Chassis package:  
+B. Chassis package:  
  ```
+cd ~/ros2_ws/src && \
 git clone https://github.com/mohsenrahmanikivi/envimo401_chassis.git
 ```
 
-5. Add the library to the library path:  
- `export LD_LIBRARY_PATH=<PATH_TO_THE_PACKAGE>/src/envimo401_chassis/LibAPI/lib:$LD_LIBRARY_PATH`  
- `export LD_LIBRARY_PATH=~/ros2_ws/src/envimo401_chassis/LibAPI/lib:$LD_LIBRARY_PATH`
-
-or make it automatic by add this to ~/.bashrc
+9. Add the library path to the "~/.bashrc"
  ```
 # Prepend path to LD_LIBRARY_PATH if not already included
 if [[ ":$LD_LIBRARY_PATH:" != *":$HOME/ros2_ws/src/envimo401_chassis/LibAPI/lib:"* ]]; then
     export LD_LIBRARY_PATH="$HOME/ros2_ws/src/envimo401_chassis/LibAPI/lib:$LD_LIBRARY_PATH"
 fi
  ```
-5. Prepare the chassis:
- ```
-cd ~/ros2_ws/src/envimo401_chassis
-chmod +x Segway_RMP_Init.sh
-sudo ./Segway_RMP_Init.sh
+# 10. Make a UDEV rule to have persistence "\dev\rps" instead of "\dev\ttyUSBx" for the chassis USB port:
+```
+
 ```
 
 
-# 7. Build the packages    
-
- `colcon build`
+# 11. Build the packages    
+`colcon build`
 
  
- # 8. Run   
-  
-  ```
+# 12. Run   
+```
 source ~/.bashrc
 ros2 launch envimo401_bringup envimo401_bringup.launch.py
 ```
  
-
-# envimo infrastructure
-## 1. URDF file
-## 3. GPS driver
-envimo401_gps
-https://github.com/mohsenrahmanikivi/ros2_driver_ublox_gps_module
 
 
 
