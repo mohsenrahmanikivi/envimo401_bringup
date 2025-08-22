@@ -27,7 +27,7 @@ B. Install ROS Wrapper for Intel® RealSense™ cameras
 sudo apt install ros-$ROS_DISTRO-realsense2-*
 ```
 
-C. Set UDEV rules by downloading the official rule into place
+C. Set UDEV rules by downloading the official rules into place
 ```
 sudo curl -fsSL \
   https://raw.githubusercontent.com/IntelRealSense/librealsense/master/config/99-realsense-libusb.rules \
@@ -53,22 +53,34 @@ sudo apt install ros-$ROS_DISTRO-hls-lfcd-lds-driver
   
 B. Set UDEV rules to have a persistence "\dev\lidar" instead ot "\dev\ttyUSBX" 
 
-- Identify Your Device tty
+i. Identify Your Device tty
 ```sudo dmesg | grep tty```
-- Identify Your Device if you know which tty is:
+
+ii. Identify Your Device if you know which tty is:
  ```udevadm info -a -n /dev/ttyUSB0 | grep "KERNELS=="```
-- Create a udev rule to have a persistent name “\dev\lidar”:
+ 
+iii. Create a udev rule to have a persistent name “\dev\lidar”:
 ```sudo nano /etc/udev/rules.d/99-lidar.rules```
-- Put this line and modify the KERNELS and SYNKINk
-```SUBSYSTEM=="tty", KERNELS=="1-1.3", SYMLINK+="lidar", MODE="0666", GROUP="dialout"```
-- Add your user to dialout group
+
+iv. Put this line and modify the KERNELS and SYNKINk
+```SUBSYSTEM=="tty", KERNELS=="2-1.1", SYMLINK+="lidar", MODE="0777", GROUP="dialout"```
+
+v. Add your user to dialout group
 ```sudo usermod -aG dialout $USER```
-- reload
+
+vi. reload
 ```
 sudo udevadm control --reload-rules
 sudo udevadm trigger
 ```
-C.Run hlds_laser_publisher Node to test:  
+
+vii. test
+```
+ls /dev
+cat /dev/lidar
+```
+
+C. Run hlds_laser_publisher Node to test:  
 ```
 ros2 launch hls_lfcd_lds_driver hlds_laser.launch.py
 ```
@@ -115,24 +127,53 @@ cd ~/ros2_ws/src && \
 git clone https://github.com/mohsenrahmanikivi/envimo401_chassis.git
 ```
 
-9. Add the library path to the "~/.bashrc"
+C. Add the library path to the "~/.bashrc"
  ```
 # Prepend path to LD_LIBRARY_PATH if not already included
 if [[ ":$LD_LIBRARY_PATH:" != *":$HOME/ros2_ws/src/envimo401_chassis/LibAPI/lib:"* ]]; then
     export LD_LIBRARY_PATH="$HOME/ros2_ws/src/envimo401_chassis/LibAPI/lib:$LD_LIBRARY_PATH"
 fi
  ```
-# 10. Make a UDEV rule to have persistence "\dev\rps" instead of "\dev\ttyUSBx" for the chassis USB port:
+D. Set UDEV rules to have a persistence "\dev\rpserialport" instead ot "\dev\ttyUSBX" 
+
+0i. Create a bash file to set the speed ```sudo nano /usr/local/bin/set_rpserial_baud.sh```
+```
+#!/bin/bash
+stty -F /dev/rpserialport 921600
+```
+0ii. set permission ```sudo chmod +x /usr/local/bin/set_rpserial_baud.sh```
+  
+i. Identify Your Device tty
+```sudo dmesg | grep tty```
+
+ii. Identify Your Device if you know which tty is:
+ ```udevadm info -a -n /dev/ttyUSB1 | grep "KERNELS=="```
+ 
+iii. Create a udev rule to have a persistent name “\dev\rpserialport”:
+```sudo nano /etc/udev/rules.d/99-rpserialport.rules```
+
+iv. Put this line and modify the KERNELS and SYNKINk
+```
+SUBSYSTEM=="tty", KERNELS=="4-2", SYMLINK+="rpserialport", MODE="0777", RUN+="/usr/local/bin/set_rpserial_baud.sh"
 ```
 
+v. reload
+```
+sudo udevadm control --reload-rules
+sudo udevadm trigger
 ```
 
+vi. test
+```
+ls /dev
+cat /dev/rpserialport
+```
 
-# 11. Build the packages    
+# 9. Build the packages    
 `colcon build`
 
  
-# 12. Run   
+# 10. Run   
 ```
 source ~/.bashrc
 ros2 launch envimo401_bringup envimo401_bringup.launch.py
