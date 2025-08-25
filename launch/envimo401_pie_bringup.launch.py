@@ -94,14 +94,16 @@ def generate_launch_description():
     ld.add_action(Node(
         package='image_transport',
         executable='republish',
-        name='republish',
+        name='depth_republisher',
         output='screen',
-        arguments=[
-            'raw', 'compressed',          # in_transport and out_transport
-            '--ros-args',
-            '-r', 'in:=/camera/camera/color/image_raw',
-            '-r', 'out/compressed:=/camera/camera/color/compressed/extra_compressed',
-            '-p', 'out.compressed.jpeg_quality:=10'
+        parameters=[
+            {'in_transport': 'raw'},
+            {'out_transport': 'compressed'},
+            {'out.compressed.jpeg_quality': 15},
+        ],
+        remappings=[
+            ('in', '/camera/camera/color/image_raw'),
+            ('out/compressed', '/camera/camera/color/image_raw/extra_compressed ')
         ]
     ))
     #  7. LDA 01 _ laserscan
