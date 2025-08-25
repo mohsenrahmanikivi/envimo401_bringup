@@ -99,11 +99,11 @@ def generate_launch_description():
         parameters=[
             {'in_transport': 'raw'},
             {'out_transport': 'compressed'},
-            {'out.compressed.jpeg_quality': 15},
+            {'out.compressed.jpeg_quality': 15}
         ],
         remappings=[
             ('in', '/camera/camera/color/image_raw'),
-            ('out/compressed', '/camera/camera/color/image_raw/extra_compressed ')
+            ('out/compressed', '/camera/camera/color/image_raw/extra_compressed')
         ]
     ))
     #  7. LDA 01 _ laserscan
