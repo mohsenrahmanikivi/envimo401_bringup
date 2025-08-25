@@ -44,6 +44,12 @@ sudo udevadm trigger
   ### Optional for test
 Reconnect the Intel RealSense depth camera and run: `realsense-viewer` to verify the installation.
 
+## 2.1 Install image_transport_plugins 
+to compress and extra compress the images
+ ```
+sudo apt install ros-$ROS_DISTRO-image-transport
+sudo apt install ros-$ROS_DISTRO-image-transport-plugins
+```
 
 # 3. Install Lds-01 driver package for ROS2
 A. Installation:  
