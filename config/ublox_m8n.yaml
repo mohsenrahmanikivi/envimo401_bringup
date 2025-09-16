@@ -3,7 +3,7 @@ ublox_gps_node:
 
       
     # Serial port and basic settings
-    # device: /dev/ttyACM0       # GNSS device port (adjust as needed)
+    device: /dev/ttyACM0       # GNSS device port (adjust as needed)
     # raw_data: false            # disable raw-data mode (M8N does not support raw output):contentReference[oaicite:0]{index=0}
     # uart1:
     #   baudrate: 115200        # increase baud rate for 10 Hz output
