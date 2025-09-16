@@ -23,13 +23,16 @@ def generate_launch_description():
             package='image_projection',
             executable='periodic_image_projection_standalone_node',
             name='camera_pinhole_front',
-            parameters=[projections_yaml, camera_yaml],
+            parameters=[projections_yaml, 
+                        camera_yaml,
+                       {"use_intra_process_comms": True}
+                       ],
+                        
             remappings=[
                 ('/projection', 'camera/pinhole_front/image_rect_color'),
                 ('/camera_info', 'camera/pinhole_front/camera_info')
             ],
             output='screen',
-            parameters=[{"use_intra_process_comms": True}],
             qos_profile={"durability": "transient_local"}
         ),
 
@@ -38,12 +41,14 @@ def generate_launch_description():
             package='image_projection',
             executable='periodic_image_projection_standalone_node',
             name='camera_mercator_projection',
-            parameters=[projections_yaml, camera_yaml],
+            parameters=[projections_yaml, 
+                        camera_yaml,
+                        {"use_intra_process_comms": True
+                       ],
             remappings=[
                 ('/projection', 'camera/mercator')
             ],
             output='screen',
-            parameters=[{"use_intra_process_comms": True}],
             qos_profile={"durability": "transient_local"}
         ),
 
@@ -52,12 +57,14 @@ def generate_launch_description():
             package='image_projection',
             executable='periodic_image_projection_standalone_node',
             name='camera_left_fisheye',
-            parameters=[projections_yaml, camera_yaml],
+            parameters=[projections_yaml, 
+                        camera_yaml,
+                       {"use_intra_process_comms": True}
+                       ],
             remappings=[
                 ('/projection', 'camera/left/ideal_fisheye')
             ],
             output='screen',
-            parameters=[{"use_intra_process_comms": True}],
             qos_profile={"durability": "transient_local"}
         ),
 
@@ -66,12 +73,14 @@ def generate_launch_description():
             package='image_projection',
             executable='periodic_image_projection_standalone_node',
             name='camera_right_fisheye',
-            parameters=[projections_yaml, camera_yaml],
+            parameters=[projections_yaml, 
+                        camera_yaml,
+                        {"use_intra_process_comms": True}
+                       ],
             remappings=[
                 ('/projection', 'camera/right/ideal_fisheye')
             ],
             output='screen',
-            parameters=[{"use_intra_process_comms": True}],
             qos_profile={"durability": "transient_local"}
         ),
     ])
