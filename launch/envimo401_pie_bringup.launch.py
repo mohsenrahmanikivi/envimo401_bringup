@@ -19,16 +19,23 @@ def generate_launch_description():
     # --- locate your own package ---
     pkg_path      = get_package_share_directory('envimo401_bringup')
     config_path   = os.path.join(pkg_path, 'config')
-    urdf_path     = os.path.join(pkg_path, 'urdf', 'envimo_all_joints_fixed_with_laser.urdf')
+    calib_path    = os.path.join(pkg_path, 'calibration')
+    
 
 
     # Config files
+    urdf_path     = os.path.join(pkg_path, 'urdf', 'envimo_all_joints_fixed_with_laser.urdf')
+   
     nav2_cfg      = os.path.join(config_path, 'nav2_params_with_slam.yaml')
     mapper_cfg    = os.path.join(config_path, 'mapper_params_online_async_pie.yaml')
     realsense_cfg = os.path.join(config_path, 'realsense2_camera_pie.yaml')
     ublox_cfg     = os.path.join(config_path, 'ublox_m8n.yaml')
     foxglove_cfg  = os.path.join(config_path, 'foxglove_bridge.yaml')
     hlds_laser_publisher_cfg= os.path.join(config_path, 'hlds_laser_publisher_pie.yaml')
+
+    camera_left_calib        = os.path.join(calib_path, 'left', 'ost.yaml')
+    camera_right_calib       = os.path.join(calib_path, 'right', 'ost.yaml')
+    
 
   
     # 1. Define cmd_vel_relay node and store it in a variable
@@ -90,6 +97,49 @@ def generate_launch_description():
         }.items()
     ))
 
+
+    #     #  8. camera_left_link  (5011)
+    ld.add_action(Node(
+            package='gscam',
+            executable='gscam_node',
+            name='gscam_left',
+            parameters=[{
+                'gscam_config': 'udpsrc port=5011 ! jpegparse ! jpegdec ! videoconvert ! videoflip method=clockwise ! video/x-raw,format=BGR',
+                'camera_name': 'left',
+                'frame_id': 'camera_left_link',
+                'camera_info_url': f'file://{camera_left_calib}'
+            }],
+            remappings=[
+                ('/camera/camera_info', '/camera/left/camera_info'),
+                ('/camera/image_raw', '/camera/left/image_raw'),
+                ('/camera/image_raw/compressed', '/camera/left/image_raw/compressed'),
+                ('/camera/image_raw/compressedDepth', '/camera/left/image_raw/compressedDepth'),
+                ('/camera/image_raw/theora', '/camera/left/image_raw/theora'),
+                ('/camera/image_raw/zstd', '/camera/left/image_raw/zstd')
+            ]
+        )
+
+    #     #  9. camera_right_link (5012)
+    ld.add_action(Node(
+            package='gscam',
+            executable='gscam_node',
+            name='gscam_right',
+            parameters=[{
+                'gscam_config': 'udpsrc port=5012 ! jpegparse ! jpegdec ! videoconvert ! videoflip method=counterclockwise ! video/x-raw,format=BGR',
+                'camera_name': 'right',
+                'frame_id': 'camera_right_link',
+                'camera_info_url': f'file://{camera_right_calib}'
+            }],
+            remappings=[
+                ('/camera/camera_info', '/camera/right/camera_info'),
+                ('/camera/image_raw', '/camera/right/image_raw'),
+                ('/camera/image_raw/compressed', '/camera/right/image_raw/compressed'),
+                ('/camera/image_raw/compressedDepth', '/camera/right/image_raw/compressedDepth'),
+                ('/camera/image_raw/theora', '/camera/right/image_raw/theora'),
+                ('/camera/image_raw/zstd', '/camera/right/image_raw/zstd')
+            ]
+        )
+
     #  7. Extra compressed image by image_transport
     ld.add_action(Node(
         package='image_transport',
@@ -102,10 +152,11 @@ def generate_launch_description():
             {'out.compressed.jpeg_quality': 15}
         ],
         remappings=[
-            ('in', '/camera/camera/color/image_raw'),
-            ('out/compressed', '/camera/camera/color/image_raw/extra_compressed')
+            ('in', '/camera/center/color/image_raw'),
+            ('out/compressed', '/camera/center/color/image_raw/extra_compressed')
         ]
     ))
+    
     #  7. LDA 01 _ laserscan
     ld.add_action(Node(
         package='hls_lfcd_lds_driver',
