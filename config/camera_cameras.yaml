@@ -1,22 +1,18 @@
 # ==========================
 # Cameras
 # ==========================
-cameras:
-  - '/camera/right'
-  - '/camera/left'
-  - '/camera/center'
-
-# Topic setup
-/camera:
-    right:
-      image_topic: image_raw
-      camera_info_topic: camera_info
-      extended_camera_info_topic: extended_camera_info_not_used
-    left:
-      image_topic: image_raw
-      camera_info_topic: camera_info
-      extended_camera_info_topic: extended_camera_info_not_used
-    center:
-      image_topic: color/image_raw
-      camera_info_topic: color/camera_info
-      extended_camera_info_topic: extended_camera_info_not_used   
+/**:  # global parameters for all nodes
+  ros__parameters:
+    cameras:
+      right:
+        image_topic: "/camera/right/image_raw"
+        camera_info_topic: "/camera/right/camera_info"
+        extended_camera_info_topic: "extended_camera_info_not_used"
+      left:
+        image_topic: "/camera/left/image_raw"
+        camera_info_topic: "/camera/left/camera_info"
+        extended_camera_info_topic: "extended_camera_info_not_used"
+      center:
+        image_topic: "/camera/center/color/image_raw"
+        camera_info_topic: "/camera/center/color/camera_info"
+        extended_camera_info_topic: "extended_camera_info_not_used"
