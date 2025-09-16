@@ -117,7 +117,7 @@ def generate_launch_description():
                 ('/camera/image_raw/theora', '/camera/left/image_raw/theora'),
                 ('/camera/image_raw/zstd', '/camera/left/image_raw/zstd')
             ]
-        )
+        ))
 
     #     #  9. camera_right_link (5012)
     ld.add_action(Node(
@@ -138,7 +138,7 @@ def generate_launch_description():
                 ('/camera/image_raw/theora', '/camera/right/image_raw/theora'),
                 ('/camera/image_raw/zstd', '/camera/right/image_raw/zstd')
             ]
-        )
+        ))
 
     #  7. Extra compressed image by image_transport
     ld.add_action(Node(
