@@ -37,8 +37,8 @@ def generate_launch_description():
                 ('/projection', 'camera/pinhole_front/image_rect_color'),
                 ('/camera_info', 'camera/pinhole_front/camera_info')
             ],
-            output='screen',
-            qos_profile=camera_info_qos
+            output='screen'
+          
         ),
 
         # --- Mercator projection ---
@@ -53,8 +53,7 @@ def generate_launch_description():
             remappings=[
                 ('/projection', 'camera/mercator')
             ],
-            output='screen',
-            qos_profile=camera_info_qos
+            output='screen'
         ),
 
         # --- Left fisheye projection ---
@@ -69,8 +68,7 @@ def generate_launch_description():
             remappings=[
                 ('/projection', 'camera/left/ideal_fisheye')
             ],
-            output='screen',
-            qos_profile=camera_info_qos
+            output='screen'
         ),
 
         # --- Right fisheye projection ---
@@ -85,7 +83,6 @@ def generate_launch_description():
             remappings=[
                 ('/projection', 'camera/right/ideal_fisheye')
             ],
-            output='screen',
-            qos_profile=camera_info_qos
+            output='screen'
         ),
     ])
