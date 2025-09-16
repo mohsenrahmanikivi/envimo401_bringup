@@ -43,7 +43,7 @@ def generate_launch_description():
             name='camera_mercator_projection',
             parameters=[projections_yaml, 
                         camera_yaml,
-                        {"use_intra_process_comms": True
+                        {"use_intra_process_comms": True}
                        ],
             remappings=[
                 ('/projection', 'camera/mercator')
