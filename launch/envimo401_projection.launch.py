@@ -70,7 +70,7 @@ def generate_launch_description():
             remappings=[
                 ('/projection', 'camera/right/ideal_fisheye')
             ],
-            output='screen'
+            output='screen',
             parameters=[{"use_intra_process_comms": True}],
             qos_profile={"durability": "transient_local"}
         ),
