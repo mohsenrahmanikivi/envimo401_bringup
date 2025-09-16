@@ -8,7 +8,7 @@ from rclpy.qos import QoSProfile, ReliabilityPolicy, DurabilityPolicy
 camera_info_qos = QoSProfile(
     reliability=ReliabilityPolicy.RELIABLE,
     durability=DurabilityPolicy.VOLATILE
-
+)
 
 def generate_launch_description():
     # --- locate your own package ---
