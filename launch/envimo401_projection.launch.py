@@ -28,7 +28,9 @@ def generate_launch_description():
                 ('/projection', 'camera/pinhole_front/image_rect_color'),
                 ('/camera_info', 'camera/pinhole_front/camera_info')
             ],
-            output='screen'
+            output='screen',
+            parameters=[{"use_intra_process_comms": True}],
+            qos_profile={"durability": "transient_local"}
         ),
 
         # --- Mercator projection ---
@@ -40,7 +42,9 @@ def generate_launch_description():
             remappings=[
                 ('/projection', 'camera/mercator')
             ],
-            output='screen'
+            output='screen',
+            parameters=[{"use_intra_process_comms": True}],
+            qos_profile={"durability": "transient_local"}
         ),
 
         # --- Left fisheye projection ---
@@ -52,7 +56,9 @@ def generate_launch_description():
             remappings=[
                 ('/projection', 'camera/left/ideal_fisheye')
             ],
-            output='screen'
+            output='screen',
+            parameters=[{"use_intra_process_comms": True}],
+            qos_profile={"durability": "transient_local"}
         ),
 
         # --- Right fisheye projection ---
@@ -65,5 +71,7 @@ def generate_launch_description():
                 ('/projection', 'camera/right/ideal_fisheye')
             ],
             output='screen'
+            parameters=[{"use_intra_process_comms": True}],
+            qos_profile={"durability": "transient_local"}
         ),
     ])
