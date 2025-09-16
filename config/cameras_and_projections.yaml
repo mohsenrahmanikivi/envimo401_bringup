@@ -1,11 +1,16 @@
+   
+
+
 # ==========================
 # Pinhole front projection
+# $(arg camera_name) is defined 
+# in the cameras.yaml
 # ==========================
-camera360_pinhole_front:
+$(arg camera_name)_pinhole_front:
   ros__parameters:
     update_rate: 10.0
     always_recompute_mapping: false
-    base_frame: camera360_center_link
+    base_frame: $(arg camera_name)_center_link
     pose: [0.0, 0.0, 0.0, 0.0, 0.4, 0.0]
     virtual_sensor_frame: pinhole_front_camera_frame
     virtual_sensor_optical_frame: pinhole_front_optical_frame
@@ -19,10 +24,10 @@ camera360_pinhole_front:
 # ==========================
 # Mercator projection
 # ==========================
-camera360_mercator_projection:
+$(arg camera_name)_mercator_projection:
   ros__parameters:
     update_rate: 10.0
-    base_frame: camera360_center_link
+    base_frame: $(arg camera_name)_center_link
     pose: [0.0, 0.0, 0.0, 0.0, 0.0, 3.141592]
     projection_type: image_projection_plugins::MercatorProjection
     projection_parameters:
@@ -33,14 +38,14 @@ camera360_mercator_projection:
 # ==========================
 # Left fisheye
 # ==========================
-camera360_left_fisheye:
+$(arg camera_name)_left_fisheye:
   ros__parameters:
     update_rate: 10.0
     always_recompute_mapping: false
-    base_frame: camera360_center_link
+    base_frame: $(arg camera_name)_center_link
     pose: [0.0, 0.0, 0.0, 0.0, 0.0, 1.57]
-    virtual_sensor_frame: camera360_ideal_fisheye_left_link
-    virtual_sensor_optical_frame: camera360_ideal_fisheye_left_optical_frame
+    virtual_sensor_frame: $(arg camera_name)_ideal_fisheye_left_link
+    virtual_sensor_optical_frame: $(arg camera_name)_ideal_fisheye_left_optical_frame
     projection_type: image_projection_plugins::IdealFisheyeProjection
     projection_parameters:
       image_width: 512
@@ -51,14 +56,14 @@ camera360_left_fisheye:
 # ==========================
 # Right fisheye
 # ==========================
-camera360_right_fisheye:
+$(arg camera_name)_right_fisheye:
   ros__parameters:
     update_rate: 10.0
     always_recompute_mapping: false
-    base_frame: camera360_center_link
+    base_frame: $(arg camera_name)_center_link
     pose: [0.0, 0.0, 0.0, 0.0, 0.0, -1.57]
-    virtual_sensor_frame: camera360_ideal_fisheye_right_link
-    virtual_sensor_optical_frame: camera360_ideal_fisheye_right_optical_frame
+    virtual_sensor_frame: $(arg camera_name)_ideal_fisheye_right_link
+    virtual_sensor_optical_frame: $(arg camera_name)_ideal_fisheye_right_optical_frame
     projection_type: image_projection_plugins::IdealFisheyeProjection
     projection_parameters:
       image_width: 512
