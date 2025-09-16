@@ -65,4 +65,61 @@ camera360_right_fisheye:
       image_height: 512
       fov: 180.0
       sphere_radius: 1.0
+## config param for projector node ##
+  # always_recompute_mapping
+  # base_frame
+  # cameras
+  # encoding
+  # pose
+  # projection.compressed.format
+  # projection.compressed.jpeg_quality
+  # projection.compressed.png_level
+  # projection.compressed.tiff.res_unit
+  # projection.compressed.tiff.xdpi
+  # projection.compressed.tiff.ydpi
+  # projection.compressedDepth.depth_max
+  # projection.compressedDepth.depth_quantization
+  # projection.compressedDepth.format
+  # projection.compressedDepth.png_level
+  # projection.depth_max
+  # projection.depth_quantization
+  # projection.enable_pub_plugins
+  # projection.format
+  # projection.jpeg_quality
+  # projection.keyframe_frequency
+  # projection.optimize_for
+  # projection.png_level
+  # projection.quality
+  # projection.target_bitrate
+  # projection.theora.keyframe_frequency
+  # projection.theora.optimize_for
+  # projection.theora.quality
+  # projection.theora.target_bitrate
+  # projection.tiff.res_unit
+  # projection.tiff.xdpi
+  # projection.tiff.ydpi
+  # projection.zstd.zstd_level
+  # projection_parameters.focal_length
+  # projection_parameters.horizontal_fov
+  # projection_parameters.image_height
+  # projection_parameters.image_width
+  # projection_parameters.virtual_sensor_optical_frame
+  # projection_type
+  # publish_tf
+  # qos_overrides./parameter_events.publisher.depth
+  # qos_overrides./parameter_events.publisher.durability
+  # qos_overrides./parameter_events.publisher.history
+  # qos_overrides./parameter_events.publisher.reliability
+  # qos_overrides./tf.publisher.depth
+  # qos_overrides./tf.publisher.durability
+  # qos_overrides./tf.publisher.history
+  # qos_overrides./tf.publisher.reliability
+  # save_folder
+  # start_type_description_service
+  # update_rate
+  # use_opencl
+  # use_sim_time
+  # virtual_sensor_frame
+  # virtual_sensor_optical_frame
+
 
