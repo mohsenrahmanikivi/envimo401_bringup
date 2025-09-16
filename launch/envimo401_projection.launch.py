@@ -14,7 +14,7 @@ def generate_launch_description():
     pkg_path        = get_package_share_directory('envimo401_bringup')
     config_dir      = os.path.join(pkg_path, 'config')
     projections_yaml = os.path.join(config_dir, 'projections.yaml')
-    camera_yaml      = os.path.join(config_dir, f'{camera_name}_cameras.yaml')
+    camera_yaml      = os.path.join(config_dir, camera_cameras.yaml')
 
     return LaunchDescription([
 
@@ -22,7 +22,7 @@ def generate_launch_description():
         Node(
             package='image_projection',
             executable='periodic_image_projection_standalone_node',
-            name=f'{camera_name}_pinhole_front',
+            name=camera_pinhole_front',
             parameters=[projections_yaml, camera_yaml],
             remappings=[
                 ('~/projection', f'/{camera_name}/pinhole_front/image_rect_color'),
@@ -35,7 +35,7 @@ def generate_launch_description():
         Node(
             package='image_projection',
             executable='periodic_image_projection_standalone_node',
-            name=f'{camera_name}_mercator_projection',
+            name=camera_mercator_projection',
             parameters=[projections_yaml, camera_yaml],
             remappings=[
                 ('~/projection', f'/{camera_name}/mercator')
@@ -47,7 +47,7 @@ def generate_launch_description():
         Node(
             package='image_projection',
             executable='periodic_image_projection_standalone_node',
-            name=f'{camera_name}_left_fisheye',
+            name=camera_left_fisheye',
             parameters=[projections_yaml, camera_yaml],
             remappings=[
                 ('~/projection', f'/{camera_name}/left/ideal_fisheye')
@@ -59,7 +59,7 @@ def generate_launch_description():
         Node(
             package='image_projection',
             executable='periodic_image_projection_standalone_node',
-            name=f'{camera_name}_right_fisheye',
+            name=camera_right_fisheye',
             parameters=[projections_yaml, camera_yaml],
             remappings=[
                 ('~/projection', f'/{camera_name}/right/ideal_fisheye')
