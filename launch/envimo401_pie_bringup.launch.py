@@ -93,7 +93,9 @@ def generate_launch_description():
             )
         ),
         launch_arguments={
-            'config_file': realsense_cfg
+            'config_file': realsense_cfg,
+            'camera_name': 'center'
+            
         }.items()
     ))
 
