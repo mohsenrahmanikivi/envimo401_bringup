@@ -1,20 +1,20 @@
+import os
 from launch import LaunchDescription
 from launch_ros.actions import Node
-import os
 from ament_index_python.packages import get_package_share_directory
 
 
 
-# --- locate your own package ---
-camera_name = "camera"  # Default value
 
-pkg_path         = get_package_share_directory('envimo401_bringup')
-config_dir      = os.path.join(pkg_path, 'config')
-
-projections_yaml = os.path.join(config_dir, 'projections.yaml')
-camera_yaml = os.path.join(config_dir, f'{camera_name}_cameras.yaml')
 
 def generate_launch_description():
+    # --- locate your own package ---
+    camera_name     = "camera"  # Default value
+    
+    pkg_path        = get_package_share_directory('envimo401_bringup')
+    config_dir      = os.path.join(pkg_path, 'config')
+    projections_yaml = os.path.join(config_dir, 'projections.yaml')
+    camera_yaml      = os.path.join(config_dir, f'{camera_name}_cameras.yaml')
 
     return LaunchDescription([
 
