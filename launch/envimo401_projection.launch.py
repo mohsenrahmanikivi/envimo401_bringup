@@ -2,9 +2,12 @@ import os
 from launch import LaunchDescription
 from launch_ros.actions import Node
 from ament_index_python.packages import get_package_share_directory
+from rclpy.qos import QoSProfile, ReliabilityPolicy, DurabilityPolicy
 
 
-
+camera_info_qos = QoSProfile(
+    reliability=ReliabilityPolicy.RELIABLE,
+    durability=DurabilityPolicy.VOLATILE
 
 
 def generate_launch_description():
@@ -33,7 +36,7 @@ def generate_launch_description():
                 ('/camera_info', 'camera/pinhole_front/camera_info')
             ],
             output='screen',
-            qos_profile={"durability": "transient_local"}
+            qos_profile=camera_info_qos
         ),
 
         # --- Mercator projection ---
@@ -49,7 +52,7 @@ def generate_launch_description():
                 ('/projection', 'camera/mercator')
             ],
             output='screen',
-            qos_profile={"durability": "transient_local"}
+            qos_profile=camera_info_qos
         ),
 
         # --- Left fisheye projection ---
@@ -65,7 +68,7 @@ def generate_launch_description():
                 ('/projection', 'camera/left/ideal_fisheye')
             ],
             output='screen',
-            qos_profile={"durability": "transient_local"}
+            qos_profile=camera_info_qos
         ),
 
         # --- Right fisheye projection ---
@@ -81,6 +84,6 @@ def generate_launch_description():
                 ('/projection', 'camera/right/ideal_fisheye')
             ],
             output='screen',
-            qos_profile={"durability": "transient_local"}
+            qos_profile=camera_info_qos
         ),
     ])
