@@ -1,4 +1,4 @@
-camera_name: center
+camera_name: "center"
 enable_color: true
 
 rgb_camera:
