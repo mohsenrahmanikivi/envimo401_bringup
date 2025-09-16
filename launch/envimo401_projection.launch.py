@@ -25,8 +25,8 @@ def generate_launch_description():
             name='camera_pinhole_front',
             parameters=[projections_yaml, camera_yaml],
             remappings=[
-                ('~/projection', 'camera/pinhole_front/image_rect_color'),
-                ('~/camera_info', 'camera/pinhole_front/camera_info')
+                ('/projection', 'camera/pinhole_front/image_rect_color'),
+                ('/camera_info', 'camera/pinhole_front/camera_info')
             ],
             output='screen'
         ),
@@ -38,7 +38,7 @@ def generate_launch_description():
             name='camera_mercator_projection',
             parameters=[projections_yaml, camera_yaml],
             remappings=[
-                ('~/projection', 'camera/mercator')
+                ('/projection', 'camera/mercator')
             ],
             output='screen'
         ),
@@ -50,7 +50,7 @@ def generate_launch_description():
             name='camera_left_fisheye',
             parameters=[projections_yaml, camera_yaml],
             remappings=[
-                ('~/projection', 'camera/left/ideal_fisheye')
+                ('/projection', 'camera/left/ideal_fisheye')
             ],
             output='screen'
         ),
@@ -62,7 +62,7 @@ def generate_launch_description():
             name='camera_right_fisheye',
             parameters=[projections_yaml, camera_yaml],
             remappings=[
-                ('~/projection', 'camera/right/ideal_fisheye')
+                ('/projection', 'camera/right/ideal_fisheye')
             ],
             output='screen'
         ),
