@@ -28,5 +28,5 @@ enable_accel: false
 enable_sync: false
 enable_rgbd: false
 
-publish_tf: false
+publish_tf: true
 log_level: fatal
