@@ -2,7 +2,7 @@ camera_name: center  # I don't know why it doesn't work so I set this parameter 
 enable_color: true
 
 rgb_camera:
-  color_profile: "424x240x6"   # 🟡 Lower FPS to 15 (saves power)
+  color_profile: "640x480x6"   # 🟡 Lower FPS to 15 (saves power)
 # 1280x720x10
 # 1280x720x15
 # 1280x720x6
