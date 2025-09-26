@@ -171,7 +171,7 @@ def generate_launch_description():
     ld.add_action(Node(
         package='image_transport',
         executable='republish',
-        name='depth_republisher',
+        name='extra_compressed_center',
         output='screen',
         parameters=[
             {'in_transport': 'raw'},
@@ -181,6 +181,38 @@ def generate_launch_description():
         remappings=[
             ('in', '/camera/center_overlayed/color/image_raw'),
             ('out/compressed', '/camera/center_overlayed/color/image_raw/extra_compressed')
+        ]
+    ))
+
+        ld.add_action(Node(
+        package='image_transport',
+        executable='republish',
+        name='extra_compressed_left',
+        output='screen',
+        parameters=[
+            {'in_transport': 'raw'},
+            {'out_transport': 'compressed'},
+            {'out.compressed.jpeg_quality': 15}
+        ],
+        remappings=[
+            ('in', '/camera/left/image_raw'),
+            ('out/compressed', '/camera/left/image_raw/extra_compressed')
+        ]
+    ))
+
+    ld.add_action(Node(
+        package='image_transport',
+        executable='republish',
+        name='extra_compressed_right',
+        output='screen',
+        parameters=[
+            {'in_transport': 'raw'},
+            {'out_transport': 'compressed'},
+            {'out.compressed.jpeg_quality': 15}
+        ],
+        remappings=[
+            ('in', '/camera/right/image_raw'),
+            ('out/compressed', '/camera/right/image_raw/extra_compressed')
         ]
     ))
     
