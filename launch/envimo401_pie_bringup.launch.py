@@ -155,7 +155,7 @@ def generate_launch_description():
             parameters=[{
                 'gscam_config': f'rosimagesrc ros-topic=/camera/center/color/image_raw ! queue max-size-buffers=2 leaky=downstream ! gdkpixbufoverlay location={camera_center_overlay} ! videoconvert ! video/x-raw,format=BGR', 
                 'camera_name': 'center',
-                'frame_id': 'center_link',
+                'frame_id': 'center_color_optical_frame',
                 'camera_info_url': f'file://{camera_center_calib}'
             }],
             remappings=[
