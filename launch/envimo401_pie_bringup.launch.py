@@ -146,6 +146,27 @@ def generate_launch_description():
             ]
         ))
 
+        #     #  10. camera_center_link ()
+    ld.add_action(Node(
+            package='gscam',
+            executable='gscam_node',
+            name='gscam_center',
+            parameters=[{
+                'gscam_config': f'rosimagesrc ros-topic=/camera/center/color/image_raw ! queue max-size-buffers=2 leaky=downstream ! gdkpixbufoverlay location={camera_center_overlay} ! videoconvert ! video/x-raw,format=BGR', 
+                'camera_name': 'center',
+                'frame_id': 'camera_center_link',
+                'camera_info_url': f'file://{camera_center_calib}'
+            }],
+            remappings=[
+                ('/camera/camera_info', '/camera/center_overlayed/camera_info'),
+                ('/camera/image_raw', '/camera/center_overlayed/image_raw'),
+                ('/camera/image_raw/compressed', '/camera/center_overlayed/image_raw/compressed'),
+                ('/camera/image_raw/compressedDepth', '/camera/center_overlayed/image_raw/compressedDepth'),
+                ('/camera/image_raw/theora', '/camera/center_overlayed/image_raw/theora'),
+                ('/camera/image_raw/zstd', '/camera/center_overlayed/image_raw/zstd')
+            ]
+        ))
+
     #  7. Extra compressed image by image_transport
     ld.add_action(Node(
         package='image_transport',
@@ -158,8 +179,8 @@ def generate_launch_description():
             {'out.compressed.jpeg_quality': 15}
         ],
         remappings=[
-            ('in', '/camera/center/color/image_raw'),
-            ('out/compressed', '/camera/center/color/image_raw/extra_compressed')
+            ('in', '/camera/center_overlayed/color/image_raw'),
+            ('out/compressed', '/camera/center_overlayed/color/image_raw/extra_compressed')
         ]
     ))
     
