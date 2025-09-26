@@ -131,7 +131,7 @@ def generate_launch_description():
             executable='gscam_node',
             name='gscam_right',
             parameters=[{
-                'gscam_config': 'udpsrc port=5012 ! jpegparse ! jpegdec ! videoconvert ! videoflip method=counterclockwise ! video/x-raw,format=BGR',
+                'gscam_config': f'udpsrc port=5012 ! jpegparse ! jpegdec ! videoconvert ! videoflip method=clockwise ! gdkpixbufoverlay location={camera_right_overlay} ! queue ! videorate ! video/x-raw,format=BGR,framerate=15/1',
                 'camera_name': 'right',
                 'frame_id': 'camera_right_link',
                 'camera_info_url': f'file://{camera_right_calib}'
