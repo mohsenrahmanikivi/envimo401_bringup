@@ -184,7 +184,7 @@ def generate_launch_description():
         ]
     ))
 
-        ld.add_action(Node(
+    ld.add_action(Node(
         package='image_transport',
         executable='republish',
         name='extra_compressed_left',
