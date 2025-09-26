@@ -7,7 +7,7 @@ find_package(ament_cmake REQUIRED)
 
 # Install launch and config files for easy reference
 install(
-  DIRECTORY launch config urdf calibration
+  DIRECTORY launch config urdf calibration overlay
   DESTINATION share/${PROJECT_NAME}
 )
 
