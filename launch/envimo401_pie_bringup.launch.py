@@ -20,6 +20,7 @@ def generate_launch_description():
     pkg_path      = get_package_share_directory('envimo401_bringup')
     config_path   = os.path.join(pkg_path, 'config')
     calib_path    = os.path.join(pkg_path, 'calibration')
+    overlay_path    = os.path.join(pkg_path, 'overlay')
     
 
 
@@ -36,6 +37,9 @@ def generate_launch_description():
     camera_left_calib        = os.path.join(calib_path, 'left', 'ost.yaml')
     camera_right_calib       = os.path.join(calib_path, 'right', 'ost.yaml')
     
+    camera_left_overlay     = os.path.join(overlay_path, 'left_640_480.png')
+    camera_right_overlay    = os.path.join(overlay_path, 'right_640_480.png')
+    camera_center_overlay   = os.path.join(overlay_path, 'center_640_480.png')
 
   
     # 1. Define cmd_vel_relay node and store it in a variable
@@ -106,7 +110,8 @@ def generate_launch_description():
             executable='gscam_node',
             name='gscam_left',
             parameters=[{
-                'gscam_config': 'udpsrc port=5011 ! jpegparse ! jpegdec ! videoconvert ! videoflip method=clockwise ! video/x-raw,format=BGR',
+             #  'gscam_config': 'udpsrc port=5011 ! jpegparse ! jpegdec ! videoconvert ! videoflip method=clockwise ! video/x-raw,format=BGR', 
+                'gscam_config': f'udpsrc port=5011 ! jpegparse ! jpegdec ! videoconvert ! videoflip method=clockwise ! queue ! gdkpixbufoverlay location={camera_left_overlay} ! queue ! videorate ! video/x-raw,format=BGR,framerate=15/1',
                 'camera_name': 'left',
                 'frame_id': 'camera_left_link',
                 'camera_info_url': f'file://{camera_left_calib}'
