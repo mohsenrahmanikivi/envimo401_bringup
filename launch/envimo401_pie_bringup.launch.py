@@ -36,6 +36,7 @@ def generate_launch_description():
 
     camera_left_calib        = os.path.join(calib_path, 'left', 'ost.yaml')
     camera_right_calib       = os.path.join(calib_path, 'right', 'ost.yaml')
+    camera_center_calib       = os.path.join(calib_path, 'center', 'ost.yaml')
     
     camera_left_overlay     = os.path.join(overlay_path, 'left_640_480.png')
     camera_right_overlay    = os.path.join(overlay_path, 'right_640_480.png')
