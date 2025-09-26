@@ -111,7 +111,7 @@ def generate_launch_description():
             executable='gscam_node',
             name='gscam_left',
             parameters=[{
-                'gscam_config': f'udpsrc port=5011 ! jpegparse ! jpegdec ! videoconvert ! videoflip method=clockwise ! gdkpixbufoverlay location={camera_left_overlay} ! queue ! videorate ! video/x-raw,format=BGR,framerate=15/1',
+                'gscam_config': f'udpsrc port=5011 ! jpegparse ! jpegdec ! videoconvert ! videoflip method=clockwise ! gdkpixbufoverlay location={camera_left_overlay} ! queue ! videoconvert ! video/x-raw,format=BGR',
                 'camera_name': 'left',
                 'frame_id': 'camera_left_link',
                 'camera_info_url': f'file://{camera_left_calib}'
@@ -132,7 +132,7 @@ def generate_launch_description():
             executable='gscam_node',
             name='gscam_right',
             parameters=[{
-                'gscam_config': f'udpsrc port=5012 ! jpegparse ! jpegdec ! videoconvert ! videoflip method=counterclockwise ! gdkpixbufoverlay location={camera_right_overlay} ! queue ! videorate ! video/x-raw,format=BGR,framerate=15/1',
+                'gscam_config': f'udpsrc port=5012 ! jpegparse ! jpegdec ! videoconvert ! videoflip method=counterclockwise ! gdkpixbufoverlay location={camera_right_overlay} ! queue ! videoconvert ! video/x-raw,format=BGR',
                 'camera_name': 'right',
                 'frame_id': 'camera_right_link',
                 'camera_info_url': f'file://{camera_right_calib}'
