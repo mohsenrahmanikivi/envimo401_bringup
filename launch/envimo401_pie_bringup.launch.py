@@ -155,7 +155,7 @@ def generate_launch_description():
             parameters=[{
                 'gscam_config': f'rosimagesrc ros-topic=/camera/center/color/image_raw ! queue max-size-buffers=2 leaky=downstream ! gdkpixbufoverlay location={camera_center_overlay} ! videoconvert ! video/x-raw,format=BGR', 
                 'camera_name': 'center',
-                'frame_id': 'camera_center_link',
+                'frame_id': 'center_link',
                 'camera_info_url': f'file://{camera_center_calib}'
             }],
             remappings=[
@@ -180,8 +180,8 @@ def generate_launch_description():
             {'out.compressed.jpeg_quality': 15}
         ],
         remappings=[
-            ('in', '/camera/center_overlayed/color/image_raw'),
-            ('out/compressed', '/camera/center_overlayed/color/image_raw/extra_compressed')
+            ('in', '/camera/center_overlayed/image_raw'),
+            ('out/compressed', '/camera/center_overlayed/image_raw/extra_compressed')
         ]
     ))
 
