@@ -88,24 +88,31 @@ def generate_launch_description():
         output='screen',
         parameters=[{'robot_description': open(urdf_path).read()}]
     ))
+  
+    # 6. camera_center_link  (5010)
+    ld.add_action(Node(
+            package='gscam',
+            executable='gscam_node',
+            name='gscam_center',
+            parameters=[{
+                'gscam_config': f'udpsrc port=5010 ! jpegparse ! jpegdec ! videoconvert ! videoflip method=counterclockwise ! gdkpixbufoverlay location={camera_center_overlay} ! queue ! videoconvert ! video/x-raw,format=BGR',
+                'camera_name': 'center',
+                'frame_id': 'camera_center_link',
+                'camera_info_url': f'file://{camera_center_calib}'
+            }],
+            remappings=[
+                ('/camera/camera_info', '/camera/center/camera_info'),
+                ('/camera/image_raw', '/camera/center/image_raw'),
+                ('/camera/image_raw/compressed', '/camera/center/image_raw/compressed'),
+                ('/camera/image_raw/compressedDepth', '/camera/center/image_raw/compressedDepth'),
+                ('/camera/image_raw/theora', '/camera/center/image_raw/theora'),
+                ('/camera/image_raw/zstd', '/camera/center/image_raw/zstd')
+            ]
+        ))
+    
 
-    # 6. Include RealSense launch file
-    ld.add_action(IncludeLaunchDescription(
-        PythonLaunchDescriptionSource(
-            os.path.join(
-                get_package_share_directory('realsense2_camera'),
-                'launch', 'rs_launch.py'
-            )
-        ),
-        launch_arguments={
-            'config_file': realsense_cfg,
-            'camera_name': 'center'
-            
-        }.items()
-    ))
 
-
-    #     #  8. camera_left_link  (5011)
+    # 7. camera_left_link  (5011)
     ld.add_action(Node(
             package='gscam',
             executable='gscam_node',
@@ -126,7 +133,7 @@ def generate_launch_description():
             ]
         ))
 
-    #     #  9. camera_right_link (5012)
+    # 8. camera_right_link (5012)
     ld.add_action(Node(
             package='gscam',
             executable='gscam_node',
@@ -147,28 +154,10 @@ def generate_launch_description():
             ]
         ))
 
-        #     #  10. camera_center_link ()
-    ld.add_action(Node(
-            package='gscam',
-            executable='gscam_node',
-            name='gscam_center',
-            parameters=[{
-                'gscam_config': f'rosimagesrc ros-topic=/camera/center/color/image_raw ! queue max-size-buffers=2 leaky=downstream ! gdkpixbufoverlay location={camera_center_overlay} ! videoconvert ! video/x-raw,format=BGR', 
-                'camera_name': 'center',
-                'frame_id': 'center_color_optical_frame',
-                'camera_info_url': f'file://{camera_center_calib}'
-            }],
-            remappings=[
-                ('/camera/camera_info', '/camera/center_overlayed/camera_info'),
-                ('/camera/image_raw', '/camera/center_overlayed/image_raw'),
-                ('/camera/image_raw/compressed', '/camera/center_overlayed/image_raw/compressed'),
-                ('/camera/image_raw/compressedDepth', '/camera/center_overlayed/image_raw/compressedDepth'),
-                ('/camera/image_raw/theora', '/camera/center_overlayed/image_raw/theora'),
-                ('/camera/image_raw/zstd', '/camera/center_overlayed/image_raw/zstd')
-            ]
-        ))
 
-    #  7. Extra compressed image by image_transport
+
+    #  9. Extra compressed image by image_transport
+    ##  9.1. center
     ld.add_action(Node(
         package='image_transport',
         executable='republish',
@@ -180,11 +169,12 @@ def generate_launch_description():
             {'out.compressed.jpeg_quality': 15}
         ],
         remappings=[
-            ('in', '/camera/center_overlayed/image_raw'),
-            ('out/compressed', '/camera/center_overlayed/image_raw/extra_compressed')
+            ('in', '/camera/center/image_raw'),
+            ('out/compressed', '/camera/center/image_raw/extra_compressed')
         ]
     ))
-
+    
+    ##  9.2. left
     ld.add_action(Node(
         package='image_transport',
         executable='republish',
@@ -201,6 +191,7 @@ def generate_launch_description():
         ]
     ))
 
+    ##  9.3. right
     ld.add_action(Node(
         package='image_transport',
         executable='republish',
