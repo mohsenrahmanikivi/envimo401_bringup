@@ -43,41 +43,49 @@ def generate_launch_description():
     camera_center_overlay   = os.path.join(overlay_path, 'center_640_480.png')
 
   
-    # 1. Define cmd_vel_relay node and store it in a variable
-    cmd_vel_relay = Node(
-        package='chassis_enable',
-        executable='cmd_vel_relay',
-        name='cmd_vel_relay',
-        output='screen'
-    )
-    ld.add_action(cmd_vel_relay)
+    # # 1. Define cmd_vel_relay node and store it in a variable
+    # cmd_vel_relay = Node(
+    #     package='chassis_enable',
+    #     executable='cmd_vel_relay',
+    #     name='cmd_vel_relay',
+    #     output='screen'
+    # )
+    # ld.add_action(cmd_vel_relay)
 
-    # 2. Define SmartCar node
-    smartcar_node = Node(
+    # # 2. Define SmartCar node
+    # smartcar_node = Node(
+    #     package='segwayrmp',
+    #     executable='SmartCar',
+    #     name='SmartCar',
+    #     output='screen',
+    #     remappings=[('/cmd_vel', '/cmd_vel_const')],
+    #     parameters=[{'serial_full_name': 'rpserialport'}]
+    # )
+
+    ld.add_action(Node(
         package='segwayrmp',
         executable='SmartCar',
         name='SmartCar',
         output='screen',
-        remappings=[('/cmd_vel', '/cmd_vel_const')],
         parameters=[{'serial_full_name': 'rpserialport'}]
-    )
-
-    # 3. Delay SmartCar until cmd_vel_relay is started
-    ld.add_action(RegisterEventHandler(
-        OnProcessStart(
-            target_action=cmd_vel_relay,
-            on_start=[smartcar_node]
-        )
     ))
 
+    # # 3. Delay SmartCar until cmd_vel_relay is started
+    # ld.add_action(RegisterEventHandler(
+    #     OnProcessStart(
+    #         target_action=cmd_vel_relay,
+    #         on_start=[smartcar_node]
+    #     )
+    # ))
 
-    # 4. chassis_enable_client
-    ld.add_action(Node(
-        package='chassis_enable',
-        executable='chassis_enable_client',
-        name='chassis_enable_client',
-        output='screen'
-    ))
+
+    # # 4. chassis_enable_client
+    # ld.add_action(Node(
+    #     package='chassis_enable',
+    #     executable='chassis_enable_client',
+    #     name='chassis_enable_client',
+    #     output='screen'
+    # ))
 
 
     # 5. robot_state_publisher
