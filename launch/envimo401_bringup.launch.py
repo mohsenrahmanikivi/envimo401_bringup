@@ -43,25 +43,7 @@ def generate_launch_description():
     camera_center_overlay   = os.path.join(overlay_path, 'center_640_480.png')
 
   
-    # # 1. Define cmd_vel_relay node and store it in a variable
-    # cmd_vel_relay = Node(
-    #     package='chassis_enable',
-    #     executable='cmd_vel_relay',
-    #     name='cmd_vel_relay',
-    #     output='screen'
-    # )
-    # ld.add_action(cmd_vel_relay)
-
-    # # 2. Define SmartCar node
-    # smartcar_node = Node(
-    #     package='segwayrmp',
-    #     executable='SmartCar',
-    #     name='SmartCar',
-    #     output='screen',
-    #     remappings=[('/cmd_vel', '/cmd_vel_const')],
-    #     parameters=[{'serial_full_name': 'rpserialport'}]
-    # )
-
+    # 1. SmartCar
     ld.add_action(Node(
         package='segwayrmp',
         executable='SmartCar',
@@ -70,25 +52,17 @@ def generate_launch_description():
         parameters=[{'serial_full_name': 'rpserialport'}]
     ))
 
-    # # 3. Delay SmartCar until cmd_vel_relay is started
-    # ld.add_action(RegisterEventHandler(
-    #     OnProcessStart(
-    #         target_action=cmd_vel_relay,
-    #         on_start=[smartcar_node]
-    #     )
-    # ))
+
+    # 2. drive_segway_joy
+    ld.add_action(Node(
+        package='chassis_enable',
+        executable='drive_segway_joy',
+        name='drive_segway_joy',
+        output='screen'
+    ))
 
 
-    # # 4. chassis_enable_client
-    # ld.add_action(Node(
-    #     package='chassis_enable',
-    #     executable='chassis_enable_client',
-    #     name='chassis_enable_client',
-    #     output='screen'
-    # ))
-
-
-    # 5. robot_state_publisher
+    # 3. robot_state_publisher
     ld.add_action(Node(
         package='robot_state_publisher',
         executable='robot_state_publisher',
@@ -97,7 +71,7 @@ def generate_launch_description():
         parameters=[{'robot_description': open(urdf_path).read()}]
     ))
   
-    # 6. camera_center_link  (5010)
+    # 4. camera_center_link  (5010)
     ld.add_action(Node(
             package='gscam',
             executable='gscam_node',
@@ -120,7 +94,7 @@ def generate_launch_description():
     
 
 
-    # 7. camera_left_link  (5011)
+    # 5. camera_left_link  (5011)
     ld.add_action(Node(
             package='gscam',
             executable='gscam_node',
@@ -141,7 +115,7 @@ def generate_launch_description():
             ]
         ))
 
-    # 8. camera_right_link (5012)
+    # 6. camera_right_link (5012)
     ld.add_action(Node(
             package='gscam',
             executable='gscam_node',
@@ -164,8 +138,8 @@ def generate_launch_description():
 
 
 
-    #  9. Extra compressed image by image_transport
-    ##  9.1. center
+    #  7. Extra compressed image by image_transport
+    ##  7.1. center
     ld.add_action(Node(
         package='image_transport',
         executable='republish',
@@ -182,7 +156,7 @@ def generate_launch_description():
         ]
     ))
     
-    ##  9.2. left
+    ##  7.2. left
     ld.add_action(Node(
         package='image_transport',
         executable='republish',
@@ -199,7 +173,7 @@ def generate_launch_description():
         ]
     ))
 
-    ##  9.3. right
+    ##  7.3. right
     ld.add_action(Node(
         package='image_transport',
         executable='republish',
@@ -216,7 +190,7 @@ def generate_launch_description():
         ]
     ))
     
-    #  7. LDA 01 _ laserscan
+    #  8. LDA 01 _ laserscan
     ld.add_action(Node(
         package='hls_lfcd_lds_driver',
         executable='hlds_laser_publisher',
@@ -224,15 +198,6 @@ def generate_launch_description():
         output='screen',
         parameters=[hlds_laser_publisher_cfg]
     ))
-
-    # # 8. SLAM Toolbox
-    # ld.add_action(Node(
-    #     package='slam_toolbox',
-    #     executable='async_slam_toolbox_node',
-    #     name='slam_toolbox',
-    #     output='screen',
-    #     parameters=[mapper_cfg]
-    # ))
 
     # 9. Ublox_gps
     ld.add_action(Node(
@@ -255,18 +220,9 @@ def generate_launch_description():
         parameters=[foxglove_cfg]
     ))
             
-        # 11. Include Nav2 bringup launch
-    # ld.add_action(IncludeLaunchDescription(
-    #     PythonLaunchDescriptionSource(
-    #         os.path.join(
-    #             get_package_share_directory('nav2_bringup'),
-    #             'launch', 'navigation_launch.py'
-    #         )
-    #     ),
-    #     launch_arguments={'params_file': nav2_cfg}.items()
-    # ))
 
-    # 12. Shutdown on any process exit
+
+    # 99. Shutdown on any process exit
     ld.add_action(RegisterEventHandler(
         OnProcessExit(on_exit=[Shutdown()])
     ))
