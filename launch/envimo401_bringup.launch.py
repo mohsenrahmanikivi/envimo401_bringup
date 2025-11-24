@@ -219,9 +219,15 @@ def generate_launch_description():
         output='screen',
         parameters=[foxglove_cfg]
     ))
+
+    # 11. foxglove
+    ld.add_action(Node(
+        package='network_quality',
+        executable='network_quality_node',
+        name='network_quality_node',
+        output='screen'  
+    ))
             
-
-
     # 99. Shutdown on any process exit
     ld.add_action(RegisterEventHandler(
         OnProcessExit(on_exit=[Shutdown()])
