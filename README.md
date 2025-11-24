@@ -1,5 +1,5 @@
 # Envimo401 on PI5
-This is the bring-up package including all instructions needed to run the envimo401 
+In this version, we need the installed network_quality package
 
 Requirments:
 - Raspberry Pi 5
