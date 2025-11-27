@@ -80,7 +80,9 @@ def generate_launch_description():
                 'gscam_config': f'udpsrc port=5010 ! jpegparse ! jpegdec ! videoconvert ! videoflip method=counterclockwise ! gdkpixbufoverlay location={camera_center_overlay} ! queue ! videoconvert ! video/x-raw,format=BGR',
                 'camera_name': 'center',
                 'frame_id': 'camera_center_link',
-                'camera_info_url': f'file://{camera_center_calib}'
+                'camera_info_url': f'file://{camera_center_calib}',
+                'use_sensor_data_qos': True
+                
             }],
             remappings=[
                 ('/camera/camera_info', '/camera/center/camera_info'),
@@ -103,7 +105,8 @@ def generate_launch_description():
                 'gscam_config': f'udpsrc port=5011 ! jpegparse ! jpegdec ! videoconvert ! videoflip method=clockwise ! gdkpixbufoverlay location={camera_left_overlay} ! queue ! videoconvert ! video/x-raw,format=BGR',
                 'camera_name': 'left',
                 'frame_id': 'camera_left_link',
-                'camera_info_url': f'file://{camera_left_calib}'
+                'camera_info_url': f'file://{camera_left_calib}',
+                'use_sensor_data_qos': True
             }],
             remappings=[
                 ('/camera/camera_info', '/camera/left/camera_info'),
@@ -124,7 +127,8 @@ def generate_launch_description():
                 'gscam_config': f'udpsrc port=5012 ! jpegparse ! jpegdec ! videoconvert ! videoflip method=counterclockwise ! gdkpixbufoverlay location={camera_right_overlay} ! queue ! videoconvert ! video/x-raw,format=BGR',
                 'camera_name': 'right',
                 'frame_id': 'camera_right_link',
-                'camera_info_url': f'file://{camera_right_calib}'
+                'camera_info_url': f'file://{camera_right_calib}',
+                'use_sensor_data_qos': True
             }],
             remappings=[
                 ('/camera/camera_info', '/camera/right/camera_info'),
@@ -148,7 +152,19 @@ def generate_launch_description():
         parameters=[
             {'in_transport': 'raw'},
             {'out_transport': 'compressed'},
-            {'out.compressed.jpeg_quality': 15}
+            {'out.compressed.jpeg_quality': 15},
+            {'qos_overrides./camera/center/image_raw.subscription.reliability': 'best_effort'},
+            {'qos_overrides./camera/center/image_raw.subscription.history': 'keep_last'},
+            {'qos_overrides./camera/center/image_raw.subscription.depth': 5},
+            {'qos_overrides./camera/center/image_raw.subscription.durability': 'volatile'},
+
+                # Publisher QoS overrides
+            {'qos_overrides./camera/center/image_raw/extra_compressed.publisher.reliability': 'best_effort'},
+            {'qos_overrides./camera/center/image_raw/extra_compressed.publisher.history': 'keep_last'},
+            {'qos_overrides./camera/center/image_raw/extra_compressed.publisher.depth': 5},
+            {'qos_overrides./camera/center/image_raw/extra_compressed.publisher.durability': 'volatile'}
+            
+         
         ],
         remappings=[
             ('in', '/camera/center/image_raw'),
@@ -165,7 +181,17 @@ def generate_launch_description():
         parameters=[
             {'in_transport': 'raw'},
             {'out_transport': 'compressed'},
-            {'out.compressed.jpeg_quality': 15}
+            {'out.compressed.jpeg_quality': 15},
+            {'qos_overrides./camera/left/image_raw.subscription.reliability': 'best_effort'},
+            {'qos_overrides./camera/left/image_raw.subscription.history': 'keep_last'},
+            {'qos_overrides./camera/left/image_raw.subscription.depth': 5},
+            {'qos_overrides./camera/left/image_raw.subscription.durability': 'volatile'},
+
+                # Publisher QoS overrides
+            {'qos_overrides./camera/left/image_raw/extra_compressed.publisher.reliability': 'best_effort'},
+            {'qos_overrides./camera/left/image_raw/extra_compressed.publisher.history': 'keep_last'},
+            {'qos_overrides./camera/left/image_raw/extra_compressed.publisher.depth': 5},
+            {'qos_overrides./camera/left/image_raw/extra_compressed.publisher.durability': 'volatile'}
         ],
         remappings=[
             ('in', '/camera/left/image_raw'),
@@ -182,7 +208,18 @@ def generate_launch_description():
         parameters=[
             {'in_transport': 'raw'},
             {'out_transport': 'compressed'},
-            {'out.compressed.jpeg_quality': 15}
+            {'out.compressed.jpeg_quality': 15},
+            {'qos_overrides./camera/right/image_raw.subscription.reliability': 'best_effort'},
+            {'qos_overrides./camera/right/image_raw.subscription.history': 'keep_last'},
+            {'qos_overrides./camera/right/image_raw.subscription.depth': 5},
+            {'qos_overrides./camera/right/image_raw.subscription.durability': 'volatile'},
+
+                # Publisher QoS overrides
+            {'qos_overrides./camera/right/image_raw/extra_compressed.publisher.reliability': 'best_effort'},
+            {'qos_overrides./camera/right/image_raw/extra_compressed.publisher.history': 'keep_last'},
+            {'qos_overrides./camera/right/image_raw/extra_compressed.publisher.depth': 5},
+            {'qos_overrides./camera/right/image_raw/extra_compressed.publisher.durability': 'volatile'}
+
         ],
         remappings=[
             ('in', '/camera/right/image_raw'),
@@ -220,7 +257,7 @@ def generate_launch_description():
         parameters=[foxglove_cfg]
     ))
 
-    # 11. foxglove
+    # 11. network quality
     ld.add_action(Node(
         package='network_quality',
         executable='network_quality_node',
@@ -234,4 +271,3 @@ def generate_launch_description():
     ))
 
     return ld
-
