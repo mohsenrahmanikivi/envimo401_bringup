@@ -4,36 +4,16 @@ foxglove_bridge:
     port: 8765
     address: "0.0.0.0"
     
-    # Only bridge & allow the client to subscribe to these topics:
-    # topic_whitelist:
-    #   - "/speed_fb"
-    #   - "/chassis_mode_fb"
-    #   - "/bms_fb"
-    #   - "/scan"
-    #   - "/robot_description"
-    #   - "/camera/camera/color/image_raw/compressed"
-    #   - "/camera/camera/color/camera_info"
-    #   - "/fix"
-    #   - "/tf"
-    #   - "/robot_description"
-      
-    # client_topic_whitelist:
-    #   - "/speed_fb"
-    #   - "/chassis_mode_fb"
-    #   - "/bms_fb"
-    #   - "/scan"
-    #   - "/robot_description"
-    #   - "/camera/camera/color/image_raw/compressed"
-    #   - "/camera/camera/color/camera_info"
-    #   - "/fix"
-    #   - "/tf"
-    #   - "/robot_description"
+
     
+    best_effort_qos_topic_whitelist:
+      - /camera/*
+      
     # QoS queue depths: keep these tiny so ROS never buffers more than a handful of messages
     min_qos_depth: 1
     max_qos_depth: 3
     
-    # Drop old outgoing messages quickly (524288 = 0.5 MB buffer, 1048576= 1 MB)
+    # Drop old outgoing messages quickly (524288 = 0.5 MB buffer, 10485760= 10 MB)
     send_buffer_limit: 1048576
     # Compression
     use_compression: true
