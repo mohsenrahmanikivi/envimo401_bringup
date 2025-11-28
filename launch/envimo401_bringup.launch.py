@@ -81,7 +81,9 @@ def generate_launch_description():
                 'camera_name': 'center',
                 'frame_id': 'camera_center_link',
                 'camera_info_url': f'file://{camera_center_calib}',
-                'use_sensor_data_qos': True
+                'use_sensor_data_qos': True , 
+                'camera.image_raw.compressed.format': 'jpeg',
+                'camera.image_raw.compressed.jpeg_quality': 15
                 
             }],
             remappings=[
@@ -106,7 +108,9 @@ def generate_launch_description():
                 'camera_name': 'left',
                 'frame_id': 'camera_left_link',
                 'camera_info_url': f'file://{camera_left_calib}',
-                'use_sensor_data_qos': True
+                'use_sensor_data_qos': True, 
+                'camera.image_raw.compressed.format': 'jpeg',
+                'camera.image_raw.compressed.jpeg_quality': 15
             }],
             remappings=[
                 ('/camera/camera_info', '/camera/left/camera_info'),
@@ -128,7 +132,9 @@ def generate_launch_description():
                 'camera_name': 'right',
                 'frame_id': 'camera_right_link',
                 'camera_info_url': f'file://{camera_right_calib}',
-                'use_sensor_data_qos': True
+                'use_sensor_data_qos': True, 
+                'camera.image_raw.compressed.format': 'jpeg',
+                'camera.image_raw.compressed.jpeg_quality': 15
             }],
             remappings=[
                 ('/camera/camera_info', '/camera/right/camera_info'),
@@ -142,90 +148,90 @@ def generate_launch_description():
 
 
 
-    #  7. Extra compressed image by image_transport
-    ##  7.1. center
-    ld.add_action(Node(
-        package='image_transport',
-        executable='republish',
-        name='extra_compressed_center',
-        output='screen',
-        parameters=[
-            {'in_transport': 'raw'},
-            {'out_transport': 'compressed'},
-            {'out.compressed.jpeg_quality': 15},
-            {'qos_overrides./camera/center/image_raw.subscription.reliability': 'best_effort'},
-            {'qos_overrides./camera/center/image_raw.subscription.history': 'keep_last'},
-            {'qos_overrides./camera/center/image_raw.subscription.depth': 5},
-            {'qos_overrides./camera/center/image_raw.subscription.durability': 'volatile'},
+    # #  7. Extra compressed image by image_transport
+    # ##  7.1. center
+    # ld.add_action(Node(
+    #     package='image_transport',
+    #     executable='republish',
+    #     name='extra_compressed_center',
+    #     output='screen',
+    #     parameters=[
+    #         {'in_transport': 'raw'},
+    #         {'out_transport': 'compressed'},
+    #         {'out.compressed.jpeg_quality': 15},
+    #         {'qos_overrides./camera/center/image_raw.subscription.reliability': 'best_effort'},
+    #         {'qos_overrides./camera/center/image_raw.subscription.history': 'keep_last'},
+    #         {'qos_overrides./camera/center/image_raw.subscription.depth': 5},
+    #         {'qos_overrides./camera/center/image_raw.subscription.durability': 'volatile'},
 
-                # Publisher QoS overrides
-            {'qos_overrides./camera/center/image_raw/extra_compressed.publisher.reliability': 'best_effort'},
-            {'qos_overrides./camera/center/image_raw/extra_compressed.publisher.history': 'keep_last'},
-            {'qos_overrides./camera/center/image_raw/extra_compressed.publisher.depth': 5},
-            {'qos_overrides./camera/center/image_raw/extra_compressed.publisher.durability': 'volatile'}
+    #             # Publisher QoS overrides
+    #         {'qos_overrides./camera/center/image_raw/extra_compressed.publisher.reliability': 'best_effort'},
+    #         {'qos_overrides./camera/center/image_raw/extra_compressed.publisher.history': 'keep_last'},
+    #         {'qos_overrides./camera/center/image_raw/extra_compressed.publisher.depth': 5},
+    #         {'qos_overrides./camera/center/image_raw/extra_compressed.publisher.durability': 'volatile'}
             
          
-        ],
-        remappings=[
-            ('in', '/camera/center/image_raw'),
-            ('out/compressed', '/camera/center/image_raw/extra_compressed')
-        ]
-    ))
+    #     ],
+    #     remappings=[
+    #         ('in', '/camera/center/image_raw'),
+    #         ('out/compressed', '/camera/center/image_raw/extra_compressed')
+    #     ]
+    # ))
     
-    ##  7.2. left
-    ld.add_action(Node(
-        package='image_transport',
-        executable='republish',
-        name='extra_compressed_left',
-        output='screen',
-        parameters=[
-            {'in_transport': 'raw'},
-            {'out_transport': 'compressed'},
-            {'out.compressed.jpeg_quality': 15},
-            {'qos_overrides./camera/left/image_raw.subscription.reliability': 'best_effort'},
-            {'qos_overrides./camera/left/image_raw.subscription.history': 'keep_last'},
-            {'qos_overrides./camera/left/image_raw.subscription.depth': 5},
-            {'qos_overrides./camera/left/image_raw.subscription.durability': 'volatile'},
+    # ##  7.2. left
+    # ld.add_action(Node(
+    #     package='image_transport',
+    #     executable='republish',
+    #     name='extra_compressed_left',
+    #     output='screen',
+    #     parameters=[
+    #         {'in_transport': 'raw'},
+    #         {'out_transport': 'compressed'},
+    #         {'out.compressed.jpeg_quality': 15},
+    #         {'qos_overrides./camera/left/image_raw.subscription.reliability': 'best_effort'},
+    #         {'qos_overrides./camera/left/image_raw.subscription.history': 'keep_last'},
+    #         {'qos_overrides./camera/left/image_raw.subscription.depth': 5},
+    #         {'qos_overrides./camera/left/image_raw.subscription.durability': 'volatile'},
 
-                # Publisher QoS overrides
-            {'qos_overrides./camera/left/image_raw/extra_compressed.publisher.reliability': 'best_effort'},
-            {'qos_overrides./camera/left/image_raw/extra_compressed.publisher.history': 'keep_last'},
-            {'qos_overrides./camera/left/image_raw/extra_compressed.publisher.depth': 5},
-            {'qos_overrides./camera/left/image_raw/extra_compressed.publisher.durability': 'volatile'}
-        ],
-        remappings=[
-            ('in', '/camera/left/image_raw'),
-            ('out/compressed', '/camera/left/image_raw/extra_compressed')
-        ]
-    ))
+    #             # Publisher QoS overrides
+    #         {'qos_overrides./camera/left/image_raw/extra_compressed.publisher.reliability': 'best_effort'},
+    #         {'qos_overrides./camera/left/image_raw/extra_compressed.publisher.history': 'keep_last'},
+    #         {'qos_overrides./camera/left/image_raw/extra_compressed.publisher.depth': 5},
+    #         {'qos_overrides./camera/left/image_raw/extra_compressed.publisher.durability': 'volatile'}
+    #     ],
+    #     remappings=[
+    #         ('in', '/camera/left/image_raw'),
+    #         ('out/compressed', '/camera/left/image_raw/extra_compressed')
+    #     ]
+    # ))
 
-    ##  7.3. right
-    ld.add_action(Node(
-        package='image_transport',
-        executable='republish',
-        name='extra_compressed_right',
-        output='screen',
-        parameters=[
-            {'in_transport': 'raw'},
-            {'out_transport': 'compressed'},
-            {'out.compressed.jpeg_quality': 15},
-            {'qos_overrides./camera/right/image_raw.subscription.reliability': 'best_effort'},
-            {'qos_overrides./camera/right/image_raw.subscription.history': 'keep_last'},
-            {'qos_overrides./camera/right/image_raw.subscription.depth': 5},
-            {'qos_overrides./camera/right/image_raw.subscription.durability': 'volatile'},
+    # ##  7.3. right
+    # ld.add_action(Node(
+    #     package='image_transport',
+    #     executable='republish',
+    #     name='extra_compressed_right',
+    #     output='screen',
+    #     parameters=[
+    #         {'in_transport': 'raw'},
+    #         {'out_transport': 'compressed'},
+    #         {'out.compressed.jpeg_quality': 15},
+    #         {'qos_overrides./camera/right/image_raw.subscription.reliability': 'best_effort'},
+    #         {'qos_overrides./camera/right/image_raw.subscription.history': 'keep_last'},
+    #         {'qos_overrides./camera/right/image_raw.subscription.depth': 5},
+    #         {'qos_overrides./camera/right/image_raw.subscription.durability': 'volatile'},
 
-                # Publisher QoS overrides
-            {'qos_overrides./camera/right/image_raw/extra_compressed.publisher.reliability': 'best_effort'},
-            {'qos_overrides./camera/right/image_raw/extra_compressed.publisher.history': 'keep_last'},
-            {'qos_overrides./camera/right/image_raw/extra_compressed.publisher.depth': 5},
-            {'qos_overrides./camera/right/image_raw/extra_compressed.publisher.durability': 'volatile'}
+    #             # Publisher QoS overrides
+    #         {'qos_overrides./camera/right/image_raw/extra_compressed.publisher.reliability': 'best_effort'},
+    #         {'qos_overrides./camera/right/image_raw/extra_compressed.publisher.history': 'keep_last'},
+    #         {'qos_overrides./camera/right/image_raw/extra_compressed.publisher.depth': 5},
+    #         {'qos_overrides./camera/right/image_raw/extra_compressed.publisher.durability': 'volatile'}
 
-        ],
-        remappings=[
-            ('in', '/camera/right/image_raw'),
-            ('out/compressed', '/camera/right/image_raw/extra_compressed')
-        ]
-    ))
+    #     ],
+    #     remappings=[
+    #         ('in', '/camera/right/image_raw'),
+    #         ('out/compressed', '/camera/right/image_raw/extra_compressed')
+    #     ]
+    # ))
     
     #  8. LDA 01 _ laserscan
     ld.add_action(Node(
