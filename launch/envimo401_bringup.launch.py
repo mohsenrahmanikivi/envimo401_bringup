@@ -77,13 +77,13 @@ def generate_launch_description():
             executable='gscam_node',
             name='gscam_center',
             parameters=[{
-                'gscam_config': f'udpsrc port=5010 ! jpegparse ! jpegdec ! videoconvert ! videoflip method=counterclockwise ! gdkpixbufoverlay location={camera_center_overlay} ! queue ! videoconvert ! video/x-raw,format=BGR',
+                'gscam_config': f'udpsrc port=5010 ! jpegparse ! jpegdec ! videoconvert ! videoflip method=counterclockwise ! gdkpixbufoverlay location={camera_center_overlay} ! queue ! videoscale ! video/x-raw,width=640,height=360 ! videoconvert ! ffmpegcolorspace',
                 'camera_name': 'center',
                 'frame_id': 'camera_center_link',
                 'camera_info_url': f'file://{camera_center_calib}',
                 'use_sensor_data_qos': True , 
                 'camera.image_raw.compressed.format': 'jpeg',
-                'camera.image_raw.compressed.jpeg_quality': 15
+                'camera.image_raw.compressed.jpeg_quality': 10
                 
             }],
             remappings=[
@@ -104,13 +104,13 @@ def generate_launch_description():
             executable='gscam_node',
             name='gscam_left',
             parameters=[{
-                'gscam_config': f'udpsrc port=5011 ! jpegparse ! jpegdec ! videoconvert ! videoflip method=clockwise ! gdkpixbufoverlay location={camera_left_overlay} ! queue ! videoconvert ! video/x-raw,format=BGR',
+                'gscam_config': f'udpsrc port=5011 ! jpegparse ! jpegdec ! videoconvert ! videoflip method=clockwise ! gdkpixbufoverlay location={camera_left_overlay} ! queue ! videoscale ! video/x-raw,width=320,height=180 ! videoconvert ! ffmpegcolorspace',
                 'camera_name': 'left',
                 'frame_id': 'camera_left_link',
                 'camera_info_url': f'file://{camera_left_calib}',
                 'use_sensor_data_qos': True, 
                 'camera.image_raw.compressed.format': 'jpeg',
-                'camera.image_raw.compressed.jpeg_quality': 15
+                'camera.image_raw.compressed.jpeg_quality': 10
             }],
             remappings=[
                 ('/camera/camera_info', '/camera/left/camera_info'),
@@ -128,13 +128,13 @@ def generate_launch_description():
             executable='gscam_node',
             name='gscam_right',
             parameters=[{
-                'gscam_config': f'udpsrc port=5012 ! jpegparse ! jpegdec ! videoconvert ! videoflip method=counterclockwise ! gdkpixbufoverlay location={camera_right_overlay} ! queue ! videoconvert ! video/x-raw,format=BGR',
+                'gscam_config': f'udpsrc port=5012 ! jpegparse ! jpegdec ! videoconvert ! videoflip method=counterclockwise ! gdkpixbufoverlay location={camera_right_overlay} ! queue ! videoscale ! video/x-raw,width=320,height=180 ! videoconvert ! ffmpegcolorspace',
                 'camera_name': 'right',
                 'frame_id': 'camera_right_link',
                 'camera_info_url': f'file://{camera_right_calib}',
                 'use_sensor_data_qos': True, 
                 'camera.image_raw.compressed.format': 'jpeg',
-                'camera.image_raw.compressed.jpeg_quality': 15
+                'camera.image_raw.compressed.jpeg_quality': 10
             }],
             remappings=[
                 ('/camera/camera_info', '/camera/right/camera_info'),
