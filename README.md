@@ -1,4 +1,4 @@
-AB#8
+
 # In this version, we need the installed network_quality package
 # Envimo401 on PI5
 Requirments:
